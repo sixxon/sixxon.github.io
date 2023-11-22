@@ -1,35 +1,22 @@
 ---
 layout: page
-title: Mediumish Template for Jekyll
+title: 반갑습니다 👋
 permalink: /about
-comments: true
+comments: false
 ---
 
-<div class="row justify-content-between">
-<div class="col-md-8 pr-5">
+<div  class="row justify-content-between">
+<div  class="col-md-8 pr-5">
 
-<p>This website is built with Jekyll and Mediumish template for Jekyll. It's for demonstration purposes, no real content can be found. Mediumish template for Jekyll is compatible with Github pages, in fact even this demo is created with Github Pages and hosted with Github.</p>
+<img src="{{site.baseurl}}/assets/images/about/1.png">
 
-<p class="mb-5"><img class="shadow-lg" src="{{site.baseurl}}/assets/images/mediumish-jekyll-template.png" alt="jekyll template mediumish" /></p>
-<h4>Documentation</h4>
 
-<p>Please, read the docs <a href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/">here</a>.</p>
-
-<h4>Questions or bug reports?</h4>
-
-<p>Head over to our <a href="https://github.com/wowthemesnet/mediumish-theme-jekyll">Github repository</a>!</p>
-
-</div>
-
-<div class="col-md-4">
-
-<div class="sticky-top sticky-top-80">
-<h5>Buy me a coffee</h5>
-
-<p>Thank you for your support! Your donation helps me to maintain and improve <a target="_blank" href="https://github.com/wowthemesnet/mediumish-theme-jekyll">Mediumish <i class="fab fa-github"></i></a>.</p>
-
-<a target="_blank" href="https://www.wowthemes.net/donate/" class="btn btn-danger">Buy me a coffee</a> <a target="_blank" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/" class="btn btn-warning">Documentation</a>
-
-</div>
+<p>회사에서 M365 운영 업무를 담당하고 있습니다.</p>
+<p>이 사이트는 그 과정에서 터득한 내용들을 조금씩 기록해나가는 블로그입니다.</p>
+<br>
+<p>지식은 공유되어야 그 가치를 발휘한다고 생각합니다.</p>
+<p>제 사소한 지식이 조금이나마 도움이 되시기를 빕니다.</p>
+<br>
+<p>잘못된 정보에 대한 지적은 언제나 환영합니다 🙃</p>
 </div>
 </div>
