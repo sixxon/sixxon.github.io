@@ -2,6 +2,8 @@
 name: "MicroBlog"
 title: ""
 description: ""
+logo:
+favicon:
 #logo: 'assets/images/logo.png'
 #favicon: 'assets/images/logo.png'
 baseurl: 
