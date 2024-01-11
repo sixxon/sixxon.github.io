@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[Teams] Classic Teams와 New Teams"
+title: "[Teams] 사용자를 위한 Classic Teams와 New Teams"
 author: sion
 categories: [ Service, Operation, Teams ]
 description: "2"
