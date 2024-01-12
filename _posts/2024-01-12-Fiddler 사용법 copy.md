@@ -4,7 +4,7 @@ title: "[etc] Fiddler 사용법"
 author: sion
 categories: [ Operation, etc ]
 description: "4"
-image: assets/images/4/1.jpg
+image: assets/images/4/0.jpg
 ---
 
 WireShark와 같이, 네트워크 트래픽 확인 및 패킷 분석을 도와주는 툴이 있습니다.  
@@ -22,38 +22,38 @@ MS에서 문제 확인 및 재현 시 자주 사용하는 툴이므로,
 
 Fiddler 로그 수집 방법은 다음과 같습니다.
 
-<img src="{{site.baseurl}}/assets/images/4/1.PNG" title="Fiddler 세팅1">
+<img src="{{site.baseurl}}/assets/images/4/1.png" title="Fiddler 세팅1">
 
 Fiddler Classic 앱을 실행한 뒤, Tools - Options를 클릭하여 설정을 열어줍니다.
 
  
-<img src="{{site.baseurl}}/assets/images/4/2.PNG" title="Fiddler 세팅2">
+<img src="{{site.baseurl}}/assets/images/4/2.png" title="Fiddler 세팅2">
 
 HTTPS 탭에 들어가 "Decrypt HTTPS"를 체크하고 인증서를 설치합니다.
 
 
-<img src="{{site.baseurl}}/assets/images/4/3.PNG" title="Fiddler 세팅3">
+<img src="{{site.baseurl}}/assets/images/4/3.png" title="Fiddler 세팅3">
 
 인증서 설치 완료 이후, Tls1.1과 tls1.2를 추가 후 저장합니다.  
 - < client >;ssl3;tls1.0;tsl1.1;tls1.2
 
 
-<img src="{{site.baseurl}}/assets/images/4/4.PNG" title="Fiddler 세팅4">
+<img src="{{site.baseurl}}/assets/images/4/4.png" title="Fiddler 세팅4">
 
 Decode 버튼이 테두리가 파랑색이 되도록 클릭해주고, Fiddler를 재실행합니다.
 
 
-<img src="{{site.baseurl}}/assets/images/4/5.PNG" title="Fiddler 세팅5">	 
+<img src="{{site.baseurl}}/assets/images/4/5.jpg" title="Fiddler 세팅5">	 
 
 Fiddler 우측 상단의 WinConfig 메뉴를 클릭합니다.
 
 	 
-<img src="{{site.baseurl}}/assets/images/4/6.PNG" title="Fiddler 세팅6">
+<img src="{{site.baseurl}}/assets/images/4/6.jpg" title="Fiddler 세팅6">
 
 User Account Control (UAC) 창이 뜨면 예(Yes)를 클릭합니다.
  
  
-<img src="{{site.baseurl}}/assets/images/4/7.PNG" title="Fiddler 세팅7">
+<img src="{{site.baseurl}}/assets/images/4/7.jpg" title="Fiddler 세팅7">
 
 이후 출력되는 AppContainer 창에서, 항목들을 모두 제외 후 저장합니다.  
 Exempt All -> Save Changes 순으로 클릭합니다.
