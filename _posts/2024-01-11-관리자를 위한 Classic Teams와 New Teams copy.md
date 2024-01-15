@@ -82,9 +82,12 @@ Microsoft 365 관리센터 > [설정] > [조직 설정] > [서비스] > [Microso
 
 캐시 파일의 경로도 바뀌었습니다.  
 - Classic Teams: %AppData%\Microsoft
-- New Teams: %AppData%\Local\Packages\MSTeams_8wekyb3d8bbwe 
+- New Teams: %AppData%\Local\Packages\MSTeams_8wekyb3d8bbwe  
 
-
+New Teams의 캐시 제거 방법은 다음과 같습니다.  
+1. Windows [설정] > [앱] > [설치된 앱] > "Microsoft Teams" 선택 > [고급 옵션] > [초기화]  
+2. %localappdata%\Packages\MSTeams_8wekyb3d8bbwe 삭제  
+혹은, %userprofile%\AppData\Local\Packages\MSTeams_8wekyb3d8bbwe\LocalCache\Microsoft\MSTeams 삭제  
 
 
 [새로운 버전의 Teams(New Teams, 새 팀즈)]: ("https://learn.microsoft.com/ko-kr/MicrosoftTeams/new-teams-deploy-with-m365apps#rollout-schedule")
