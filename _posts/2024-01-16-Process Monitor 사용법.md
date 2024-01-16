@@ -5,7 +5,6 @@ author: sion
 categories: [ Operation, etc ]
 description: "6"
 image: assets/images/6/0.jpg
-hidden: true
 ---
 
 Process Monitor은, Windows 환경에서 동작하는 프로세스에 대한 모니터링이 가능한 툴입니다.  
