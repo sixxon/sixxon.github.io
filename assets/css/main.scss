@@ -11,5 +11,6 @@
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
 	"syntax",
-    "starsnonscss"
+    "starsnonscss",
+	url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 ;
