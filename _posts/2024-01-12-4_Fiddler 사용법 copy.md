@@ -1,0 +1,76 @@
+---
+layout: post
+title: "[etc] Fiddler 사용법"
+author: sion
+categories: [ Operation, etc ]
+description: "4"
+image: assets/images/thumbnail/etc.png
+---
+
+WireShark와 같이, 네트워크 트래픽 확인 및 패킷 분석을 도와주는 툴이 있습니다.  
+MS에서 문제 확인 및 재현 시 자주 사용하는 툴이므로,  
+사용법을 익혀 두는 것이 유용합니다.  
+
+
+### Fiddler 설치
+
+다음 사이트에 접속해서, Fiddler Classic을 다운로드 후 설치합니다.  
+[Fiddler Classic]  
+
+
+### Fiddler 사용 방법
+
+Fiddler 로그 수집 방법은 다음과 같습니다.
+
+<img src="{{site.baseurl}}/assets/images/4/1.png" title="Fiddler 세팅1">
+
+Fiddler Classic 앱을 실행한 뒤, Tools - Options를 클릭하여 설정을 열어줍니다.
+
+ 
+<img src="{{site.baseurl}}/assets/images/4/2.png" title="Fiddler 세팅2">
+
+HTTPS 탭에 들어가 "Decrypt HTTPS"를 체크하고 인증서를 설치합니다.
+
+
+<img src="{{site.baseurl}}/assets/images/4/3.png" title="Fiddler 세팅3">
+
+인증서 설치 완료 이후, Tls1.1과 tls1.2를 추가 후 저장합니다.  
+- < client >;ssl3;tls1.0;tsl1.1;tls1.2
+
+
+<img src="{{site.baseurl}}/assets/images/4/4.png" title="Fiddler 세팅4">
+
+Decode 버튼이 테두리가 파랑색이 되도록 클릭해주고, Fiddler를 재실행합니다.
+
+
+<img src="{{site.baseurl}}/assets/images/4/5.jpg" title="Fiddler 세팅5">	 
+
+Fiddler 우측 상단의 WinConfig 메뉴를 클릭합니다.
+
+	 
+<img src="{{site.baseurl}}/assets/images/4/6.jpg" title="Fiddler 세팅6">
+
+User Account Control (UAC) 창이 뜨면 예(Yes)를 클릭합니다.
+ 
+ 
+<img src="{{site.baseurl}}/assets/images/4/7.jpg" title="Fiddler 세팅7">
+
+이후 출력되는 AppContainer 창에서, 항목들을 모두 제외 후 저장합니다.  
+Exempt All -> Save Changes 순으로 클릭합니다.
+	 
+	
+F12키를 눌러 캡쳐를 멈추거나 시작할 수 있습니다.  
+
+이때 불필요한 창들은 다 닫습니다.  
+작업 표시줄의 숨겨진 아이콘, 작업 관리자 등을 통해 불필요한 프로그램들을 모두 종료합니다.
+
+로그를 수집할 시나리오를 시작하기 직전에 F12 키를 눌러 캡처를 시작합니다.  
+
+이후 필요한 과정이 진행되고 나면, 
+F12 키를 눌러 캡쳐를 멈추고 File – Save – All Sessions를 눌러 저장해줍니다.  
+
+
+
+
+
+[Fiddler Classic]: ("https://www.telerik.com/fiddler")

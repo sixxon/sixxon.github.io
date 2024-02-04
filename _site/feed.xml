@@ -5,9 +5,137 @@
     <description>Microsoft 365 운영/가이드</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 28 Jan 2024 16:33:01 +0900</pubDate>
-    <lastBuildDate>Sun, 28 Jan 2024 16:33:01 +0900</lastBuildDate>
+    <pubDate>Sun, 04 Feb 2024 17:01:11 +0900</pubDate>
+    <lastBuildDate>Sun, 04 Feb 2024 17:01:11 +0900</lastBuildDate>
     <generator>Jekyll v4.3.3</generator>
+    
+      <item>
+        <title>[Outlook] 관리센터를 통한 Exchange 사서함 이관 방법 (온보딩/오프보딩)</title>
+        <description>&lt;p&gt;조직에서 구성한 M365 테넌트가 hybrid 구조인 경우,&lt;br /&gt;
+메일 사서함은 &lt;em&gt;On-premise&lt;/em&gt;와 &lt;em&gt;클라우드(Exchange Online)&lt;/em&gt; 중 한 곳에 위치할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;본 포스팅에서는 AD - Entra(Azure AD) 간 hybrid ID 구조에 On-premise Exchange 서버를 가지고 있는 상태에서,&lt;br /&gt;
+관리 센터를 통해 &lt;a href=&quot;(&amp;quot;https://learn.microsoft.com/en-us/exchange/hybrid-deployment/move-mailboxes&amp;quot;)&quot;&gt;사서함 이관을 진행하는 방법&lt;/a&gt;에 대해 설명하도록 하겠습니다.&lt;/p&gt;
+
+&lt;p&gt;*편의 상, On-premise = Exchange = EX 로, 클라우드 = Exchange Online(EXO) = M365 사서함 으로 혼용하여 이야기합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;온보딩onboarding&quot;&gt;온보딩(Onboarding)&lt;/h3&gt;
+
+&lt;p&gt;온보딩이란, On-premise Exchange 서버에 있는 메일 사서함을 M365 클라우드로 이관하는 작업을 의미합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/12/1.PNG&quot; title=&quot;온보딩 작업 1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Exchange 관리센터에서 [마이그레이션] 을 클릭 후, “마이그레이션 일괄 처리 추가” 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/12/1.PNG&quot; title=&quot;온보딩 작업 2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;임의로 이름을 지정하고, 마이그레이션 경로는 “Exchange Online으로 마이그레이션” 을 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/12/3.PNG&quot; title=&quot;온보딩 작업 3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“마이그레이션 유형”은 “원격 이동 마이그레이션” 을 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/12/4.PNG&quot; title=&quot;온보딩 작업 4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“마이그레이션 끝점” 은 “Hybrid Migration Endpoint - EWS” 를 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/12/5.PNG&quot; title=&quot;온보딩 작업 5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;사서함을 이관할 사용자를 원하는 방식으로 가져옵니다.&lt;br /&gt;
+대량 작업이 필요한 경우 “CSV 파일에서 마이그레이션” 을,&lt;br /&gt;
+그 외의 경우 “마이그레이션할 사용자를 수동으로 추가하기” 를 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/12/6.PNG&quot; title=&quot;온보딩 작업 6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“대상 배달 도메인” 을 선택합니다.&lt;br /&gt;
+보통 테넌트명.mail.onmicrosoft 에 해당되며, 드롭다운 항목에서 선택하시면 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/12/7.PNG&quot; title=&quot;온보딩 작업 7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이후 마이그레이션 스케줄을 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;마이그레이션은 동기화(Sync) / 완료(Complete)의 두 가지 작업이 있으며,&lt;br /&gt;
+각 작업에 대한 시작 시점을 정해주면 됩니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;나중에 일괄 처리를 수동으로 시작/완료
+    &lt;ul&gt;
+      &lt;li&gt;마이그레이션 목록에서 클릭 시, 자동으로 동기화/완료 작업 시작&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;자동으로 일괄 처리 시작/완료
+    &lt;ul&gt;
+      &lt;li&gt;마이그레이션 작업 생성 시/동기화 작업 완료 시, 자동으로 동기화/완료 작업 시작&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;지정 시간 이후 일괄 처리를 자동으로 시작/완료
+    &lt;ul&gt;
+      &lt;li&gt;지정한 시간에 대해, 자동으로 동기화/완료 작업 시작&lt;/li&gt;
+      &lt;li&gt;표준 시간대 지정 필요&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;오프보딩offboarding&quot;&gt;오프보딩(Offboarding)&lt;/h3&gt;
+
+&lt;p&gt;오프보딩이랑, 온보딩과 반대되는 개념입니다.&lt;br /&gt;
+즉, M365 클라우드에 있는 메일 사서함을 On-premise Exchange 서버로 옮기는 작업입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/12/8.PNG&quot; title=&quot;온보딩 작업 8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;온보딩과 동일한 메뉴에 접속한 후,&lt;br /&gt;
+마이그레이션 경로를 “Exchange Online에서 마이그레이션” 으로 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/12/4.PNG&quot; title=&quot;온보딩 작업 9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“마이그레이션 끝점” 은 “Hybrid Migration Endpoint - EWS” 를 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/12/10.PNG&quot; title=&quot;온보딩 작업 10&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;사서함 이관할 사용자를 추가한 후, “대상 배달 도메인”을 선택합니다.&lt;br /&gt;
+“이동 옵션”의 경우, “기본 사서함이 있는 경우 기본 사서함 및 보관 사서함 이동” 을 선택합니다.&lt;br /&gt;
+EXO에서 아카이브 사서함 기능을 활성화 한 경우, 해당 옵션 선택 시 아카이브 사서함도 같이 이관됩니다.&lt;/p&gt;
+
+&lt;p&gt;“대상 데이터베이스”와 “대상 보관 데이터베이스”를 입력합니다.&lt;br /&gt;
+이는 옮긴 사서함이 위치할 On-premise Exchange 서버의 DB 명입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/12/7.PNG&quot; title=&quot;온보딩 작업 11&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이후, 동일하게 마이그레이션 스케줄을 선택합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;powershell&quot;&gt;Powershell&lt;/h3&gt;
+
+&lt;p&gt;Powershell 을 이용해서도 사서함 이관이 가능합니다.&lt;br /&gt;
+해당 내용은 별도의 포스팅을 통해 소개해보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;그-외&quot;&gt;그 외&lt;/h3&gt;
+
+&lt;p&gt;사서함 이관 시 아래 주의사항을 참고하세요.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;사서함 이관 시간은 사서함 크기에 따라 상이하며, 소요 시간을 알 수는 없습니다&lt;/li&gt;
+  &lt;li&gt;M365 라이선스가 할당된 상태에서 온보딩/오프보딩이 가능합니다&lt;/li&gt;
+  &lt;li&gt;마이그레이션 배치 수는 최대 100개로, 이관 완료 시 작업 내역 삭제가 필요합니다&lt;/li&gt;
+  &lt;li&gt;기존 온보딩/오프보딩 내역이 있는 경우, 동일 대상에 대해 작업 추가가 불가능하며, 중복되는 작업 내역 삭제가 필요합니다&lt;/li&gt;
+  &lt;li&gt;오프보딩 시, 각 DB마다 지정한 쿼터가 있으므로, 경우에 따라 사전에 M365 사서함 용량 정리가 필요할 수 있습니다&lt;/li&gt;
+  &lt;li&gt;Outlook 데스크톱 앱 사용 시, 온보딩 완료 시점에 계정 재설정이 필요합니다&lt;br /&gt;
+([제어판] &amp;gt; [Mail (Microsoft Outlook)] &amp;gt; 프로필 보기 &amp;gt; 프로필 삭제)&lt;/li&gt;
+  &lt;li&gt;Outlook 웹 사용 시, “outlook.office.com” 로 접근해야 합니다&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;del&gt;*관리센터 UI는 언제든지 예고 없이 바뀔 수 있습니다. 방법은 동일하니 똑같이 진행해주시면 됩니다😐&lt;/del&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 30 Jan 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/operation/outlook/2024/01/30/12_%EA%B4%80%EB%A6%AC%EC%84%BC%ED%84%B0%EB%A5%BC-%ED%86%B5%ED%95%9C-Exchange-%EC%82%AC%EC%84%9C%ED%95%A8-%EC%9D%B4%EA%B4%80-%EB%B0%A9%EB%B2%95-(%EC%98%A8%EC%98%A4%ED%94%84%EB%B3%B4%EB%94%A9).html</link>
+        <guid isPermaLink="true">http://localhost:4000/operation/outlook/2024/01/30/12_%EA%B4%80%EB%A6%AC%EC%84%BC%ED%84%B0%EB%A5%BC-%ED%86%B5%ED%95%9C-Exchange-%EC%82%AC%EC%84%9C%ED%95%A8-%EC%9D%B4%EA%B4%80-%EB%B0%A9%EB%B2%95-(%EC%98%A8%EC%98%A4%ED%94%84%EB%B3%B4%EB%94%A9).html</guid>
+        
+        
+        <category>Operation</category>
+        
+        <category>Outlook</category>
+        
+      </item>
     
       <item>
         <title>[Office] Office 앱 오류 해결 안되는 경우</title>
@@ -39,8 +167,8 @@ PC 포맷을 진행하는 것이 가장 좋은 방법일 수 있습니다.&lt;/p
 
 </description>
         <pubDate>Wed, 24 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/service/office/windows/2024/01/24/Office-%EC%95%B1-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0-%EC%95%88%EB%90%98%EB%8A%94-%EA%B2%BD%EC%9A%B0.html</link>
-        <guid isPermaLink="true">http://localhost:4000/service/office/windows/2024/01/24/Office-%EC%95%B1-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0-%EC%95%88%EB%90%98%EB%8A%94-%EA%B2%BD%EC%9A%B0.html</guid>
+        <link>http://localhost:4000/service/office/windows/2024/01/24/11_Office-%EC%95%B1-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0-%EC%95%88%EB%90%98%EB%8A%94-%EA%B2%BD%EC%9A%B0.html</link>
+        <guid isPermaLink="true">http://localhost:4000/service/office/windows/2024/01/24/11_Office-%EC%95%B1-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0-%EC%95%88%EB%90%98%EB%8A%94-%EA%B2%BD%EC%9A%B0.html</guid>
         
         
         <category>Service</category>
@@ -73,8 +201,8 @@ Office 프로그램을 찾아 우클릭 후, [변경/복구] 를 클릭하여 �
 
 </description>
         <pubDate>Tue, 23 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/service/office/2024/01/23/Office-%EC%95%B1-%EA%B8%B0%EB%8A%A5-%EC%98%A4%EB%A5%98.html</link>
-        <guid isPermaLink="true">http://localhost:4000/service/office/2024/01/23/Office-%EC%95%B1-%EA%B8%B0%EB%8A%A5-%EC%98%A4%EB%A5%98.html</guid>
+        <link>http://localhost:4000/service/office/2024/01/23/10_Office-%EC%95%B1-%EA%B8%B0%EB%8A%A5-%EC%98%A4%EB%A5%98.html</link>
+        <guid isPermaLink="true">http://localhost:4000/service/office/2024/01/23/10_Office-%EC%95%B1-%EA%B8%B0%EB%8A%A5-%EC%98%A4%EB%A5%98.html</guid>
         
         
         <category>Service</category>
@@ -136,8 +264,8 @@ HKEY_CURRENT_USER\SOFTWARE\Microsoft\Office\16.0\Common\Identity\Identities&lt;/
 
 </description>
         <pubDate>Mon, 22 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/service/operation/outlook/2024/01/22/Outlook-%EC%95%B1-%EC%97%B0%EA%B2%B0-%EC%98%A4%EB%A5%98.html</link>
-        <guid isPermaLink="true">http://localhost:4000/service/operation/outlook/2024/01/22/Outlook-%EC%95%B1-%EC%97%B0%EA%B2%B0-%EC%98%A4%EB%A5%98.html</guid>
+        <link>http://localhost:4000/service/operation/outlook/2024/01/22/8_Outlook-%EC%95%B1-%EC%97%B0%EA%B2%B0-%EC%98%A4%EB%A5%98.html</link>
+        <guid isPermaLink="true">http://localhost:4000/service/operation/outlook/2024/01/22/8_Outlook-%EC%95%B1-%EC%97%B0%EA%B2%B0-%EC%98%A4%EB%A5%98.html</guid>
         
         
         <category>Service</category>
@@ -159,9 +287,9 @@ HKEY_CURRENT_USER\SOFTWARE\Microsoft\Office\16.0\Common\Identity\Identities&lt;/
 
 &lt;p&gt;둘 중 하나의 방법을 통해 진행하면 됩니다.&lt;/p&gt;
 
-&lt;ol&gt;
+&lt;ul&gt;
   &lt;li&gt;명령 프롬프트(cmd)로 작업&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;Windows [검색] &amp;gt; “명령 프롬프트(cmd)” &amp;gt; 우클릭 후 “관리자 권한으로 실행”을 클릭합니다.&lt;/p&gt;
 
@@ -169,16 +297,14 @@ HKEY_CURRENT_USER\SOFTWARE\Microsoft\Office\16.0\Common\Identity\Identities&lt;/
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
 3
-4
 &lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;REG ADD &quot;HKEY_CURRENT_USER\SOFTWARE\Microsoft\Office\16.0\Common\Identity&quot; /v EnableADAL /t REG_DWORD /d 1 /f 
 REG ADD &quot;HKEY_CURRENT_USER\SOFTWARE\Microsoft\Office\16.0\Common\Identity&quot;  /v Version /t REG_DWORD /d 1 /f 
 REG ADD &quot;HKEY_CURRENT_USER\Software\Microsoft\Exchange&quot; /v AlwaysUseMSOAuthForAutoDiscover /t REG_DWORD /d 1 /f 
-
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;ol&gt;
+&lt;ul&gt;
   &lt;li&gt;레지스트리 편집기로 작업&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;Windows [검색] &amp;gt; “레지스트리 편집기(regedit)” 를 실행합니다.&lt;/p&gt;
 
@@ -193,14 +319,16 @@ Version, REG_DWORD, 1&lt;/p&gt;
 &lt;p&gt;HKEY_CURRENT_USER\Software\Microsoft\Exchange&lt;br /&gt;
 AlwaysUseMSOAuthForAutoDiscover, REG_DWORD, 1&lt;/p&gt;
 
+&lt;h3 id=&quot;마치며&quot;&gt;마치며&lt;/h3&gt;
+
 &lt;p&gt;이는 최신 인증(Modern Authenticaton)과 기본 인증(Basic Authentication)과 관련된 부분으로,&lt;br /&gt;
 추후 포스팅을 통해 내용을 소개해보도록 하겠습니다.&lt;br /&gt;
 관심이 있으신 분들은 관련 문서를 확인해보셔도 좋을 것 같습니다.&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 19 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/service/operation/outlook/2024/01/19/Outlook-%EC%8B%A4%ED%96%89-%EC%8B%9C-%EC%9E%90%EA%B2%A9%EC%A6%9D%EB%AA%85-%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8-%EC%98%A4%EB%A5%98.html</link>
-        <guid isPermaLink="true">http://localhost:4000/service/operation/outlook/2024/01/19/Outlook-%EC%8B%A4%ED%96%89-%EC%8B%9C-%EC%9E%90%EA%B2%A9%EC%A6%9D%EB%AA%85-%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8-%EC%98%A4%EB%A5%98.html</guid>
+        <link>http://localhost:4000/service/operation/outlook/2024/01/19/9_Outlook-%EC%8B%A4%ED%96%89-%EC%8B%9C-%EC%9E%90%EA%B2%A9%EC%A6%9D%EB%AA%85-%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8-%EC%98%A4%EB%A5%98.html</link>
+        <guid isPermaLink="true">http://localhost:4000/service/operation/outlook/2024/01/19/9_Outlook-%EC%8B%A4%ED%96%89-%EC%8B%9C-%EC%9E%90%EA%B2%A9%EC%A6%9D%EB%AA%85-%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8-%EC%98%A4%EB%A5%98.html</guid>
         
         
         <category>Service</category>
@@ -275,8 +403,8 @@ PC에 설치 된 보안 프로그램 문제에 의한 이슈일 것으로 추정
 
 </description>
         <pubDate>Wed, 17 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/service/office/2024/01/17/Office-%EC%A0%95%ED%92%88-%EC%9D%B8%EC%A6%9D-%EC%98%A4%EB%A5%98.html</link>
-        <guid isPermaLink="true">http://localhost:4000/service/office/2024/01/17/Office-%EC%A0%95%ED%92%88-%EC%9D%B8%EC%A6%9D-%EC%98%A4%EB%A5%98.html</guid>
+        <link>http://localhost:4000/service/office/2024/01/17/7_Office-%EC%A0%95%ED%92%88-%EC%9D%B8%EC%A6%9D-%EC%98%A4%EB%A5%98.html</link>
+        <guid isPermaLink="true">http://localhost:4000/service/office/2024/01/17/7_Office-%EC%A0%95%ED%92%88-%EC%9D%B8%EC%A6%9D-%EC%98%A4%EB%A5%98.html</guid>
         
         
         <category>Service</category>
@@ -331,8 +459,8 @@ PC에 설치 된 보안 프로그램 문제에 의한 이슈일 것으로 추정
 
 </description>
         <pubDate>Tue, 16 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/operation/etc/2024/01/16/Process-Monitor-%EC%82%AC%EC%9A%A9%EB%B2%95.html</link>
-        <guid isPermaLink="true">http://localhost:4000/operation/etc/2024/01/16/Process-Monitor-%EC%82%AC%EC%9A%A9%EB%B2%95.html</guid>
+        <link>http://localhost:4000/operation/etc/2024/01/16/6_Process-Monitor-%EC%82%AC%EC%9A%A9%EB%B2%95.html</link>
+        <guid isPermaLink="true">http://localhost:4000/operation/etc/2024/01/16/6_Process-Monitor-%EC%82%AC%EC%9A%A9%EB%B2%95.html</guid>
         
         
         <category>Operation</category>
@@ -365,8 +493,8 @@ psr.exe 를 입력 후 실행합니다.&lt;/p&gt;
 
 </description>
         <pubDate>Mon, 15 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/operation/etc/2024/01/15/PSR-%EC%82%AC%EC%9A%A9%EB%B2%95.html</link>
-        <guid isPermaLink="true">http://localhost:4000/operation/etc/2024/01/15/PSR-%EC%82%AC%EC%9A%A9%EB%B2%95.html</guid>
+        <link>http://localhost:4000/operation/etc/2024/01/15/5_PSR-%EC%82%AC%EC%9A%A9%EB%B2%95.html</link>
+        <guid isPermaLink="true">http://localhost:4000/operation/etc/2024/01/15/5_PSR-%EC%82%AC%EC%9A%A9%EB%B2%95.html</guid>
         
         
         <category>Operation</category>
@@ -434,8 +562,8 @@ F12 키를 눌러 캡쳐를 멈추고 File – Save – All Sessions를 눌러 �
 
 </description>
         <pubDate>Fri, 12 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/operation/etc/2024/01/12/Fiddler-%EC%82%AC%EC%9A%A9%EB%B2%95-copy.html</link>
-        <guid isPermaLink="true">http://localhost:4000/operation/etc/2024/01/12/Fiddler-%EC%82%AC%EC%9A%A9%EB%B2%95-copy.html</guid>
+        <link>http://localhost:4000/operation/etc/2024/01/12/4_Fiddler-%EC%82%AC%EC%9A%A9%EB%B2%95-copy.html</link>
+        <guid isPermaLink="true">http://localhost:4000/operation/etc/2024/01/12/4_Fiddler-%EC%82%AC%EC%9A%A9%EB%B2%95-copy.html</guid>
         
         
         <category>Operation</category>
@@ -557,99 +685,8 @@ Microsoft 365 관리센터 &amp;gt; [설정] &amp;gt; [조직 설정] &amp;gt; [
 
 </description>
         <pubDate>Thu, 11 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/service/operation/teams/2024/01/11/%EA%B4%80%EB%A6%AC%EC%9E%90%EB%A5%BC-%EC%9C%84%ED%95%9C-Classic-Teams%EC%99%80-New-Teams-copy.html</link>
-        <guid isPermaLink="true">http://localhost:4000/service/operation/teams/2024/01/11/%EA%B4%80%EB%A6%AC%EC%9E%90%EB%A5%BC-%EC%9C%84%ED%95%9C-Classic-Teams%EC%99%80-New-Teams-copy.html</guid>
-        
-        
-        <category>Service</category>
-        
-        <category>Operation</category>
-        
-        <category>Teams</category>
-        
-      </item>
-    
-      <item>
-        <title>[Teams] 사용자를 위한 Classic Teams와 New Teams</title>
-        <description>&lt;p&gt;2023년 하반기, MS에서는 기존 Teams(Classic Teams, 클래식 팀즈)의 지원을 종료하고&lt;br /&gt;
-&lt;a href=&quot;(&amp;quot;https://learn.microsoft.com/ko-kr/MicrosoftTeams/new-teams-deploy-with-m365apps#rollout-schedule&amp;quot;)&quot;&gt;새로운 버전의 Teams(New Teams, 새 팀즈)&lt;/a&gt;를 발표했습니다.&lt;/p&gt;
-
-&lt;p&gt;본 포스팅에서는 New Teams에 대해 소개하고, Classic Teams와 비교하며&lt;br /&gt;
-사용자 및 운영자 분들께 도움이 될 만한 내용들을 말씀드려볼까 합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;new-teams&quot;&gt;New Teams&lt;/h3&gt;
-
-&lt;p&gt;New Teams는 새로운 버전의 팀즈 입니다.&lt;br /&gt;
-Classic Teams와 비교했을 때 어떤 점이 달라졌을까요?&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/2/1.PNG&quot; title=&quot;New Teams UI 1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/2/2.PNG&quot; title=&quot;New Teams UI 2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;먼저, UI가 조금 더 깔끔하게 변경되었습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/2/3.PNG&quot; title=&quot;리소스 비교&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;리소스 면에서도 더 효율적인 모습을 보여주고 있습니다.&lt;br /&gt;
-CPU/메모리 점유율이 낮아졌고, 속도도 개선되었습니다.&lt;/p&gt;
-
-&lt;p&gt;캐시 파일의 경로도 바뀌었습니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Classic Teams: %AppData%\Microsoft&lt;/li&gt;
-  &lt;li&gt;New Teams: %AppData%\Local\Packages\MSTeams_8wekyb3d8bbwe&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;new-teams-설치업데이트&quot;&gt;New Teams 설치/업데이트&lt;/h3&gt;
-
-&lt;p&gt;New Teams는 어떻게 사용할 수 있을까요?&lt;/p&gt;
-
-&lt;p&gt;Teams 다운로드 사이트에서 설치파일을 다운로드 받는 경우,&lt;br /&gt;
-자동으로 New Teams 버전이 설치됩니다.&lt;/p&gt;
-
-&lt;p&gt;별도 테넌트가 있는 조직(회사, 학교 등)의 사용자의 경우,&lt;br /&gt;
-조직 설정에 따라 New Teams 사용 가능 여부가 달라집니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/2/4.PNG&quot; title=&quot;토글 버튼&quot; /&gt;
-&lt;img src=&quot;/assets/images/2/5.PNG&quot; title=&quot;새 Teams 전환&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Classic Teams만 사용 가능하게 설정되어 있을 수도,&lt;br /&gt;
-Classic Teams와 New Teams를 병행하여 사용 가능하게 설정되어 있을 수도,&lt;br /&gt;
-(위 사진과 같이 토글 버튼으로 활성화가 가능합니다)&lt;br /&gt;
-New Teams만 사용 가능하게 설정되어 있을 수도 있습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;classic-teams-설치&quot;&gt;Classic Teams 설치&lt;/h3&gt;
-
-&lt;p&gt;그렇다면, 기존에 사용하던 Classic Teams는 더 이상 사용을 못하는걸까요?&lt;/p&gt;
-
-&lt;p&gt;공식적으로 다운로드를 제공하지는 않습니다만,&lt;br /&gt;
-비공식적으로 기존 Teams 설치파일 다운로드가 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;하기 URL에서, Teams 버전 / 운영체제 버전(32, 64 bit) / 확장자(exe, msi)를 변경하여&lt;br /&gt;
-원하는 Teams 버전 설치파일을 다운로드 하시면 됩니다.&lt;/p&gt;
-
-&lt;p&gt;예시)&lt;br /&gt;
-https://statics.teams.cdn.office.net/production-windows/1.3.00.34662/Teams_windows.msi&lt;br /&gt;
-https://statics.teams.cdn.office.net/production-windows-x64/1.3.00.34662/Teams_windows_x64.msi&lt;br /&gt;
-https://statics.teams.cdn.office.net/production-windows-x64/1.6.00.26474/Teams_windows_x64.exe&lt;/p&gt;
-
-&lt;h3 id=&quot;그-외&quot;&gt;그 외&lt;/h3&gt;
-
-&lt;p&gt;실제로 New Teams를 사용해보니,&lt;br /&gt;
-아직까지는 다소 안정성이 낮은 모습을 보여주고 있습니다.&lt;/p&gt;
-
-&lt;p&gt;제가 발견한 증상만 해도 이 정도는 되는 것 같네요.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;간헐적인 오류 발생 (이건 팀즈 고질적인 문제 ..)&lt;/li&gt;
-  &lt;li&gt;Classic Teams에서 사용했던 3rd party 앱과의 낮은 호환성&lt;/li&gt;
-  &lt;li&gt;테넌트에 새로운 게스트 추가 시, New teams에서는 검색/초대 불가&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;업데이트를 거치며 아무쪼록 좋은 방향으로 개선이 되었으면 하는 바램입니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 09 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/service/operation/teams/2024/01/09/%EC%82%AC%EC%9A%A9%EC%9E%90%EB%A5%BC-%EC%9C%84%ED%95%9C-Classic-Teams%EC%99%80-New-Teams.html</link>
-        <guid isPermaLink="true">http://localhost:4000/service/operation/teams/2024/01/09/%EC%82%AC%EC%9A%A9%EC%9E%90%EB%A5%BC-%EC%9C%84%ED%95%9C-Classic-Teams%EC%99%80-New-Teams.html</guid>
+        <link>http://localhost:4000/service/operation/teams/2024/01/11/3_%EA%B4%80%EB%A6%AC%EC%9E%90%EB%A5%BC-%EC%9C%84%ED%95%9C-Classic-Teams%EC%99%80-New-Teams-copy.html</link>
+        <guid isPermaLink="true">http://localhost:4000/service/operation/teams/2024/01/11/3_%EA%B4%80%EB%A6%AC%EC%9E%90%EB%A5%BC-%EC%9C%84%ED%95%9C-Classic-Teams%EC%99%80-New-Teams-copy.html</guid>
         
         
         <category>Service</category>
