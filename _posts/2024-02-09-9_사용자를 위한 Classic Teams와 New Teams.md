@@ -3,7 +3,7 @@ layout: post
 title: "[Teams] 사용자를 위한 Classic Teams와 New Teams"
 author: sion
 categories: [ Service, Operation, Teams ]
-description: "2"
+description: "9"
 image: assets/images/thumbnail/teams.png
 ---
 
@@ -21,13 +21,13 @@ image: assets/images/thumbnail/teams.png
 New Teams는 새로운 버전의 팀즈 입니다.  
 Classic Teams와 비교했을 때 어떤 점이 달라졌을까요?
 
-<img src="{{site.baseurl}}/assets/images/2/1.PNG" title="New Teams UI 1">
+<img src="{{site.baseurl}}/assets/images/9/1.PNG" title="New Teams UI 1">
 
-<img src="{{site.baseurl}}/assets/images/2/2.PNG" title="New Teams UI 2">
+<img src="{{site.baseurl}}/assets/images/9/2.PNG" title="New Teams UI 2">
 
 먼저, UI가 조금 더 깔끔하게 변경되었습니다.
 
-<img src="{{site.baseurl}}/assets/images/2/3.PNG" title="리소스 비교">
+<img src="{{site.baseurl}}/assets/images/9/3.PNG" title="리소스 비교">
 
 리소스 면에서도 더 효율적인 모습을 보여주고 있습니다.  
 CPU/메모리 점유율이 낮아졌고, 속도도 개선되었습니다.
@@ -48,8 +48,8 @@ Teams 다운로드 사이트에서 설치파일을 다운로드 받는 경우,
 별도 테넌트가 있는 조직(회사, 학교 등)의 사용자의 경우,  
 조직 설정에 따라 New Teams 사용 가능 여부가 달라집니다.
 
-<img src="{{site.baseurl}}/assets/images/2/4.PNG" title="토글 버튼">
-<img src="{{site.baseurl}}/assets/images/2/5.PNG" title="새 Teams 전환">
+<img src="{{site.baseurl}}/assets/images/9/4.PNG" title="토글 버튼">
+<img src="{{site.baseurl}}/assets/images/9/5.PNG" title="새 Teams 전환">
 
 Classic Teams만 사용 가능하게 설정되어 있을 수도,  
 Classic Teams와 New Teams를 병행하여 사용 가능하게 설정되어 있을 수도,  

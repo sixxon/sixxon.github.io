@@ -3,7 +3,7 @@ layout: post
 title: "[Teams] 관리자를 위한 Classic Teams와 New Teams"
 author: sion
 categories: [ Service, Operation, Teams ]
-description: "3"
+description: "10"
 image: assets/images/thumbnail/teams.png
 ---
 
@@ -21,7 +21,7 @@ image: assets/images/thumbnail/teams.png
 
 Teams 관리센터를 통해, New Teams 사용 여부 설정이 가능합니다.  
 
-<img src="{{site.baseurl}}/assets/images/3/1.PNG" title="New Teams 정책">
+<img src="{{site.baseurl}}/assets/images/10/1.PNG" title="New Teams 정책">
 
 Teams 관리센터 > [Teams] > [Teams update policies] > "Add"를 클릭합니다.  
 이때, 다음과 같은 두 가지 설정값 확인이 가능합니다.
@@ -43,11 +43,11 @@ Teams 관리센터 > [Teams] > [Teams update policies] > "Add"를 클릭합니�
     Microsoft controlled: MS/조직 정책을 따름
     New Teams as default: New Teams를 기본으로 사용
     
-<img src="{{site.baseurl}}/assets/images/3/3.PNG" title="New Teams 토글버튼">
+<img src="{{site.baseurl}}/assets/images/10/3.PNG" title="New Teams 토글버튼">
 *"Classic Teams as default"*, *"Microsoft controlled"*, *"New Teams as default"* 모두  
 왼쪽 상단의 토글 버튼을 통해 Classic Teams/New Teams 간 전환이 가능합니다.  
 
-<img src="{{site.baseurl}}/assets/images/3/2.PNG" title="New Teams 비활성화">
+<img src="{{site.baseurl}}/assets/images/10/2.PNG" title="New Teams 비활성화">
 다만, *기본값으로 어떤 버전을 강제하는지 유무*와  
 추후 *MS에서 지정해놓은 업데이트 일자를 따라가지는지의 유무*가  
 다르다고 보시면 되겠습니다.  
@@ -72,7 +72,7 @@ MS에서는 다음과 같은 [업데이트 일정]에 따라
 
 2024년 3월부터는 어떤 버전이든 새 팀즈가 강제됩니다.
 
-<img src="{{site.baseurl}}/assets/images/3/4.PNG" title="업데이트 채널 설정">
+<img src="{{site.baseurl}}/assets/images/10/4.PNG" title="업데이트 채널 설정">
 
 업데이트 채널의 경우,  
 Microsoft 365 관리센터 > [설정] > [조직 설정] > [서비스] > [Microsoft 365 설치 옵션]에서 확인 및 설정이 가능합니다.  

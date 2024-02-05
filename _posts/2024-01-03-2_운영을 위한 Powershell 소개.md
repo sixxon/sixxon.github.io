@@ -1,0 +1,136 @@
+---
+layout: post
+title: "[Admin] Microsoft 365 관리 센터 소개"
+author: sion
+categories: [ Operation, Guide]
+description: "1"
+image: assets/images/thumbnail/admin.png
+hidden: true
+---
+
+Microsoft 365 서비스 운영을 위한 방법은 크게 두 가지가 있습니다.  
+첫 번째는 __관리 센터__를 이용하는 것이고, 두 번째는 __Powershell__를 이용하는 것입니다.  
+
+AWS 등의 다양한 SaaS 서비스에서는 용이한 관리를 위한 admin site를 제공해주고 있습니다.  
+본 포스팅에서는, Microsoft에서 제공하는 관리 센터에 대해 소개합니다.  
+
+
+### 개요
+
+Microsoft에서는 용이한 테넌트 관리를 위해, 관리 센터를 제공하고 있습니다.
+
+테넌트란 *"SaaS 서비스에서 제공하는 클라우드 리소스를 사용하는 하나의 단위"* 입니다.  
+간단하게 말하자면, *"클라우드 서비스를 이용하는 조직"* 이라고 보시면 됩니다.  
+
+Microsoft에서 제공하는 관리 사이트는 다음과 같습니다.
+
+    - [Microsoft 365 관리 센터]
+    - [Microsoft 365 앱 관리 센터]
+    - [보안 (Defender)]
+    - [규정 준수 (Purview)]
+    - [끝점 관리자 (Intune)]
+    - [Exchange]
+    - [SharePoint]
+    - [Teams]
+    - [PowerApps] / [Power BI]
+    - [ID (Entra)]
+    - [Azure]
+
+
+### 관리센터
+
+#### Microsoft 365 관리 센터
+
+<img src="{{site.baseurl}}/assets/images/12/1.PNG" title="온보딩 작업 1">
+
+테넌트에 대한 전반적인 관리 기능을 제공하는 사이트 입니다.  
+    - 주소: https://admin.microsoft.com/
+    - 기능: 사용자/그룹/디바이스 관리, 라이선스 관리, 서비스 상태 확인, 보고서 추출 등
+
+#### Microsoft 365 앱 관리 센터
+
+Office 프로그램에 대한 제어를 관리할 수 있는 사이트 입니다.  
+- 주소: https://config.office.com/
+- 기능: Office 정책 관리 및 배포 등
+
+
+#### 보안 (Defender)
+
+보안 관련 기능을 제공하고, 데이터를 확인할 수 있는 사이트 입니다.   
+- 주소: https://security.microsoft.com/
+- 기능: 메일 보안(스팸/피싱/맬웨어 등), MDCA, AIP 등
+
+
+#### 규정 준수 (Purview)
+
+보안 및 컴플라이언스 관련 기능을 제공하고, 데이터를 확인할 수 있는 사이트 입니다.   
+- 주소: https://compliance.microsoft.com/
+- 기능: 사용자 감사 로그 추출, 사서함 추출, DLP, 보존 정책 등
+
+
+#### 끝점 관리자 (Intune)
+
+엔드포인트 사용자의 디바이스/앱에 적용되는 정책을 관리할 수 있는 사이트 입니다. 
+- 주소: https://intune.microsoft.com/
+- 기능: 디바이스(MDM, 조건부 액세스), 앱(MAM) 등
+
+
+#### Exchange
+
+Exchange Online을 관리할 수 있는 사이트 입니다.  
+- 주소: https://admin.exchange.microsoft.com/
+- 기능: 사용자/그룹/리소스 사서함 관리, 메일 흐름 추적, 사서함 이관 등
+
+
+#### SharePoint
+
+Sharepoint 및 OneDrive를 관리할 수 있는 사이트 입니다.  
+- 주소: https://도메인명-admin.sharepoint.com/
+- 기능: Sharepoint(Teams) 사이트 관리, 공유/액세스 설정 등
+
+
+#### Teams
+
+Teams를 관리할 수 있는 사이트 입니다.  
+- 주소: https://admin.teams.microsoft.com/
+- 기능: Teams 정책 관리(기본 설정/사용자/디바이스/앱/미팅/메세징/전화) 등
+
+
+#### PowerApps / Power BI
+
+Power Apps 및 Power BI를 관리할 수 있는 사이트 입니다.  
+- 주소: https://admin.powerplatform.microsoft.com/  
+https://app.powerbi.com/
+- 기능: 기본 설정 관리, 환경 설정 등
+
+
+#### ID (Entra)
+
+테넌트 내 ID 관련 리소스를 관리할 수 있는 사이트 입니다.
+
+- 주소: https://entra.microsoft.com/
+- 기능: 사용자/그룹/디바이스 관리, 앱 추가, ID 보호 등
+
+
+#### Azure
+
+Azure 서비스 관리를 제공하는 사이트 입니다.
+
+- 주소: https://portal.azure.com/
+- 기능: Azure 기능(PaaS, IaaS 등) 관리
+
+
+[Microsoft 365 관리 센터]: ("https://admin.microsoft.com/")
+[Microsoft 365 앱 관리 센터]: ("https://config.office.com/")
+[보안 (Defender)]: ("https://security.microsoft.com/")
+[규정 준수 (Purview)]: ("https://compliance.microsoft.com/")
+[끝점 관리자 (Intune)]: ("https://intune.microsoft.com/")
+[Exchange]: ("https://admin.exchange.microsoft.com/")
+[SharePoint]: ("https://go.microsoft.com/fwlink/?linkid=2185220")
+[Teams]: ("https://admin.teams.microsoft.com/")
+[PowerApps]: ("https://admin.powerplatform.microsoft.com/")
+[Power BI]: ("https://app.powerbi.com/")
+[ID (Entra)]: ("https://entra.microsoft.com/")
+[Azure]: ("https://portal.azure.com/")
+
+
