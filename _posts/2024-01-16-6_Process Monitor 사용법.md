@@ -14,7 +14,7 @@ Process Monitor은, Windows 환경에서 동작하는 프로세스에 대한 모
 ### Process Monitor 설치 방법
 
 다음 사이트에 접속해서, Process Monitor를 다운로드 후 설치합니다.  
-[Process Monitor]  
+[Process Monitor][1]  
 
 
 ### Process Monitor 사용 방법
@@ -58,4 +58,4 @@ Filter - Enable Advanced Output 을 체크합니다.
 
 
 
-[Process Monitor]: ("https://learn.microsoft.com/ko-kr/sysinternals/downloads/procmon")
+[1]: https://learn.microsoft.com/ko-kr/sysinternals/downloads/procmon

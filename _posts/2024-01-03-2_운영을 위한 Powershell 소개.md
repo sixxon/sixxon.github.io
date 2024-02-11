@@ -52,7 +52,7 @@ Undefined 로 설정이 되어 있는 경우,
 직접 작성한 스크립트 및 외부로부터 다운로드 받은 모든 스크립트의 실행이 가능한 정책입니다.  
 
 디폴트 설정은 Windows Server의 경우 RemoteSigned, 그 외 Windows client의 경우 Restricted 입니다.  
-자세한 내용은 [링크]를 참고하세요.  
+자세한 내용은 [링크][1]를 참고하세요.  
 
 모듈 설치 시에도 **관리자 권한**으로 Powershell을 실행해야 합니다.
 
@@ -75,8 +75,8 @@ Get-Module ExchangeOnlineManagement
 ```
 Connect-ExchangeOnline
 ```
-[ExchangeOnline 모듈 참고문서]  
-[Connect-ExchangeOnline]
+[ExchangeOnline 모듈 참고문서][2]  
+[Connect-ExchangeOnline][3]
 
 
 #### Security & Compliance
@@ -88,8 +88,8 @@ Connect-ExchangeOnline
 ```
 Connect-IPPSSession
 ```
-[Security & Compliance 모듈 참고문서]  
-[Connect-IPPSSession]  
+[Security & Compliance 모듈 참고문서][4]  
+[Connect-IPPSSession][5]  
 
 
 #### SharePoint
@@ -108,8 +108,8 @@ Get-Module Microsoft.Online.SharePoint.PowerShell
 ```
 Connect-SPOService -Url https://도메인명-admin.sharepoint.com
 ```
-[Sharepoint 모듈 참고문서]  
-[Connect-SPOService]  
+[Sharepoint 모듈 참고문서][6]  
+[Connect-SPOService][7]  
 
 
 #### Teams
@@ -131,8 +131,8 @@ Get-Module MicrosoftTeams
 ```
 Connect-MicrosoftTeams
 ```
-[Teams 모듈 참고문서]  
-[Connect-MicrosoftTeams]  
+[Teams 모듈 참고문서][8]  
+[Connect-MicrosoftTeams][9]  
 
 
 #### AzureAD
@@ -153,8 +153,8 @@ Import-Module AzureAD
 ```
 Connect-AzureAD
 ```
-[AzureAD 모듈 참고문서]  
-[Connect-AzureAD]  
+[AzureAD 모듈 참고문서][10]  
+[Connect-AzureAD][11]  
 
 
 #### Graph
@@ -172,8 +172,8 @@ Import-Module Microsoft.Graph
 ```
 Connect-MgGraph
 ```
-[MgGraph 모듈 참고문서]  
-[Connect-MgGraph]  
+[MgGraph 모듈 참고문서][12]  
+[Connect-MgGraph][13]  
 
 
 ### 유의사항
@@ -184,16 +184,16 @@ Connect-MgGraph
     - 자격 증명 없이 연결하거나, 스크립트 자동화를 위해 별도 옵션을 주는 것이 가능합니다  
 
 
-[링크]: ("https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.4")
-[ExchangeOnline 모듈 참고문서]: ("https://learn.microsoft.com/ko-kr/powershell/exchange/exchange-online-powershell-v2?view=exchange-ps")
-[Connect-ExchangeOnline]: ("https://learn.microsoft.com/en-us/powershell/module/exchange/connect-exchangeonline?view=exchange-ps")
-[Security & Compliance 모듈 참고문서]: ("https://learn.microsoft.com/en-us/powershell/exchange/connect-to-scc-powershell?view=exchange-ps")
-[Connect-IPPSSession]: ("https://learn.microsoft.com/en-us/powershell/module/exchange/connect-ippssession?view=exchange-ps")
-[Sharepoint 모듈 참고문서]: ("https://learn.microsoft.com/ko-kr/powershell/sharepoint/sharepoint-online/connect-sharepoint-online")
-[Connect-SPOService]: ("https://learn.microsoft.com/ko-kr/powershell/module/sharepoint-online/connect-sposervice?view=sharepoint-ps")
-[Teams 모듈 참고문서]: ("https://learn.microsoft.com/ko-kr/microsoftteams/teams-powershell-install")
-[Connect-MicrosoftTeams]: ("https://learn.microsoft.com/en-us/powershell/module/teams/connect-microsoftteams?view=teams-ps")
-[AzureAD 모듈 참고문서]: ("https://learn.microsoft.com/en-us/powershell/azure/active-directory/install-adv2?view=azureadps-2.0")
-[Connect-AzureAD]: ("https://learn.microsoft.com/en-us/powershell/module/azuread/connect-azuread?view=azureadps-2.0")
-[MgGraph 모듈 참고문서]: ("https://learn.microsoft.com/en-us/powershell/microsoftgraph/installation?view=graph-powershell-1.0")
-[Connect-MgGraph]: ("https://learn.microsoft.com/en-us/powershell/module/microsoft.graph.authentication/connect-mggraph?view=graph-powershell-1.0")
+[1]: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.4
+[2]: https://learn.microsoft.com/ko-kr/powershell/exchange/exchange-online-powershell-v2?view=exchange-ps
+[3]: https://learn.microsoft.com/en-us/powershell/module/exchange/connect-exchangeonline?view=exchange-ps
+[4]: https://learn.microsoft.com/en-us/powershell/exchange/connect-to-scc-powershell?view=exchange-ps
+[5]: https://learn.microsoft.com/en-us/powershell/module/exchange/connect-ippssession?view=exchange-ps
+[6]: https://learn.microsoft.com/ko-kr/powershell/sharepoint/sharepoint-online/connect-sharepoint-online
+[7]: https://learn.microsoft.com/ko-kr/powershell/module/sharepoint-online/connect-sposervice?view=sharepoint-ps
+[8]: https://learn.microsoft.com/ko-kr/microsoftteams/teams-powershell-install
+[9]: https://learn.microsoft.com/en-us/powershell/module/teams/connect-microsoftteams?view=teams-ps
+[10]: https://learn.microsoft.com/en-us/powershell/azure/active-directory/install-adv2?view=azureadps-2.0
+[11]: https://learn.microsoft.com/en-us/powershell/module/azuread/connect-azuread?view=azureadps-2.0
+[12]: https://learn.microsoft.com/en-us/powershell/microsoftgraph/installation?view=graph-powershell-1.0
+[13]: https://learn.microsoft.com/en-us/powershell/module/microsoft.graph.authentication/connect-mggraph?view=graph-powershell-1.0

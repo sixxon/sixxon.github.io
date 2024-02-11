@@ -5,8 +5,8 @@
     <description>Microsoft 365 운영/가이드</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 04 Feb 2024 17:01:11 +0900</pubDate>
-    <lastBuildDate>Sun, 04 Feb 2024 17:01:11 +0900</lastBuildDate>
+    <pubDate>Sun, 11 Feb 2024 16:28:34 +0900</pubDate>
+    <lastBuildDate>Sun, 11 Feb 2024 16:28:34 +0900</lastBuildDate>
     <generator>Jekyll v4.3.3</generator>
     
       <item>
@@ -23,34 +23,34 @@
 
 &lt;p&gt;온보딩이란, On-premise Exchange 서버에 있는 메일 사서함을 M365 클라우드로 이관하는 작업을 의미합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/12/1.PNG&quot; title=&quot;온보딩 작업 1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/16/1.PNG&quot; title=&quot;온보딩 작업 1&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Exchange 관리센터에서 [마이그레이션] 을 클릭 후, “마이그레이션 일괄 처리 추가” 를 클릭합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/12/1.PNG&quot; title=&quot;온보딩 작업 2&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/16/1.PNG&quot; title=&quot;온보딩 작업 2&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;임의로 이름을 지정하고, 마이그레이션 경로는 “Exchange Online으로 마이그레이션” 을 선택합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/12/3.PNG&quot; title=&quot;온보딩 작업 3&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/16/3.PNG&quot; title=&quot;온보딩 작업 3&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;“마이그레이션 유형”은 “원격 이동 마이그레이션” 을 선택합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/12/4.PNG&quot; title=&quot;온보딩 작업 4&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/16/4.PNG&quot; title=&quot;온보딩 작업 4&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;“마이그레이션 끝점” 은 “Hybrid Migration Endpoint - EWS” 를 선택합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/12/5.PNG&quot; title=&quot;온보딩 작업 5&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/16/5.PNG&quot; title=&quot;온보딩 작업 5&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;사서함을 이관할 사용자를 원하는 방식으로 가져옵니다.&lt;br /&gt;
 대량 작업이 필요한 경우 “CSV 파일에서 마이그레이션” 을,&lt;br /&gt;
 그 외의 경우 “마이그레이션할 사용자를 수동으로 추가하기” 를 선택합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/12/6.PNG&quot; title=&quot;온보딩 작업 6&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/16/6.PNG&quot; title=&quot;온보딩 작업 6&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;“대상 배달 도메인” 을 선택합니다.&lt;br /&gt;
 보통 테넌트명.mail.onmicrosoft 에 해당되며, 드롭다운 항목에서 선택하시면 됩니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/12/7.PNG&quot; title=&quot;온보딩 작업 7&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/16/7.PNG&quot; title=&quot;온보딩 작업 7&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;이후 마이그레이션 스케줄을 선택합니다.&lt;/p&gt;
 
@@ -81,16 +81,16 @@
 &lt;p&gt;오프보딩이랑, 온보딩과 반대되는 개념입니다.&lt;br /&gt;
 즉, M365 클라우드에 있는 메일 사서함을 On-premise Exchange 서버로 옮기는 작업입니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/12/8.PNG&quot; title=&quot;온보딩 작업 8&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/16/8.PNG&quot; title=&quot;온보딩 작업 8&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;온보딩과 동일한 메뉴에 접속한 후,&lt;br /&gt;
 마이그레이션 경로를 “Exchange Online에서 마이그레이션” 으로 선택합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/12/4.PNG&quot; title=&quot;온보딩 작업 9&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/16/4.PNG&quot; title=&quot;온보딩 작업 9&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;“마이그레이션 끝점” 은 “Hybrid Migration Endpoint - EWS” 를 선택합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/12/10.PNG&quot; title=&quot;온보딩 작업 10&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/16/10.PNG&quot; title=&quot;온보딩 작업 10&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;사서함 이관할 사용자를 추가한 후, “대상 배달 도메인”을 선택합니다.&lt;br /&gt;
 “이동 옵션”의 경우, “기본 사서함이 있는 경우 기본 사서함 및 보관 사서함 이동” 을 선택합니다.&lt;br /&gt;
@@ -99,7 +99,7 @@ EXO에서 아카이브 사서함 기능을 활성화 한 경우, 해당 옵션 �
 &lt;p&gt;“대상 데이터베이스”와 “대상 보관 데이터베이스”를 입력합니다.&lt;br /&gt;
 이는 옮긴 사서함이 위치할 On-premise Exchange 서버의 DB 명입니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/12/7.PNG&quot; title=&quot;온보딩 작업 11&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/16/7.PNG&quot; title=&quot;온보딩 작업 11&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;이후, 동일하게 마이그레이션 스케줄을 선택합니다.&lt;/p&gt;
 
@@ -126,9 +126,9 @@ EXO에서 아카이브 사서함 기능을 활성화 한 경우, 해당 옵션 �
 &lt;p&gt;&lt;del&gt;*관리센터 UI는 언제든지 예고 없이 바뀔 수 있습니다. 방법은 동일하니 똑같이 진행해주시면 됩니다😐&lt;/del&gt;&lt;/p&gt;
 
 </description>
-        <pubDate>Tue, 30 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/operation/outlook/2024/01/30/12_%EA%B4%80%EB%A6%AC%EC%84%BC%ED%84%B0%EB%A5%BC-%ED%86%B5%ED%95%9C-Exchange-%EC%82%AC%EC%84%9C%ED%95%A8-%EC%9D%B4%EA%B4%80-%EB%B0%A9%EB%B2%95-(%EC%98%A8%EC%98%A4%ED%94%84%EB%B3%B4%EB%94%A9).html</link>
-        <guid isPermaLink="true">http://localhost:4000/operation/outlook/2024/01/30/12_%EA%B4%80%EB%A6%AC%EC%84%BC%ED%84%B0%EB%A5%BC-%ED%86%B5%ED%95%9C-Exchange-%EC%82%AC%EC%84%9C%ED%95%A8-%EC%9D%B4%EA%B4%80-%EB%B0%A9%EB%B2%95-(%EC%98%A8%EC%98%A4%ED%94%84%EB%B3%B4%EB%94%A9).html</guid>
+        <pubDate>Sat, 10 Feb 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/operation/outlook/2024/02/10/16_%EA%B4%80%EB%A6%AC%EC%84%BC%ED%84%B0%EB%A5%BC-%ED%86%B5%ED%95%9C-Exchange-%EC%82%AC%EC%84%9C%ED%95%A8-%EC%9D%B4%EA%B4%80-%EB%B0%A9%EB%B2%95-(%EC%98%A8%EC%98%A4%ED%94%84%EB%B3%B4%EB%94%A9).html</link>
+        <guid isPermaLink="true">http://localhost:4000/operation/outlook/2024/02/10/16_%EA%B4%80%EB%A6%AC%EC%84%BC%ED%84%B0%EB%A5%BC-%ED%86%B5%ED%95%9C-Exchange-%EC%82%AC%EC%84%9C%ED%95%A8-%EC%9D%B4%EA%B4%80-%EB%B0%A9%EB%B2%95-(%EC%98%A8%EC%98%A4%ED%94%84%EB%B3%B4%EB%94%A9).html</guid>
         
         
         <category>Operation</category>
@@ -153,7 +153,7 @@ Windows 환경에서 Office 앱 삭제 후 재부팅 시에도 동일 증상이 
 
 &lt;p&gt;“계정 유형 변경”을 클릭하여 관리자 계정 여부를 설정할 수 있습니다.&lt;/p&gt;
 
-&lt;p&gt;*Windows 10 기준으로, 상세 가이드는 &lt;a href=&quot;(&amp;quot;https://support.microsoft.com/ko-kr/windows/create-a-local-user-or-administrator-account-in-windows-20de74e0-ac7f-3502-a866-32915af2a34d#:~:text=check%20your%20version.-,Create%20a%20local%20user%20account,user%20without%20a%20Microsoft%20account&amp;quot;)&quot;&gt;Windows 프로필 생성&lt;/a&gt;을 참고합니다&lt;/p&gt;
+&lt;p&gt;*Windows 10 기준으로, 상세 가이드는 &lt;a href=&quot;https://support.microsoft.com/ko-kr/windows/create-a-local-user-or-administrator-account-in-windows-20de74e0-ac7f-3502-a866-32915af2a34d#:~:text=check%20your%20version.-,Create%20a%20local%20user%20account,user%20without%20a%20Microsoft%20account&quot;&gt;Windows 프로필 생성&lt;/a&gt;을 참고합니다&lt;/p&gt;
 
 &lt;p&gt;사용자를 변경하여, 해당 환경에서도 동일한 증상이 발생하는지 확인합니다.&lt;br /&gt;
 Windows 시작 &amp;gt; PC 사용자 명 클릭 &amp;gt; 새로 추가한 사용자 계정으로 로그인합니다.&lt;/p&gt;
@@ -166,9 +166,9 @@ Windows 시작 &amp;gt; PC 사용자 명 클릭 &amp;gt; 새로 추가한 사용
 PC 포맷을 진행하는 것이 가장 좋은 방법일 수 있습니다.&lt;/p&gt;
 
 </description>
-        <pubDate>Wed, 24 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/service/office/windows/2024/01/24/11_Office-%EC%95%B1-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0-%EC%95%88%EB%90%98%EB%8A%94-%EA%B2%BD%EC%9A%B0.html</link>
-        <guid isPermaLink="true">http://localhost:4000/service/office/windows/2024/01/24/11_Office-%EC%95%B1-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0-%EC%95%88%EB%90%98%EB%8A%94-%EA%B2%BD%EC%9A%B0.html</guid>
+        <pubDate>Sun, 04 Feb 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/service/office/windows/2024/02/04/15_Office-%EC%95%B1-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0-%EC%95%88%EB%90%98%EB%8A%94-%EA%B2%BD%EC%9A%B0.html</link>
+        <guid isPermaLink="true">http://localhost:4000/service/office/windows/2024/02/04/15_Office-%EC%95%B1-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0-%EC%95%88%EB%90%98%EB%8A%94-%EA%B2%BD%EC%9A%B0.html</guid>
         
         
         <category>Service</category>
@@ -190,7 +190,7 @@ PC 포맷을 진행하는 것이 가장 좋은 방법일 수 있습니다.&lt;/p
 &lt;h3 id=&quot;sara-설치&quot;&gt;Sara 설치&lt;/h3&gt;
 
 &lt;p&gt;하기 사이트에서 Sara(Microsoft Support and Recovery Assistant)를 설치합니다.&lt;br /&gt;
-&lt;a href=&quot;(&amp;quot;https://aka.ms/SaRA-FirstScreen&amp;quot;)&quot;&gt;Microsoft Support and Recovery Assistant&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&quot;https://aka.ms/SaRA-FirstScreen&quot;&gt;Microsoft Support and Recovery Assistant&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;툴을 실행한 뒤, 적절한 서비스 및 증상을 선택합니다.&lt;/p&gt;
 
@@ -200,9 +200,9 @@ PC 포맷을 진행하는 것이 가장 좋은 방법일 수 있습니다.&lt;/p
 Office 프로그램을 찾아 우클릭 후, [변경/복구] 를 클릭하여 복구를 진행합니다.&lt;/p&gt;
 
 </description>
-        <pubDate>Tue, 23 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/service/office/2024/01/23/10_Office-%EC%95%B1-%EA%B8%B0%EB%8A%A5-%EC%98%A4%EB%A5%98.html</link>
-        <guid isPermaLink="true">http://localhost:4000/service/office/2024/01/23/10_Office-%EC%95%B1-%EA%B8%B0%EB%8A%A5-%EC%98%A4%EB%A5%98.html</guid>
+        <pubDate>Sat, 03 Feb 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/service/office/2024/02/03/14_Office-%EC%95%B1-%EA%B8%B0%EB%8A%A5-%EC%98%A4%EB%A5%98.html</link>
+        <guid isPermaLink="true">http://localhost:4000/service/office/2024/02/03/14_Office-%EC%95%B1-%EA%B8%B0%EB%8A%A5-%EC%98%A4%EB%A5%98.html</guid>
         
         
         <category>Service</category>
@@ -216,7 +216,7 @@ Office 프로그램을 찾아 우클릭 후, [변경/복구] 를 클릭하여 �
         <description>&lt;p&gt;Outlook 설치형 앱을 통해 사서함에 접근하고자 하는 경우,&lt;br /&gt;
 사용자 계정으로 로그인이 필요합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/8/1.PNG&quot; title=&quot;Outlook 앱 연결 오류&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/13/1.PNG&quot; title=&quot;Outlook 앱 연결 오류&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;그러나, 간혹 Outlook에 로그인이 되지 않는 경우가 있습니다.&lt;br /&gt;
 이 경우 어떤 방식으로 조치가 가능한지 확인해보도록 하겠습니다.&lt;/p&gt;
@@ -225,7 +225,7 @@ Office 프로그램을 찾아 우클릭 후, [변경/복구] 를 클릭하여 �
 
 &lt;p&gt;[제어판] &amp;gt; 검색창에 “mail” 검색 &amp;gt; [Mail(Microsoft Outlook)]을 클릭합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/8/2.PNG&quot; title=&quot;Outlook 프로필 재설정 1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/13/2.PNG&quot; title=&quot;Outlook 프로필 재설정 1&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;[프로필 보기] 클릭 후,&lt;br /&gt;
 [이 컴퓨터에 설정된 프로필]에 존재하는 모든 메일 계정을 제거합니다.&lt;/p&gt;
@@ -243,7 +243,7 @@ Office 프로그램을 찾아 우클릭 후, [변경/복구] 를 클릭하여 �
 &lt;p&gt;[제어판] &amp;gt; [자격증명 관리자] &amp;gt; [Windows 자격 증명] &amp;gt; [일반 자격 증명]에&lt;br /&gt;
 Office 관련 모든 자격증명을 제거합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/8/3.PNG&quot; title=&quot;자격 증명 삭제 1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/13/3.PNG&quot; title=&quot;자격 증명 삭제 1&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;레지스트리 편집기에서, Identities 하위의 모든 키 값을 제거합니다.&lt;br /&gt;
 HKEY_CURRENT_USER\SOFTWARE\Microsoft\Office\16.0\Common\Identity\Identities&lt;/p&gt;
@@ -260,12 +260,12 @@ HKEY_CURRENT_USER\SOFTWARE\Microsoft\Office\16.0\Common\Identity\Identities&lt;/
 
 &lt;p&gt;이 경우, 하기 포스팅을 참고하여 조치합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;(&amp;quot;https://sixxon.github.io/service/operation/outlook/2024/01/19/Outlook-%EC%8B%A4%ED%96%89-%EC%8B%9C-%EC%9E%90%EA%B2%A9%EC%A6%9D%EB%AA%85-%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8-%EC%98%A4%EB%A5%98.html&amp;quot;)&quot;&gt;최신 인증 활성화&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://sixxon.github.io/service/operation/outlook/2024/01/29/12_Outlook-실행-시-자격증명-프롬프트-오류.html&quot;&gt;최신 인증 활성화&lt;/a&gt;&lt;/p&gt;
 
 </description>
-        <pubDate>Mon, 22 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/service/operation/outlook/2024/01/22/8_Outlook-%EC%95%B1-%EC%97%B0%EA%B2%B0-%EC%98%A4%EB%A5%98.html</link>
-        <guid isPermaLink="true">http://localhost:4000/service/operation/outlook/2024/01/22/8_Outlook-%EC%95%B1-%EC%97%B0%EA%B2%B0-%EC%98%A4%EB%A5%98.html</guid>
+        <pubDate>Fri, 02 Feb 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/service/operation/outlook/2024/02/02/13_Outlook-%EC%95%B1-%EC%97%B0%EA%B2%B0-%EC%98%A4%EB%A5%98.html</link>
+        <guid isPermaLink="true">http://localhost:4000/service/operation/outlook/2024/02/02/13_Outlook-%EC%95%B1-%EC%97%B0%EA%B2%B0-%EC%98%A4%EB%A5%98.html</guid>
         
         
         <category>Service</category>
@@ -326,9 +326,9 @@ AlwaysUseMSOAuthForAutoDiscover, REG_DWORD, 1&lt;/p&gt;
 관심이 있으신 분들은 관련 문서를 확인해보셔도 좋을 것 같습니다.&lt;/p&gt;
 
 </description>
-        <pubDate>Fri, 19 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/service/operation/outlook/2024/01/19/9_Outlook-%EC%8B%A4%ED%96%89-%EC%8B%9C-%EC%9E%90%EA%B2%A9%EC%A6%9D%EB%AA%85-%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8-%EC%98%A4%EB%A5%98.html</link>
-        <guid isPermaLink="true">http://localhost:4000/service/operation/outlook/2024/01/19/9_Outlook-%EC%8B%A4%ED%96%89-%EC%8B%9C-%EC%9E%90%EA%B2%A9%EC%A6%9D%EB%AA%85-%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8-%EC%98%A4%EB%A5%98.html</guid>
+        <pubDate>Mon, 29 Jan 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/service/operation/outlook/2024/01/29/12_Outlook-%EC%8B%A4%ED%96%89-%EC%8B%9C-%EC%9E%90%EA%B2%A9%EC%A6%9D%EB%AA%85-%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8-%EC%98%A4%EB%A5%98.html</link>
+        <guid isPermaLink="true">http://localhost:4000/service/operation/outlook/2024/01/29/12_Outlook-%EC%8B%A4%ED%96%89-%EC%8B%9C-%EC%9E%90%EA%B2%A9%EC%A6%9D%EB%AA%85-%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8-%EC%98%A4%EB%A5%98.html</guid>
         
         
         <category>Service</category>
@@ -378,7 +378,7 @@ PC의 네트워크 상태와 상관없이 수행 가능합니다.&lt;/p&gt;
 
 &lt;p&gt;이후에도 증상 발생 시, 하기 방법을 추가적으로 진행합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/7/1.png&quot; title=&quot;Process Monitor 세팅1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/11/1.png&quot; title=&quot;Process Monitor 세팅1&quot; /&gt;&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;Windows [검색] &amp;gt; “서비스”(services.msc) 실행&lt;/li&gt;
@@ -388,7 +388,7 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtecti
 InactivityShutdownDelay, REG_DWORD, 10진수, 86400&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/7/2.png&quot; title=&quot;Process Monitor 세팅1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/11/2.png&quot; title=&quot;Process Monitor 세팅1&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;“Software Protection” 서비스(sppsvc 프로세스)는 Windows 프로그램의 인증 및 권한을 확인해주는 서비스로,&lt;br /&gt;
 알 수 없는 원인에 의해 서비스 중지 시, 재시작되도록 위와 같이 레지스트리 값을 변경해줍니다.&lt;/p&gt;
@@ -398,177 +398,18 @@ InactivityShutdownDelay, REG_DWORD, 10진수, 86400&lt;/li&gt;
 &lt;p&gt;이후에도 증상 발생 시,&lt;br /&gt;
 PC에 설치 된 보안 프로그램 문제에 의한 이슈일 것으로 추정됩니다.&lt;/p&gt;
 
-&lt;p&gt;이 경우, &lt;a href=&quot;(&amp;quot;https://sixxon.github.io/operation/etc/2024/01/16/Process-Monitor-%EC%82%AC%EC%9A%A9%EB%B2%95.html&amp;quot;)&quot;&gt;Process Monitor&lt;/a&gt;과 같은 툴을 통해 정확한 원인을 분석하거나&lt;br /&gt;
+&lt;p&gt;이 경우, &lt;a href=&quot;https://sixxon.github.io/operation/etc/2024/01/16/6_Process-Monitor-사용법.html&quot;&gt;Process Monitor&lt;/a&gt;과 같은 툴을 통해 정확한 원인을 분석하거나&lt;br /&gt;
 혹은 PC에 설치되어 있는 보안 프로그램을 하나씩 삭제해가며 확인이 필요합니다.&lt;/p&gt;
 
 </description>
-        <pubDate>Wed, 17 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/service/office/2024/01/17/7_Office-%EC%A0%95%ED%92%88-%EC%9D%B8%EC%A6%9D-%EC%98%A4%EB%A5%98.html</link>
-        <guid isPermaLink="true">http://localhost:4000/service/office/2024/01/17/7_Office-%EC%A0%95%ED%92%88-%EC%9D%B8%EC%A6%9D-%EC%98%A4%EB%A5%98.html</guid>
+        <pubDate>Sat, 27 Jan 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/service/office/2024/01/27/11_Office-%EC%A0%95%ED%92%88-%EC%9D%B8%EC%A6%9D-%EC%98%A4%EB%A5%98.html</link>
+        <guid isPermaLink="true">http://localhost:4000/service/office/2024/01/27/11_Office-%EC%A0%95%ED%92%88-%EC%9D%B8%EC%A6%9D-%EC%98%A4%EB%A5%98.html</guid>
         
         
         <category>Service</category>
         
         <category>Office</category>
-        
-      </item>
-    
-      <item>
-        <title>[etc] Process Monitor 사용법</title>
-        <description>&lt;p&gt;Process Monitor은, Windows 환경에서 동작하는 프로세스에 대한 모니터링이 가능한 툴입니다.&lt;br /&gt;
-프로세스의 동작, 파일 시스템 I/O 등에 대한 로그 수집이 가능하여,&lt;br /&gt;
-특정 프로세스에서 문제 발생 시 용이하게 사용이 가능합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;process-monitor-설치-방법&quot;&gt;Process Monitor 설치 방법&lt;/h3&gt;
-
-&lt;p&gt;다음 사이트에 접속해서, Process Monitor를 다운로드 후 설치합니다.&lt;br /&gt;
-&lt;a href=&quot;(&amp;quot;https://learn.microsoft.com/ko-kr/sysinternals/downloads/procmon&amp;quot;)&quot;&gt;Process Monitor&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;process-monitor-사용-방법&quot;&gt;Process Monitor 사용 방법&lt;/h3&gt;
-
-&lt;p&gt;Process Monitor 툴을 실행합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/6/1.jpg&quot; title=&quot;Process Monitor 세팅1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;상단메뉴에서 Filter-Filter를 클릭합니다.&lt;br /&gt;
-설정 창의 왼쪽 중앙에 위치한 Reset 버튼을 클릭한 후, Ok 버튼을 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/6/2.png&quot; title=&quot;Process Monitor 세팅2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;“사각 모양” 아이콘을 한번 클릭하여 자동으로 수행되는 데이터 수집을 중단하고,&lt;br /&gt;
-“휴지통 모양” 아이콘을 클릭하여 현재까지 수집된 로그를 지웁니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/6/3.gif&quot; title=&quot;Process Monitor 세팅3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Filter - Enable Advanced Output 을 체크합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/6/4.gif&quot; title=&quot;Process Monitor 세팅4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;다시 “사각 모양” 아이콘을 눌러, 데이터 수집 상태로 변경한 후 이슈를 재현합니다.&lt;/p&gt;
-
-&lt;p&gt;이제 Process Monitor 창으로 자료가 수집되는 과정을 확인하실 수 있습니다.&lt;br /&gt;
-문제를 재현하기 위한 추가적인 작업이 필요하다면 이 시점에 수행하면 됩니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/6/5.gif&quot; title=&quot;Process Monitor 세팅5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;문제 재현이 완료되면 File - Save… 메뉴를 통해 로그를 저장합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/4/6.jpg&quot; title=&quot;Process Monitor 세팅6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;다음과 같이 옵션을 기본 상태로 두고, 저장 경로만 설정하신 후 PML 파일을 저장합니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 16 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/operation/etc/2024/01/16/6_Process-Monitor-%EC%82%AC%EC%9A%A9%EB%B2%95.html</link>
-        <guid isPermaLink="true">http://localhost:4000/operation/etc/2024/01/16/6_Process-Monitor-%EC%82%AC%EC%9A%A9%EB%B2%95.html</guid>
-        
-        
-        <category>Operation</category>
-        
-        <category>etc</category>
-        
-      </item>
-    
-      <item>
-        <title>[etc] PSR 사용법</title>
-        <description>&lt;p&gt;PSR(Problem Steps Recorder)은 Windows에서 기본 제공하는 툴로,&lt;br /&gt;
-컴퓨터에서 단계적으로 화면을 캡처할 때 사용되고 있습니다.&lt;/p&gt;
-
-&lt;p&gt;오류 화면을 재현하면서,&lt;br /&gt;
-주로 Fiddler와 함께 사용합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;psr-사용-방법&quot;&gt;PSR 사용 방법&lt;/h3&gt;
-
-&lt;p&gt;PSR 로그 수집 방법은 다음과 같습니다.&lt;/p&gt;
-
-&lt;p&gt;Windows 로고 버튼 + R 키를 눌러, “실행” 창을 열고&lt;br /&gt;
-psr.exe 를 입력 후 실행합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/5/1.png&quot; title=&quot;PSR 세팅1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;실행된 단계 레코더의 우측에 있는 파란색 물음표 버튼을 클릭합니다.&lt;br /&gt;
-“설정”에서 “저장할 최근 화면 캡쳐 수”를 999로 설정합니다.&lt;/p&gt;
-
-&lt;p&gt;PSR의 녹화를 시작합니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 15 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/operation/etc/2024/01/15/5_PSR-%EC%82%AC%EC%9A%A9%EB%B2%95.html</link>
-        <guid isPermaLink="true">http://localhost:4000/operation/etc/2024/01/15/5_PSR-%EC%82%AC%EC%9A%A9%EB%B2%95.html</guid>
-        
-        
-        <category>Operation</category>
-        
-        <category>etc</category>
-        
-      </item>
-    
-      <item>
-        <title>[etc] Fiddler 사용법</title>
-        <description>&lt;p&gt;WireShark와 같이, 네트워크 트래픽 확인 및 패킷 분석을 도와주는 툴이 있습니다.&lt;br /&gt;
-MS에서 문제 확인 및 재현 시 자주 사용하는 툴이므로,&lt;br /&gt;
-사용법을 익혀 두는 것이 유용합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;fiddler-설치&quot;&gt;Fiddler 설치&lt;/h3&gt;
-
-&lt;p&gt;다음 사이트에 접속해서, Fiddler Classic을 다운로드 후 설치합니다.&lt;br /&gt;
-&lt;a href=&quot;(&amp;quot;https://www.telerik.com/fiddler&amp;quot;)&quot;&gt;Fiddler Classic&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;fiddler-사용-방법&quot;&gt;Fiddler 사용 방법&lt;/h3&gt;
-
-&lt;p&gt;Fiddler 로그 수집 방법은 다음과 같습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/4/1.png&quot; title=&quot;Fiddler 세팅1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Fiddler Classic 앱을 실행한 뒤, Tools - Options를 클릭하여 설정을 열어줍니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/4/2.png&quot; title=&quot;Fiddler 세팅2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;HTTPS 탭에 들어가 “Decrypt HTTPS”를 체크하고 인증서를 설치합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/4/3.png&quot; title=&quot;Fiddler 세팅3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;인증서 설치 완료 이후, Tls1.1과 tls1.2를 추가 후 저장합니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&amp;lt; client &amp;gt;;ssl3;tls1.0;tsl1.1;tls1.2&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/4/4.png&quot; title=&quot;Fiddler 세팅4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Decode 버튼이 테두리가 파랑색이 되도록 클릭해주고, Fiddler를 재실행합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/4/5.jpg&quot; title=&quot;Fiddler 세팅5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Fiddler 우측 상단의 WinConfig 메뉴를 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/4/6.jpg&quot; title=&quot;Fiddler 세팅6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;User Account Control (UAC) 창이 뜨면 예(Yes)를 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/4/7.jpg&quot; title=&quot;Fiddler 세팅7&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이후 출력되는 AppContainer 창에서, 항목들을 모두 제외 후 저장합니다.&lt;br /&gt;
-Exempt All -&amp;gt; Save Changes 순으로 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;F12키를 눌러 캡쳐를 멈추거나 시작할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;이때 불필요한 창들은 다 닫습니다.&lt;br /&gt;
-작업 표시줄의 숨겨진 아이콘, 작업 관리자 등을 통해 불필요한 프로그램들을 모두 종료합니다.&lt;/p&gt;
-
-&lt;p&gt;로그를 수집할 시나리오를 시작하기 직전에 F12 키를 눌러 캡처를 시작합니다.&lt;/p&gt;
-
-&lt;p&gt;이후 필요한 과정이 진행되고 나면, 
-F12 키를 눌러 캡쳐를 멈추고 File – Save – All Sessions를 눌러 저장해줍니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Fri, 12 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/operation/etc/2024/01/12/4_Fiddler-%EC%82%AC%EC%9A%A9%EB%B2%95-copy.html</link>
-        <guid isPermaLink="true">http://localhost:4000/operation/etc/2024/01/12/4_Fiddler-%EC%82%AC%EC%9A%A9%EB%B2%95-copy.html</guid>
-        
-        
-        <category>Operation</category>
-        
-        <category>etc</category>
         
       </item>
     
@@ -584,7 +425,7 @@ F12 키를 눌러 캡쳐를 멈추고 File – Save – All Sessions를 눌러 �
 
 &lt;p&gt;Teams 관리센터를 통해, New Teams 사용 여부 설정이 가능합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/3/1.PNG&quot; title=&quot;New Teams 정책&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/10/1.PNG&quot; title=&quot;New Teams 정책&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Teams 관리센터 &amp;gt; [Teams] &amp;gt; [Teams update policies] &amp;gt; “Add”를 클릭합니다.&lt;br /&gt;
 이때, 다음과 같은 두 가지 설정값 확인이 가능합니다.&lt;/p&gt;
@@ -609,11 +450,11 @@ F12 키를 눌러 캡쳐를 멈추고 File – Save – All Sessions를 눌러 �
   &lt;/dd&gt;
 &lt;/dl&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/3/3.PNG&quot; title=&quot;New Teams 토글버튼&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/10/3.PNG&quot; title=&quot;New Teams 토글버튼&quot; /&gt;
 &lt;em&gt;“Classic Teams as default”&lt;/em&gt;, &lt;em&gt;“Microsoft controlled”&lt;/em&gt;, &lt;em&gt;“New Teams as default”&lt;/em&gt; 모두&lt;br /&gt;
 왼쪽 상단의 토글 버튼을 통해 Classic Teams/New Teams 간 전환이 가능합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/3/2.PNG&quot; title=&quot;New Teams 비활성화&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/10/2.PNG&quot; title=&quot;New Teams 비활성화&quot; /&gt;
 다만, &lt;em&gt;기본값으로 어떤 버전을 강제하는지 유무&lt;/em&gt;와&lt;br /&gt;
 추후 &lt;em&gt;MS에서 지정해놓은 업데이트 일자를 따라가지는지의 유무&lt;/em&gt;가&lt;br /&gt;
 다르다고 보시면 되겠습니다.&lt;/p&gt;
@@ -623,7 +464,7 @@ F12 키를 눌러 캡쳐를 멈추고 File – Save – All Sessions를 눌러 �
 &lt;p&gt;앞서 New Teams 정책을 설정하는 과정에서,&lt;br /&gt;
 &lt;em&gt;“MS/조직 정책을 따른다”&lt;/em&gt; 및 &lt;em&gt;“MS에서 지정해놓은 업데이트 일자를 따라간다”&lt;/em&gt; 라는 내용을 확인하셨을 겁니다.&lt;/p&gt;
 
-&lt;p&gt;MS에서는 다음과 같은 &lt;a href=&quot;(&amp;quot;https://learn.microsoft.com/ko-kr/microsoftteams/new-teams-desktop-admin#new-teams-schedule-for-clients&amp;quot;)&quot;&gt;업데이트 일정&lt;/a&gt;에 따라&lt;br /&gt;
+&lt;p&gt;MS에서는 다음과 같은 &lt;a href=&quot;https://learn.microsoft.com/ko-kr/microsoftteams/new-teams-desktop-admin#new-teams-schedule-for-clients&quot;&gt;업데이트 일정&lt;/a&gt;에 따라&lt;br /&gt;
 조직의 New Teams의 배포 및 사용을 강제하고 있습니다.&lt;/p&gt;
 
 &lt;table&gt;
@@ -663,7 +504,7 @@ F12 키를 눌러 캡쳐를 멈추고 File – Save – All Sessions를 눌러 �
 
 &lt;p&gt;2024년 3월부터는 어떤 버전이든 새 팀즈가 강제됩니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/3/4.PNG&quot; title=&quot;업데이트 채널 설정&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/10/4.PNG&quot; title=&quot;업데이트 채널 설정&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;업데이트 채널의 경우,&lt;br /&gt;
 Microsoft 365 관리센터 &amp;gt; [설정] &amp;gt; [조직 설정] &amp;gt; [서비스] &amp;gt; [Microsoft 365 설치 옵션]에서 확인 및 설정이 가능합니다.&lt;/p&gt;
@@ -684,9 +525,9 @@ Microsoft 365 관리센터 &amp;gt; [설정] &amp;gt; [조직 설정] &amp;gt; [
 &lt;/ol&gt;
 
 </description>
-        <pubDate>Thu, 11 Jan 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/service/operation/teams/2024/01/11/3_%EA%B4%80%EB%A6%AC%EC%9E%90%EB%A5%BC-%EC%9C%84%ED%95%9C-Classic-Teams%EC%99%80-New-Teams-copy.html</link>
-        <guid isPermaLink="true">http://localhost:4000/service/operation/teams/2024/01/11/3_%EA%B4%80%EB%A6%AC%EC%9E%90%EB%A5%BC-%EC%9C%84%ED%95%9C-Classic-Teams%EC%99%80-New-Teams-copy.html</guid>
+        <pubDate>Sun, 21 Jan 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/service/operation/teams/2024/01/21/10_%EA%B4%80%EB%A6%AC%EC%9E%90%EB%A5%BC-%EC%9C%84%ED%95%9C-Classic-Teams%EC%99%80-New-Teams-copy.html</link>
+        <guid isPermaLink="true">http://localhost:4000/service/operation/teams/2024/01/21/10_%EA%B4%80%EB%A6%AC%EC%9E%90%EB%A5%BC-%EC%9C%84%ED%95%9C-Classic-Teams%EC%99%80-New-Teams-copy.html</guid>
         
         
         <category>Service</category>
@@ -694,6 +535,221 @@ Microsoft 365 관리센터 &amp;gt; [설정] &amp;gt; [조직 설정] &amp;gt; [
         <category>Operation</category>
         
         <category>Teams</category>
+        
+      </item>
+    
+      <item>
+        <title>[Teams] 사용자를 위한 Classic Teams와 New Teams</title>
+        <description>&lt;p&gt;2023년 하반기, MS에서는 기존 Teams(Classic Teams, 클래식 팀즈)의 지원을 종료하고&lt;br /&gt;
+&lt;a href=&quot;https://learn.microsoft.com/ko-kr/MicrosoftTeams/new-teams-deploy-with-m365apps#rollout-schedule&quot;&gt;새로운 버전의 Teams(New Teams, 새 팀즈)&lt;/a&gt;를 발표했습니다.&lt;/p&gt;
+
+&lt;p&gt;본 포스팅에서는 New Teams에 대해 소개하고, Classic Teams와 비교하며&lt;br /&gt;
+사용자 및 운영자 분들께 도움이 될 만한 내용들을 말씀드려볼까 합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;new-teams&quot;&gt;New Teams&lt;/h3&gt;
+
+&lt;p&gt;New Teams는 새로운 버전의 팀즈 입니다.&lt;br /&gt;
+Classic Teams와 비교했을 때 어떤 점이 달라졌을까요?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/9/1.PNG&quot; title=&quot;New Teams UI 1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/9/2.PNG&quot; title=&quot;New Teams UI 2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;먼저, UI가 조금 더 깔끔하게 변경되었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/9/3.PNG&quot; title=&quot;리소스 비교&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;리소스 면에서도 더 효율적인 모습을 보여주고 있습니다.&lt;br /&gt;
+CPU/메모리 점유율이 낮아졌고, 속도도 개선되었습니다.&lt;/p&gt;
+
+&lt;p&gt;캐시 파일의 경로도 바뀌었습니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Classic Teams: %AppData%\Microsoft&lt;/li&gt;
+  &lt;li&gt;New Teams: %AppData%\Local\Packages\MSTeams_8wekyb3d8bbwe&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;new-teams-설치업데이트&quot;&gt;New Teams 설치/업데이트&lt;/h3&gt;
+
+&lt;p&gt;New Teams는 어떻게 사용할 수 있을까요?&lt;/p&gt;
+
+&lt;p&gt;Teams 다운로드 사이트에서 설치파일을 다운로드 받는 경우,&lt;br /&gt;
+자동으로 New Teams 버전이 설치됩니다.&lt;/p&gt;
+
+&lt;p&gt;별도 테넌트가 있는 조직(회사, 학교 등)의 사용자의 경우,&lt;br /&gt;
+조직 설정에 따라 New Teams 사용 가능 여부가 달라집니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/9/4.PNG&quot; title=&quot;토글 버튼&quot; /&gt;
+&lt;img src=&quot;/assets/images/9/5.PNG&quot; title=&quot;새 Teams 전환&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Classic Teams만 사용 가능하게 설정되어 있을 수도,&lt;br /&gt;
+Classic Teams와 New Teams를 병행하여 사용 가능하게 설정되어 있을 수도,&lt;br /&gt;
+(위 사진과 같이 토글 버튼으로 활성화가 가능합니다)&lt;br /&gt;
+New Teams만 사용 가능하게 설정되어 있을 수도 있습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;classic-teams-설치&quot;&gt;Classic Teams 설치&lt;/h3&gt;
+
+&lt;p&gt;그렇다면, 기존에 사용하던 Classic Teams는 더 이상 사용을 못하는걸까요?&lt;/p&gt;
+
+&lt;p&gt;공식적으로 다운로드를 제공하지는 않습니다만,&lt;br /&gt;
+비공식적으로 기존 Teams 설치파일 다운로드가 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;하기 URL에서, Teams 버전 / 운영체제 버전(32, 64 bit) / 확장자(exe, msi)를 변경하여&lt;br /&gt;
+원하는 Teams 버전 설치파일을 다운로드 하시면 됩니다.&lt;/p&gt;
+
+&lt;p&gt;예시)&lt;br /&gt;
+https://statics.teams.cdn.office.net/production-windows/1.3.00.34662/Teams_windows.msi&lt;br /&gt;
+https://statics.teams.cdn.office.net/production-windows-x64/1.3.00.34662/Teams_windows_x64.msi&lt;br /&gt;
+https://statics.teams.cdn.office.net/production-windows-x64/1.6.00.26474/Teams_windows_x64.exe&lt;/p&gt;
+
+&lt;h3 id=&quot;그-외&quot;&gt;그 외&lt;/h3&gt;
+
+&lt;p&gt;실제로 New Teams를 사용해보니,&lt;br /&gt;
+아직까지는 다소 안정성이 낮은 모습을 보여주고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;제가 발견한 증상만 해도 이 정도는 되는 것 같네요.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;간헐적인 오류 발생 (이건 팀즈 고질적인 문제 ..)&lt;/li&gt;
+  &lt;li&gt;Classic Teams에서 사용했던 3rd party 앱과의 낮은 호환성&lt;/li&gt;
+  &lt;li&gt;테넌트에 새로운 게스트 추가 시, New teams에서는 검색/초대 불가&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;업데이트를 거치며 아무쪼록 좋은 방향으로 개선이 되었으면 하는 바램입니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 19 Jan 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/service/operation/teams/2024/01/19/9_%EC%82%AC%EC%9A%A9%EC%9E%90%EB%A5%BC-%EC%9C%84%ED%95%9C-Classic-Teams%EC%99%80-New-Teams.html</link>
+        <guid isPermaLink="true">http://localhost:4000/service/operation/teams/2024/01/19/9_%EC%82%AC%EC%9A%A9%EC%9E%90%EB%A5%BC-%EC%9C%84%ED%95%9C-Classic-Teams%EC%99%80-New-Teams.html</guid>
+        
+        
+        <category>Service</category>
+        
+        <category>Operation</category>
+        
+        <category>Teams</category>
+        
+      </item>
+    
+      <item>
+        <title>[Teams] 팀즈 오류 발생 시 해결방안</title>
+        <description>&lt;p&gt;&lt;img src=&quot;/assets/images/8/2.PNG&quot; title=&quot;Teams 오류화면&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Teams의 경우, 사용해보신 분들은 아시겠지만 자잘한 오류가 많이 발생하는 편입니다.&lt;/p&gt;
+
+&lt;p&gt;로그인할 때 오류가 발생하는 경우도 있고,&lt;br /&gt;
+채널에서 탭을 클릭했을 시 접근이 불가능하기도 합니다.&lt;br /&gt;
+미팅 시 화면공유된 화면이 나오지 않는 경우도 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이런 간헐적인 오류들에 대한 간단한 해결 방안을 소개해드리도록 하겠습니다.&lt;/p&gt;
+
+&lt;p&gt;Windows에서 발생하는 Teams 오류에 대한 해결 방안은 다음과 같습니다.&lt;br /&gt;
+단, Teams 버전에 따라 조치 방안이 상이합니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;desktop-app&quot;&gt;Desktop App&lt;/h2&gt;
+
+&lt;h3 id=&quot;classic-teams&quot;&gt;Classic Teams&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Teams 데스크톱 앱을 로그아웃 및 종료 합니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;파일 탐색기(윈도우키+R)에서, “%AppData%\Microsoft” 경로에 접근한 뒤 “Teams” 폴더를 삭제합니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;파일 탐색기에서, “%LocalAppData%\Microsoft” 경로에 접근한 뒤, “Teams” 폴더를 삭제합니다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/8/3.gif&quot; title=&quot;자격증명 관리자&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;제어판의 자격 증명 관리자에서 Windows 자격 증명 탭의 일반 자격 증명을 모두 제거합니다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/8/4.gif&quot; title=&quot;학교 또는 회사 액세스&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Windows 설정 - 계정 - 학교 또는 회사 액세스에 연결된 모든 계정을 연결 끊기 처리합니다(학교 또는 회사 계정의 경우).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;PC를 재부팅 합니다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;*필요한 경우, 최신 버전의 &lt;a href=&quot;https://teams.microsoft.com/download&quot;&gt;Teams&lt;/a&gt;를 다운로드 받아서 설치합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;new-teams&quot;&gt;New Teams&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Teams 데스크톱 앱을 로그아웃 및 종료 합니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Teams 데스크톱 앱을 재실행한 후, 동일 증상이 발생하는지 확인합니다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;증상이 발생하는 경우, 파일 탐색기(윈도우키+R)에서 “%AppData%\Packages\MSTeams_8wekyb3d8bbwe” 경로에 접근한 뒤 모든 파일을 삭제합니다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;web&quot;&gt;Web&lt;/h2&gt;
+
+&lt;p&gt;브라우저 캐시/쿠키를 제거합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://support.microsoft.com/ko-kr/microsoft-edge/microsoft-edge%EC%97%90%EC%84%9C-%EC%BF%A0%ED%82%A4-%EC%82%AD%EC%A0%9C-63947406-40ac-c3b8-57b9-2a946a29ae09&quot;&gt;Edge&lt;/a&gt; 브라우저&lt;br /&gt;
+&lt;a href=&quot;https://support.google.com/accounts/answer/32050?hl=ko&amp;amp;co=GENIE.Platform%3DDesktop&quot;&gt;Chrome&lt;/a&gt; 브라우저&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 18 Jan 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/service/teams/2024/01/18/8_Teams-%EC%98%A4%EB%A5%98-%EB%B0%9C%EC%83%9D.html</link>
+        <guid isPermaLink="true">http://localhost:4000/service/teams/2024/01/18/8_Teams-%EC%98%A4%EB%A5%98-%EB%B0%9C%EC%83%9D.html</guid>
+        
+        
+        <category>Service</category>
+        
+        <category>Teams</category>
+        
+      </item>
+    
+      <item>
+        <title>[Admin] Microsoft 365 운영 관련 사이트</title>
+        <description>&lt;p&gt;Microsoft 365 운영자들은 신경써야 할 요소가 많습니다.&lt;/p&gt;
+
+&lt;p&gt;각 서비스의 기능 및 동작에 대한 공부가 필요하며,&lt;br /&gt;
+장애 상황이 발생하는 경우 서비스 상태에 대한 모니터링이 필요합니다.&lt;/p&gt;
+
+&lt;p&gt;그 외에도, Microsoft 365 서비스는 지속적으로 기능/보안 업데이트를 제공하고 있으며&lt;br /&gt;
+비구독형 제품인 Office 시리즈(Office 2019, Office 2016 등)는 주기적으로 새로운 제품 군을 릴리즈 하고 있지요.&lt;br /&gt;
+작년 11월에는 Copilot과 같이, AI를 접목한 서비스가 출시되기도 했습니다.&lt;br /&gt;
+즉, 기술적인 부분 외적으로 여러가지 정보와 인사이트를 얻을 곳이 필요합니다.&lt;/p&gt;
+
+&lt;p&gt;본 포스팅에서는, 운영자 분들께 M365 운영에 도움이 될 만한 사이트들에 대해 소개해보고자 합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;기능-로드맵&quot;&gt;기능 로드맵&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.microsoft.com/en-ww/microsoft-365/roadmap?filters=&quot;&gt;Microsoft 365 roadmap&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;신규 서비스 릴리즈, 기능 개선, 오류 수정 등&lt;br /&gt;
+Microsoft 365 서비스들에 대한 로드맵 및 출시 일정에 대해 공식적으로 제공해주는 사이트 입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;교육&quot;&gt;교육&lt;/h3&gt;
+
+&lt;p&gt;교육 사이트
+&lt;a href=&quot;https://ignite.microsoft.com/en-US/home&quot;&gt;Microsoft Ignite&lt;/a&gt;
+블로그&lt;/p&gt;
+
+&lt;h3 id=&quot;보안&quot;&gt;보안&lt;/h3&gt;
+
+</description>
+        <pubDate>Wed, 17 Jan 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/operation/guide/2024/01/17/7_Microsoft-365-%EC%9A%B4%EC%98%81-%EA%B4%80%EB%A0%A8-%EC%82%AC%EC%9D%B4%ED%8A%B8.html</link>
+        <guid isPermaLink="true">http://localhost:4000/operation/guide/2024/01/17/7_Microsoft-365-%EC%9A%B4%EC%98%81-%EA%B4%80%EB%A0%A8-%EC%82%AC%EC%9D%B4%ED%8A%B8.html</guid>
+        
+        
+        <category>Operation</category>
+        
+        <category>Guide</category>
         
       </item>
     

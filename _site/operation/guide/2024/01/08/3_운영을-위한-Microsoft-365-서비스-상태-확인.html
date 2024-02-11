@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>[Admin] Microsoft 365 서비스 상태 확인 | MicroBlog</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[Admin] Microsoft 365 서비스 상태 확인 | MicroBlog</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="[Admin] Microsoft 365 서비스 상태 확인" />
+<meta name="author" content="sion" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="3" />
+<meta property="og:description" content="3" />
+<link rel="canonical" href="http://localhost:4000/operation/guide/2024/01/08/3_%EC%9A%B4%EC%98%81%EC%9D%84-%EC%9C%84%ED%95%9C-Microsoft-365-%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%83%81%ED%83%9C-%ED%99%95%EC%9D%B8.html" />
+<meta property="og:url" content="http://localhost:4000/operation/guide/2024/01/08/3_%EC%9A%B4%EC%98%81%EC%9D%84-%EC%9C%84%ED%95%9C-Microsoft-365-%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%83%81%ED%83%9C-%ED%99%95%EC%9D%B8.html" />
+<meta property="og:site_name" content="MicroBlog" />
+<meta property="og:image" content="http://localhost:4000/assets/images/thumbnail/admin.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-01-08T00:00:00+09:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/assets/images/thumbnail/admin.png" />
+<meta property="twitter:title" content="[Admin] Microsoft 365 서비스 상태 확인" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"sion"},"dateModified":"2024-01-08T00:00:00+09:00","datePublished":"2024-01-08T00:00:00+09:00","description":"3","headline":"[Admin] Microsoft 365 서비스 상태 확인","image":"http://localhost:4000/assets/images/thumbnail/admin.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/operation/guide/2024/01/08/3_%EC%9A%B4%EC%98%81%EC%9D%84-%EC%9C%84%ED%95%9C-Microsoft-365-%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%83%81%ED%83%9C-%ED%99%95%EC%9D%B8.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"sion"},"url":"http://localhost:4000/operation/guide/2024/01/08/3_%EC%9A%B4%EC%98%81%EC%9D%84-%EC%9C%84%ED%95%9C-Microsoft-365-%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%83%81%ED%83%9C-%ED%99%95%EC%9D%B8.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="MicroBlog">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+                </li>
+
+                <!--
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li>
+                -->
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and Enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">MicroBlog</h1>
+    <p class="lead">
+        Microsoft 365 운영/가이드
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=[Admin] Microsoft 365 서비스 상태 확인&url=http://localhost:4000/operation/guide/2024/01/08/3_%EC%9A%B4%EC%98%81%EC%9D%84-%EC%9C%84%ED%95%9C-Microsoft-365-%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%83%81%ED%83%9C-%ED%99%95%EC%9D%B8.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/operation/guide/2024/01/08/3_%EC%9A%B4%EC%98%81%EC%9D%84-%EC%9C%84%ED%95%9C-Microsoft-365-%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%83%81%ED%83%9C-%ED%99%95%EC%9D%B8.html" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/operation/guide/2024/01/08/3_%EC%9A%B4%EC%98%81%EC%9D%84-%EC%9C%84%ED%95%9C-Microsoft-365-%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%83%81%ED%83%9C-%ED%99%95%EC%9D%B8.html" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="/assets/images/avatar_sion.png" alt="Sion">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href="">Sion</a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description">M365 운영 업무를 담당하고 있습니다. 배우고 경험한 것들을 조금씩 기록해나갑니다.</span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">[Admin] Microsoft 365 서비스 상태 확인</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="/assets/images/thumbnail/admin.png" alt="[Admin] Microsoft 365 서비스 상태 확인">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                <!-- End Toc -->
+                <h3 id="개요">개요</h3>
+
+<p>조직에서 테넌트를 구성해서 Microsoft 365를 운영하는 경우,<br />
+서비스는 사용자와 지속적으로 통신을 진행하면서 기능을 제공하고<br />
+사용자 데이터 또한 Microsoft의 데이터 센터에 저장되어 인터넷 통신을 통해 데이터를 가져오게 됩니다.</p>
+
+<p>Microsoft 365 서비스는 SaaS 솔루션이기 때문에,<br />
+비교적 합리적인 비용으로 여러가지 서비스를 구독형으로 손쉽게 이용할 수 있는 반면<br />
+MS가 운영하는 서비스 상태에 의존적이기 때문에 장애 상황(Incident)이 발생하는 경우도 있습니다.</p>
+
+<p>본 포스팅에서는 서비스 상태를 점검하는 방법에 대해 소개해보도록 하겠습니다.</p>
+
+<h3 id="서비스-상태-관리자">서비스 상태 (관리자)</h3>
+
+<p>먼저, Microsoft 365 관리 센터(admin.microsoft.com)에 접속합니다.</p>
+
+<p><img src="/assets/images/3/1.PNG" title="서비스 상태 확인" /></p>
+
+<p>[상태] &gt; [서비스 상태] 를 클릭합니다.</p>
+
+<p><img src="/assets/images/3/2.PNG" title="서비스 상태 확인" /></p>
+
+<p>[개요] &gt; “Microsoft이 (가) 작업 중인 활성 문제” 에서는 현재 문제가 있는 서비스 상황을 확인 및 모니터링 할 수 있습니다.</p>
+<ul>
+  <li>권고: 영향도가 낮은 기능 결함</li>
+  <li>인시던트: 영향도가 큰 장애 상황</li>
+</ul>
+
+<p><img src="/assets/images/3/3.PNG" title="서비스 상태 확인" /></p>
+
+<p>[사용자 지정] &gt; [전자 메일로 보내기] 를 통해, 원하는 서비스에 대한 인시던트 메일을 받을 수도 있습니다.</p>
+
+<p><img src="/assets/images/3/4.PNG" title="서비스 상태 확인" /></p>
+
+<p>[문제 기록] 에서는 과거에 발생했던 인시던트들에 대해 확인이 가능합니다.</p>
+
+<h3 id="서비스-상태-사용자">서비스 상태 (사용자)</h3>
+
+<p>사용자 또한 서비스 상태를 확인할 수 있는 방법이 있습니다.</p>
+
+<p>Microsoft는 아래 트위터 계정을 통해, 실시간으로 인시던트에 대한 내용을 제공합니다.<br />
+<a href="https://twitter.com/MSFT365Status">Microsoft 365 Status, @MSFT365Status</a></p>
+
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2024-01-08">08 Jan 2024</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Guide">Guide</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Operation">Operation</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="//operation/guide/2024/01/03/2_%EC%9A%B4%EC%98%81%EC%9D%84-%EC%9C%84%ED%95%9C-Powershell-%EC%86%8C%EA%B0%9C.html"> &laquo; [Admin] 운영을 위한 Powershell 소개</a>
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="//operation/etc/2024/01/12/4_Fiddler-%EC%82%AC%EC%9A%A9%EB%B2%95.html">[etc] Fiddler 사용법 &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'demowebsite'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Category</h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Operation">Operation (12)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Guide">Guide (4)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#etc">etc (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Service">Service (8)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Teams">Teams (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Office">Office (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Outlook">Outlook (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Windows">Windows (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2024 MicroBlog 
+            </div>
+            <!--
+            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+            -->
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//demowebsite.disqus.com/count.js"></script>
+
+
+</body>
+</html>
