@@ -80,4 +80,3 @@ New-MoveRequest 명령어를 통해 온보딩을 진행합니다.
 
 ~~*관리센터 UI는 언제든지 예고 없이 바뀔 수 있습니다... 방법은 동일하니 똑같이 진행해주시면 됩니다 😐~~
 
-[사서함 이관을 진행하는 방법]: ("https://learn.microsoft.com/en-us/exchange/hybrid-deployment/move-mailboxes")
