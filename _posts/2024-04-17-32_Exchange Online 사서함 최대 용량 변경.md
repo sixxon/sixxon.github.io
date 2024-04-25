@@ -2,7 +2,7 @@
 layout: post
 title: "[Outlook] Exchange Online 사서함 최대 용량 변경"
 author: sion
-categories: [ Operation, Outlook ]
+categories: [ Administration, Outlook ]
 description: "32"
 image: assets/images/thumbnail/outlook.png
 ---

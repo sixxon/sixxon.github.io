@@ -2,7 +2,7 @@
 layout: post
 title: "[Admin] 운영을 위한 Powershell 소개"
 author: sion
-categories: [ Operation, Guide ]
+categories: [ Administration, Guide ]
 description: "2"
 image: assets/images/thumbnail/admin.png
 ---

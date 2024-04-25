@@ -2,7 +2,7 @@
 layout: post
 title: "[etc] Process Monitor 사용법"
 author: sion
-categories: [ Operation, etc ]
+categories: [ Administration, etc ]
 description: "6"
 image: assets/images/thumbnail/etc.png
 ---

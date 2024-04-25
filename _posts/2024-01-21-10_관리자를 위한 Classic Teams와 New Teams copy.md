@@ -2,7 +2,7 @@
 layout: post
 title: "[Teams] 관리자를 위한 Classic Teams와 New Teams"
 author: sion
-categories: [ Service, Operation, Teams ]
+categories: [ Operation, Teams ]
 description: "10"
 image: assets/images/thumbnail/teams.png
 ---

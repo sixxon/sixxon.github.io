@@ -2,7 +2,7 @@
 layout: post
 title: "[Outlook] Powershell을 통한 Exchange 사서함 이관 방법 (온보딩/오프보딩)"
 author: sion
-categories: [ Operation, Outlook ]
+categories: [ Administration, Outlook ]
 description: "17"
 image: assets/images/17/0.png
 hidden: true
