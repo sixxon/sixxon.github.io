@@ -29,3 +29,7 @@ Set-Mailbox -Identity "사용자UPN" -DeliverToMailboxAndForward $true -Forwardi
 상기 명령어를 통해 [메일 포워딩 구성][2]이 가능합니다.  
 ForwardingSMTPAddress 옵션에 인자로 포워딩할 메일 주소를 넣어주면 됩니다.  
 
+
+
+[1]: https://sixxon.github.io/operation/outlook/2024/04/22/34_Outlook-%EA%B7%9C%EC%B9%99-%EC%84%A4%EC%A0%95.html
+[2]: https://learn.microsoft.com/ko-kr/exchange/recipients/user-mailboxes/email-forwarding?view=exchserver-2019
