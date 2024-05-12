@@ -76,7 +76,7 @@
                 
                 <li class="nav-item">
                 
-                <a class="nav-link" href="/index.html">Blog</a>
+                <a class="nav-link" href="/index.html">Home</a>
                 </li>
 
                 <li class="nav-item">
@@ -101,12 +101,12 @@
                 </li>
                 -->
 
-                <script src="/assets/js/lunr.js"></script>
+                <script src="/assets/js/lunr.js" charset="utf-8"></script>
 
 
 <style>
-    .lunrsearchresult .title {color: #d9230f;}
-    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult .title {color: #000000;}
+    .lunrsearchresult .url {display: none; color: silver;}
     .lunrsearchresult a {display: block; color: #777;}
     .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
     .lunrsearchresult a:hover .title {text-decoration: underline;}
@@ -121,7 +121,7 @@
     <ul></ul>
 </div>
 
-<script src="/assets/js/lunrsearchengine.js"></script>
+<script src="/assets/js/lunrsearchengine.js" charset="utf-8"></script>
 
             </ul>
 
@@ -157,7 +157,8 @@
 
         <!-- Post Share -->
         <div class="col-md-2 pl-0">
-            <div class="share sticky-top sticky-top-offset">
+            <!--
+<div class="share sticky-top sticky-top-offset">
     <p>
         Share
     </p>
@@ -191,13 +192,13 @@
     </ul>
     
 </div>
-
+-->
         </div>
 
         <!-- Post -->
         
 
-        <div class="col-md-9 flex-first flex-md-unordered">
+        <div class="col-md-10 flex-first flex-md-unordered">
             <div class="mainheading">
 
                 <!-- Author Box -->
@@ -209,8 +210,10 @@
                         
                     </div>
                     <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
-                        <a target="_blank" class="link-dark" href="https://www.wowthemes.net">Sal</a><a target="_blank" href="https://twitter.com/wowthemesnet" class="btn follow">Follow</a>
-                        <span class="author-description">Author of Mediumish, a Bootstrap Medium styled template available for WordPress, HTML, Ghost and Jekyll. You are currently previewing Jekyll template demo.</span>
+                        <a target="_blank" class="link-dark">Sal</a>
+                        <div>
+                            <span class="author-description">Author of Mediumish, a Bootstrap Medium styled template available for WordPress, HTML, Ghost and Jekyll. You are currently previewing Jekyll template demo.</span>
+                        </div>
                     </div>
                 </div>
                 
@@ -285,10 +288,10 @@
             <!-- Prev/Next -->
             <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
             
-            <a class="prev d-block col-md-6" href="//2018/06/12/education.html"> &laquo; Education must also train one for quick, resolute and effective thinking.</a>
+            <a class="prev d-block col-md-6" href="https://sixxon.github.io/2018/06/12/education.html"> &laquo; Education must also train one for quick, resolute and effective thinking.</a>
             
             
-            <a class="next d-block col-md-6 text-lg-right" href="//2018/06/12/powerful-things-markdown-editor-copy.html">Powerful things you can do with the Markdown editor &raquo; </a>
+            <a class="next d-block col-md-6 text-lg-right" href="https://sixxon.github.io/2018/06/12/powerful-things-markdown-editor-copy.html">Powerful things you can do with the Markdown editor &raquo; </a>
             
             <div class="clearfix"></div>
             </div>
@@ -308,10 +311,11 @@
     <div class="container">
         <div id="comments" class="row justify-content-center mb-5">
             <div class="col-md-8">
-                <section class="disqus">
+                <!--
+    <section class="disqus">
     <div id="disqus_thread"></div>
     <script type="text/javascript">
-        var disqus_shortname = 'demowebsite'; 
+        var disqus_shortname = '{"comments"=>true, "shortname"=>"sixxon-github-io"}'; 
         var disqus_developer = 0;
         (function() {
             var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -322,7 +326,27 @@
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </section>
+-->
 
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://sixxon-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
             </div>
         </div>
     </div>
@@ -353,19 +377,19 @@ https://search.google.com/structured-data/testing-tool/u/0/
             
             
                 
-                    <a class="mt-1 mb-1" href="/categories#Operation">Operation (12)</a>
+                    <a class="mt-1 mb-1" href="/categories#Administration">Administration (26)</a>
                 
                     <a class="mt-1 mb-1" href="/categories#Guide">Guide (4)</a>
                 
                     <a class="mt-1 mb-1" href="/categories#etc">etc (3)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Service">Service (8)</a>
+                    <a class="mt-1 mb-1" href="/categories#Operation">Operation (16)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Teams">Teams (3)</a>
+                    <a class="mt-1 mb-1" href="/categories#Teams">Teams (4)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Office">Office (3)</a>
+                    <a class="mt-1 mb-1" href="/categories#Office">Office (5)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Outlook">Outlook (3)</a>
+                    <a class="mt-1 mb-1" href="/categories#Outlook">Outlook (24)</a>
                 
                     <a class="mt-1 mb-1" href="/categories#Windows">Windows (1)</a>
                 
@@ -410,7 +434,7 @@ https://search.google.com/structured-data/testing-tool/u/0/
 <script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
 
 
-<script id="dsq-count-scr" src="//demowebsite.disqus.com/count.js"></script>
+<script id="dsq-count-scr" src="//{"comments"=>true, "shortname"=>"sixxon-github-io"}.disqus.com/count.js"></script>
 
 
 </body>
