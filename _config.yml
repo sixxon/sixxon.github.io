@@ -1,7 +1,7 @@
 # Site
-name: "MicroBlog"
-title: "MicroBlog"
-description: "Microsoft 365 운영/가이드"
+name: "Allways365"
+title: "Allways365"
+description: "Microsoft 365 운영 블로그"
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/logo.png'
 baseurl: 
