@@ -1,13 +1,175 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>MicroBlog</title>
-    <description>Microsoft 365 운영/가이드</description>
+    <title>Allways365</title>
+    <description>Microsoft 365 운영 블로그</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 12 May 2024 16:51:46 +0900</pubDate>
-    <lastBuildDate>Sun, 12 May 2024 16:51:46 +0900</lastBuildDate>
+    <pubDate>Sun, 16 Jun 2024 10:59:00 +0900</pubDate>
+    <lastBuildDate>Sun, 16 Jun 2024 10:59:00 +0900</lastBuildDate>
     <generator>Jekyll v4.3.3</generator>
+    
+      <item>
+        <title>[OneDrive] OneDrive 소유자 권한 설정</title>
+        <description>&lt;p&gt;OneDrive 관련해서 종종 받게되는 문의로는, 특정 사용자의 OneDrive 사이트에 대한 소유자 권한과 관련된 부분일 것 같습니다.&lt;br /&gt;
+(특정 사용자의 OneDrive 사이트에 대한 소유권 권한을 받을 수 있는 방법, 자신의 OneDrive 사이트에 접속되지 않는 증상 등)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/42/2.PNG&quot; title=&quot;OneDrive 사이트 접속 불가&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;본 포스팅에서는, OneDrive 소유자 권한을 설정하는 방법에 대해 소개해보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;onedrive-소유자-권한-변경&quot;&gt;OneDrive 소유자 권한 변경&lt;/h3&gt;
+
+&lt;p&gt;OneDrive 사이트 사용자, 혹은 관리자 계정으로만 해당 작업이 가능합니다.&lt;br /&gt;
+진행하는 작업은 동일하므로, 관리자 권한을 기준으로 설명하도록 하겠습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/42/3.PNG&quot; title=&quot;OneDrive 소유자 추가1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Microsoft 365 관리 센터] &amp;gt; [사용자] &amp;gt; [활성 사용자] 에서 사용자를 검색 후, OneDrive 탭을 클릭합니다.&lt;br /&gt;
+[파일 액세스 권한 가져오기] 에서 “파일 링크 만들기” 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/42/4.PNG&quot; title=&quot;OneDrive 소유자 추가2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 사진과 같이, 만들어진 링크를 클릭하여 바로 접속합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/42/5.PNG&quot; title=&quot;OneDrive 소유자 추가3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“김하나” 사용자의 OneDrive 사이트에 들어오게 되었습니다.&lt;br /&gt;
+오른쪽 상단의 설정(톱니바퀴 버튼)을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/42/6.PNG&quot; title=&quot;OneDrive 소유자 추가4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“OneDrive 설정” 을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/42/7.PNG&quot; title=&quot;OneDrive 소유자 추가5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[기타 설정] &amp;gt; “사이트 모음 관리자” 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/42/8.PNG&quot; title=&quot;OneDrive 소유자 추가6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[사이트 모음 관리자] 에 있는 사용자 목록은 현재 해당 OneDrive 사이트에 접속할 수 있는 권한을 가진 사용자를 의미합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/42/9.PNG&quot; title=&quot;OneDrive 소유자 추가7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;해당 OneDrive 사이트에 접근하고자 하는 사용자를 추가 후, 저장해줍니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;자신의-onedrive-사이트에-접속-불가&quot;&gt;자신의 OneDrive 사이트에 접속 불가&lt;/h3&gt;
+
+&lt;p&gt;간혹가다, 포스팅 맨 위의 사진과 같이 자신의 OneDrive 사이트에 접속이 불가한 경우가 있습니다.&lt;br /&gt;
+[사이트 모음 관리자] 를 확인해보니, 퇴직자 계정이랑 꼬인건지 사용자가 잘못 등록되어 있어 권한을 변경해줘도, 다시 이전의 퇴직자 계정으로 돌아가게 됩니다.&lt;/p&gt;
+
+&lt;p&gt;이 경우에는 다음 &lt;a href=&quot;https://learn.microsoft.com/en-us/sharepoint/troubleshoot/sharing-and-permissions/fix-site-user-id-mismatch&quot;&gt;링크&lt;/a&gt; 를 참고하여 조치가 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;링크 내 게시물에서, “Run Tests: Site User ID Mismatch” 를 클릭해주세요.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/42/10.PNG&quot; title=&quot;OneDrive 사이트 사용자 ID 매칭&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;사진과 같이 고객 지원 문의 화면이 뜨면서, 사이트를 진단할 수 있게끔 입력받는 폼이 등장합니다.&lt;br /&gt;
+정보를 입력한 후 “테스트 실행” 을 클릭함으로써 조치가 가능합니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 13 Jun 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/onedrive/2024/06/13/42_OneDrive-%EC%86%8C%EC%9C%A0%EC%9E%90-%EA%B6%8C%ED%95%9C-%EC%84%A4%EC%A0%95.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/onedrive/2024/06/13/42_OneDrive-%EC%86%8C%EC%9C%A0%EC%9E%90-%EA%B6%8C%ED%95%9C-%EC%84%A4%EC%A0%95.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>OneDrive</category>
+        
+      </item>
+    
+      <item>
+        <title>[OneDrive] OneDrive 용량 변경</title>
+        <description>&lt;p&gt;사용하는 라이선스의 종류에 따라 상이하나, M365 사용자가 사용할 수 있는 OneDrive 용량의 최대치는 정해져있습니다.&lt;br /&gt;
+비싼 돈을 주고 구매한 라이선스인 만큼 사용할 수 있는 모든 서비스를 활용하는 것이 좋으나, 보안으로 인해 일부 서비스에 제한적인 사용을 요청주시는 경우도 있습니다.&lt;/p&gt;
+
+&lt;p&gt;본 포스팅에서는 사용자의 OneDrive 용량을 변경하는 방법에 대해 소개해보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;onedrive-용량-변경&quot;&gt;OneDrive 용량 변경&lt;/h3&gt;
+
+&lt;p&gt;OneDrive 용량을 변경하기 전, 사전에 몇 가지 확인이 필요한 내용이 있습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;onedrive-url&quot;&gt;OneDrive URL&lt;/h4&gt;
+
+&lt;p&gt;Microsoft 365 제품군의 소개를 보면, 다른 서비스인 것처럼 구분되어 표시되어 있습니다만 사실 OneDrive는 Sharepoint 내에 속해있는 서비스입니다.&lt;br /&gt;
+이는 SharePoint와 OneDrive URL을 보면 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;각 서비스의 URL은 다음과 같은 형식을 지니고 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Sharepoint 주소: https://테넌트도메인명.sharepoint.com/sites/그룹아이디&lt;/li&gt;
+  &lt;li&gt;OneDrive 주소: https://테넌트도메인명-my.sharepoint.com/personal/사용자UPN&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;사용자의 OneDrive 주소의 경우, &lt;strong&gt;단순하게&lt;/strong&gt; URL 뒤에 사용자의 UserPrincipalName 을 붙이면 된다고 생각할 수 있습니다.&lt;br /&gt;
+하지만 실제로 사용자의 OneDrive 주소를 확인해보면 그렇지 않으며, 끝에 1 2 와 같이 구분을 위한 숫자가 붙는 것을 확인할 수 있습니다.&lt;br /&gt;
+또한, 메일주소 내 @와 . 같은 특수문자는 _로 치환됩니다.&lt;/p&gt;
+
+&lt;p&gt;기본적으로 테넌트에는 OneDrive 보존정책이 적용되어 있습니다.&lt;br /&gt;
+그 말은 즉슨, 특정 사용자 계정이 퇴직처리되어 테넌트에서 영구삭제 된다고 해도, OneDrive 보존정책이 남아있는 기간 내에 동일 메일주소로 생성되는 계정이 있는 경우 OneDrive 주소가 중복되어 버린다는 의미입니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;onedrive-사전-프로비전&quot;&gt;OneDrive 사전 프로비전&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/41/1.PNG&quot; title=&quot;OneDrive 프로비전&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;특정 사용자 계정에 라이선스를 할당했다고 해서, 해당 사용자의 OneDrive 주소가 활성화되는 것은 아닙니다.&lt;br /&gt;
+즉 프로비전 작업이 필요하며, 이는 사용자가 OneDrive 서비스에 최초 1회 접근함으로써 활성화가 진행됩니다.&lt;br /&gt;
+프로비전 작업이 되지 않은 사용자의 경우, M365 관리센터에서 위와 같이 표시되고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;하지만, 관리자가 일괄적으로 &lt;a href=&quot;https://learn.microsoft.com/en-us/sharepoint/pre-provision-accounts&quot;&gt;OneDrive 사전 프로비전&lt;/a&gt;을 진행해주는 방법도 있습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-SPOService -Url https://테넌트도메인명-admin.sharepoint.com
+Request-SPOPersonalSite -UserEmails &quot;사용자UPN&quot;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Request-SPOPersonalSite 명령어를 통해, 일괄적으로 프로비저닝이 가능합니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;용량-변경&quot;&gt;용량 변경&lt;/h4&gt;
+
+&lt;p&gt;Powershell 을 이용해, 사용자의 OneDrive 용량 변경이 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;SharePoint Online(SPOService) 모듈 뿐만 아니라, PnP Powershell(PnPOnline) 모듈 설치가 필요합니다.&lt;br /&gt;
+PnP Powershell은 MS에서 공식적으로 제공하는 모듈이 아닌, 오픈소스로 제공되고 있는 모듈입니다.&lt;br /&gt;
+설치 방법은 다음 &lt;a href=&quot;https://pnp.github.io/powershell/articles/installation.html&quot;&gt;링크&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;$cred = Get-Credential
+Connect-PnPOnline -Url &quot;https://테넌트도메인명-admin.sharepoint.com/&quot; -Credentials $cred
+Connect-SPOService -Url &quot;https://테넌트도메인명-admin.sharepoint.com&quot;
+
+$OneDriveUrl = Get-PnPUserProfileProperty -Account &quot;사용자UPN&quot;
+Set-SPOSite -Identity $OneDriveUrl.PersonalUrl.TrimEnd(&apos;/&apos;) -StorageQuota 100000 -StorageQuotaWarningLevel 95000
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;위와 같은 짤막한 스크립트를 통해, 사용자 OneDrive 용량 변경이 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;간단하게 설명을 하자면 다음과 같습니다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;모듈 연결&lt;/li&gt;
+  &lt;li&gt;Get-PnPUserProfileProperty 명령어를 통해, 특정 사용자의 OneDrive 주소를 가져옴&lt;/li&gt;
+  &lt;li&gt;2번에서 반환된 OneDrive URL을 이용해, Set-SPOSite 명령어로 용량을 변경함&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;*PnPOnline의 경우, 인증에 필요한 관리자 계정이 MFA 요구되면 연결 불가&lt;br /&gt;
+*StorageQuota / StorageQuotaWarningLevel 옵션의 매개변수의 단위는 MB&lt;br /&gt;
+*Set-SPOSite는 URL 끝에 ‘/’이 붙어있으면 오류를 반환하므로, TrimEnd 명령어를 통해 해당 문자를 잘라냄&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 24 May 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/onedrive/2024/05/24/41_OneDrive-%EC%9A%A9%EB%9F%89-%EB%B3%80%EA%B2%BD.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/onedrive/2024/05/24/41_OneDrive-%EC%9A%A9%EB%9F%89-%EB%B3%80%EA%B2%BD.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>OneDrive</category>
+        
+      </item>
     
       <item>
         <title>[Outlook] 외부 사용자에게 발송한 메일의 Display Name 변경</title>
@@ -554,152 +716,6 @@ Portable 하므로, 별도로 설치할 필요는 없습니다.&lt;/p&gt;
         <category>Operation</category>
         
         <category>Outlook</category>
-        
-      </item>
-    
-      <item>
-        <title>[Outlook] Exchange Online 사서함 최대 용량 변경</title>
-        <description>&lt;p&gt;사용자에게 할당된 라이선스 종류에 따라, Exchange Online 사서함의 용량은 상이합니다.&lt;br /&gt;
-보통 사용 가능한 최대 용량을 사용하고자 하시지만, 경우에 따라 사서함 용량 변경을 요청주시는 경우도 있습니다.&lt;/p&gt;
-
-&lt;p&gt;본 포스팅에서는 Exchange Online 사서함의 용량을 조절하는 방법에 대해 설명하도록 하겠습니다.&lt;br /&gt;
-관련 공식 문서는 다음 &lt;a href=&quot;https://learn.microsoft.com/en-us/exchange/troubleshoot/user-and-shared-mailboxes/increase-or-customize-mailbox-size&quot;&gt;링크&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
-
-&lt;h3 id=&quot;용량-변경&quot;&gt;용량 변경&lt;/h3&gt;
-
-&lt;h4 id=&quot;powershell&quot;&gt;Powershell&lt;/h4&gt;
-&lt;p&gt;사서함 용량 변경은 Powershell을 통해 가능합니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-ExchangeOnline
-
-Set-Mailbox &quot;사용자 UPN&quot; -ProhibitSendQuota 1GB -ProhibitSendReceiveQuota 1GB -IssueWarningQuota 700MB
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/exchange/set-mailbox?view=exchange-ps&quot;&gt;Set-Mailbox&lt;/a&gt; 명령어를 통해 사서함 용량 조절이 가능하며,&lt;br /&gt;
-ProhibitSendQuota, ProhibitSendReceiveQuota 옵션으로 용량 크기 지정이 가능합니다.&lt;br /&gt;
-다만, 할당 가능한 용량의 최대치 이상으로 부여할 수는 없습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;ProhibitSendQuota: 사서함이 해당하는 용량에 도달하는 경우, 메일 발송 불가&lt;/li&gt;
-  &lt;li&gt;ProhibitSendReceiveQuota: 사서함이 해당하는 용량에 도달하는 경우, 메일 수신 불가&lt;/li&gt;
-  &lt;li&gt;IssueWarningQuota: 사서함이 해당하는 용량에 도달하는 경우, 오류 메시지 발생&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;적용&quot;&gt;적용&lt;/h4&gt;
-&lt;p&gt;약 10분 전후로 실 사용자에게 적용되며,&lt;br /&gt;
-만약 사용자의 사서함 크기가 용량을 초과했을 경우 다음과 같은 오류가 발생하게 됩니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/32/1.PNG&quot; title=&quot;Outlook 수발신 오류1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/32/2.PNG&quot; title=&quot;Outlook 수발신 오류2&quot; /&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Wed, 17 Apr 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/outlook/2024/04/17/32_Exchange-Online-%EC%82%AC%EC%84%9C%ED%95%A8-%EC%B5%9C%EB%8C%80-%EC%9A%A9%EB%9F%89-%EB%B3%80%EA%B2%BD.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/outlook/2024/04/17/32_Exchange-Online-%EC%82%AC%EC%84%9C%ED%95%A8-%EC%B5%9C%EB%8C%80-%EC%9A%A9%EB%9F%89-%EB%B3%80%EA%B2%BD.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Outlook</category>
-        
-      </item>
-    
-      <item>
-        <title>[Office] M365 라이선스 및 앱 일괄 할당/회수</title>
-        <description>&lt;p&gt;본 포스팅에서는, 여러 사용자의 M365 라이선스 및 앱을 일괄적으로 할당하거나 회수하는 방법에 대해 소개하도록 하겠습니다.&lt;br /&gt;
-상세 내용은 다음 &lt;a href=&quot;https://learn.microsoft.com/en-us/microsoft-365/enterprise/disable-access-to-services-with-microsoft-365-powershell?view=o365-worldwide&quot;&gt;MS 문서&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
-
-&lt;h3 id=&quot;관리센터&quot;&gt;관리센터&lt;/h3&gt;
-
-&lt;p&gt;“Microsoft 365 관리센터” 를 통해, 수기로 라이선스 및 앱의 할당/회수가 가능합니다.&lt;br /&gt;
-([사용자] &amp;gt; [활성 사용자] &amp;gt; 사용자 검색 &amp;gt; [라이선스 및 앱])&lt;/p&gt;
-
-&lt;p&gt;다만 일일히 사용자를 검색하고 바꿔주어야 하기 때문에, 꽤나 번거로운 작업이며 시간이 많이 소요됩니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;powershell&quot;&gt;Powershell&lt;/h3&gt;
-
-&lt;p&gt;Powershell 명령어를 통해 일괄적으로 작업이 가능합니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-Graph -Scopes User.ReadWrite.All, Organization.Read.All
-
-# 사용자 리스트(UPN)
-$user = @(
-)
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;MgGraph 모듈에 연결한 후, 사용자 리스트를 배열에 저장합니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;# 특정 사용자에게 할당된 라이선스 리스트 확인
-$lic = Get-MgUserLicenseDetail -UserId &quot;leesion@lotte.net&quot;
-
-# 특정 라이선스 안에 포함된 앱 리스트 확인
-$app = Get-MgSubscribedSku -All | Where SkuPartNumber -eq &apos;ENTERPRISEPACK&apos; | Select -ExpandProperty ServicePlans
-
-# 추가할 라이선스 리스트
-$addLicenses = @(
-    @{
-        #SkuID = $lic.SkuID
-        #DisabledPlans = $app.ServicePlanID
-        
-        SkuId = &quot;6fd2c87f-b296-42f0-b197-1e91e994b900&quot;
-        DisabledPlans = @(
-        &quot;a82fbf69-b4d7-49f4-83a6-915b2cf354f4&quot;,
-        &quot;b76fb638-6ba6-402a-b9f9-83d28acb3d86&quot;
-        )
-    }
-)
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;추가/삭제할 라이선스 및 앱 리스트 정보를 가져옵니다.&lt;br /&gt;
-본 가이드에서는, ENTERPRISEPACK(Office 365 E3)에서 일부 앱(Viva)을 제외한 나머지 앱을 할당하는 것을 예시로 작성하였습니다.&lt;/p&gt;
-
-&lt;p&gt;명령어를 통해 라이선스 및 앱 정보를 가져온 뒤,&lt;br /&gt;
-라이선스의 SkuID와 앱의 ServicePlanID 값을 가져와 $addLicenses 해시 테이블 리스트에 넣어주면 됩니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;foreach($u in $user) {
-    Set-MgUserLicense -UserId $u -AddLicenses $addLicenses -RemoveLicenses @()
-}
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Set-MgUserLicense 명령어로 라이선스를 일괄적으로 할당합니다.&lt;br /&gt;
-일괄적으로 회수하려면, RemoveLicenses 옵션에 인자를 주면 됩니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 16 Apr 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/office/2024/04/16/31_M365-%EB%9D%BC%EC%9D%B4%EC%84%A0%EC%8A%A4-%EB%B0%8F-%EC%95%B1-%EC%9D%BC%EA%B4%84-%ED%95%A0%EB%8B%B9,%ED%9A%8C%EC%88%98.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/office/2024/04/16/31_M365-%EB%9D%BC%EC%9D%B4%EC%84%A0%EC%8A%A4-%EB%B0%8F-%EC%95%B1-%EC%9D%BC%EA%B4%84-%ED%95%A0%EB%8B%B9,%ED%9A%8C%EC%88%98.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Office</category>
         
       </item>
     
