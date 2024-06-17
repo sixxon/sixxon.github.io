@@ -1,7 +1,7 @@
 # Site
 name: "Allways365"
 title: "Allways365"
-description: "Microsoft 365 운영 블로그"
+description: "모든 곳에서 365일 사용되는 Microsoft365 서비스의 기술 블로그📘"
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/logo.png'
 baseurl: 

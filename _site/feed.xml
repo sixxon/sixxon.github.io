@@ -2,12 +2,78 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Allways365</title>
-    <description>Microsoft 365 운영 블로그</description>
+    <description>모든 곳에서 365일 사용되는 Microsoft365 서비스의 기술 블로그📘</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 16 Jun 2024 11:41:59 +0900</pubDate>
-    <lastBuildDate>Sun, 16 Jun 2024 11:41:59 +0900</lastBuildDate>
+    <pubDate>Mon, 17 Jun 2024 22:25:43 +0900</pubDate>
+    <lastBuildDate>Mon, 17 Jun 2024 22:25:43 +0900</lastBuildDate>
     <generator>Jekyll v4.3.3</generator>
+    
+      <item>
+        <title>[OneDrive] Teams 채팅에서 공유한 OneDrive 파일 링크 접근이 불가한 경우</title>
+        <description>&lt;p&gt;특정 사용자와 Teams 채팅을 하는 도중, 파일 공유를 위해 OneDrive 내 파일 링크를 공유했으나&lt;br /&gt;
+권한을 부여하였음에도 불구하고 접근이 되지 않는 경우가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이 경우 조치 가능한 방법에 대해 포스팅해보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;액세스가-제한된-사용자-권한-잠금-모드&quot;&gt;액세스가 제한된 사용자 권한 잠금 모드&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/43/1.PNG&quot; title=&quot;OneDrive 기능 비활성화1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;해당 사용자 OneDrive 사이트에 접속한 후, [설정] &amp;gt; [OneDrive 설정]을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/43/2.PNG&quot; title=&quot;OneDrive 기능 비활성화2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[기타 설정] &amp;gt; [사이트 모음 기능] 을 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/43/3.PNG&quot; title=&quot;OneDrive 기능 비활성화3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“액세스가 제한된 사용자 권한 잠금 모드” 활성화 상태를 확인하고, 활성화 되어있을 경우 비활성화 합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;사이트-모음에서-사용자-삭제&quot;&gt;사이트 모음에서 사용자 삭제&lt;/h3&gt;
+
+&lt;p&gt;사용자의 OneDrive 사이트에 접속한 뒤, URL의 마지막에 아래 경로를 덧붙입니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;/_layouts/15/people.aspx?MembershipGroupId=0
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;예를 들어, admin@allways365.onmicrosoft.com 사용자의 경우, 아래 경로로 접속합니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;https://allways365-my.sharepoint.com/personal/admin_allways365_onmicrosoft_com/_layouts/15/people.aspx?MembershipGroupId=0&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/43/4.PNG&quot; title=&quot;OneDrive 사이트 모음 삭제1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;상기 사진과 같이, 모든 사용자 페이지 팝업이 뜨는 것을 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/43/5.PNG&quot; title=&quot;OneDrive 사이트 모음 삭제2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;해당 사용자 옆 체크박스를 선택한 후, 상단 “작업” 메뉴 클릭 &amp;gt; “사이트 모음에서 사용자 삭제”를 클릭합니다.&lt;br /&gt;
+이후, 파일을 재공유하여 정상 접근이 가능한지 확인합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;관리자-계정으로-사용자-onedrive-사이트-접근&quot;&gt;관리자 계정으로 사용자 OneDrive 사이트 접근&lt;/h3&gt;
+
+&lt;p&gt;상기 작업은 OneDrive 사이트 소유자 계정으로 가능하나, 관리자 계정을 통해서도 특정 사용자의 OneDrive에 접근이 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;[Microsoft 365 관리 센터] &amp;gt; [사용자] &amp;gt; [활성 사용자] 에서 사용자를 검색 후, OneDrive 탭을 클릭합니다.&lt;br /&gt;
+[파일 액세스 권한 가져오기] 에서 “파일 링크 만들기” 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;해당 링크를 통해 접속 시, 일시적으로 사용자의 OneDrive 사이트에 대한 소유자 권한을 부여받게 됩니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 17 Jun 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/teams/onedrive/2024/06/17/43_Teams-%EC%B1%84%ED%8C%85%EC%97%90%EC%84%9C-%EA%B3%B5%EC%9C%A0%ED%95%9C-OneDrive-%ED%8C%8C%EC%9D%BC-%EB%A7%81%ED%81%AC-%EC%A0%91%EA%B7%BC%EC%9D%B4-%EB%B6%88%EA%B0%80%ED%95%9C-%EA%B2%BD%EC%9A%B0.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/teams/onedrive/2024/06/17/43_Teams-%EC%B1%84%ED%8C%85%EC%97%90%EC%84%9C-%EA%B3%B5%EC%9C%A0%ED%95%9C-OneDrive-%ED%8C%8C%EC%9D%BC-%EB%A7%81%ED%81%AC-%EC%A0%91%EA%B7%BC%EC%9D%B4-%EB%B6%88%EA%B0%80%ED%95%9C-%EA%B2%BD%EC%9A%B0.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Teams</category>
+        
+        <category>OneDrive</category>
+        
+      </item>
     
       <item>
         <title>[OneDrive] OneDrive 소유자 권한 설정</title>
@@ -254,6 +320,15 @@ Set-Mailbox -Identity &quot;사용자UPN&quot; -DeliverToMailboxAndForward $true
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;상기 명령어를 통해 &lt;a href=&quot;https://learn.microsoft.com/ko-kr/exchange/recipients/user-mailboxes/email-forwarding?view=exchserver-2019&quot;&gt;메일 포워딩 구성&lt;/a&gt;이 가능합니다.&lt;br /&gt;
 ForwardingSMTPAddress 옵션에 인자로 포워딩할 메일 주소를 넣어주면 됩니다.&lt;/p&gt;
+
+&lt;p&gt;만약 DeliverToMailboxAndForward 값이 “true”인 경우, 사용자의 M365 사서함과 포워딩하고자 하는 계정 모두에 메일이 전달됩니다.&lt;br /&gt;
+그러나 “false”의 경우, 포워딩하고자 하는 계정에만 메일이 전달되며 사용자의 M365 사서함에는 메일이 전달되지 않습니다.&lt;/p&gt;
+
+&lt;p&gt;해당 설정은 사용자가 직접 설정하는 것도 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/39/1.PNG&quot; title=&quot;Outlook 전달 설정&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Outlook 웹 기준으로, [설정] &amp;gt; [메일] &amp;gt; [전달] 에서 설정이 가능합니다.&lt;/p&gt;
 
 </description>
         <pubDate>Wed, 08 May 2024 00:00:00 +0900</pubDate>
@@ -557,10 +632,12 @@ Get-InboxRule -mailbox &quot;사용자UPN&quot; -IncludeHidden | fl
 IncludeHidden 옵션을 줘야 숨은 규칙까지 확인할 수 있습니다.&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Remove-InboxRule 
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Remove-InboxRule
+Get-InboxRule -mailbox &quot;사용자UPN&quot; -IncludeHidden | Remove-inboxrule
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/exchange/remove-inboxrule?view=exchange-ps&quot;&gt;Remove-InboxRule&lt;/a&gt; 명령어를 통해 규칙 삭제가 가능합니다.&lt;br /&gt;
-다만 숨은 규칙이나 손상된 규칙은 삭제가 불가합니다.&lt;/p&gt;
+모든 규칙을 삭제하기를 원하는 경우, 두 번째 명령어와 같이 실행해주면 됩니다.&lt;/p&gt;
 
 &lt;h4 id=&quot;mfcmapi&quot;&gt;MFCMAPI&lt;/h4&gt;
 
@@ -667,50 +744,6 @@ Portable 하므로, 별도로 설치할 필요는 없습니다.&lt;/p&gt;
         <pubDate>Mon, 22 Apr 2024 00:00:00 +0900</pubDate>
         <link>http://localhost:4000/operation/outlook/2024/04/22/34_Outlook-%EA%B7%9C%EC%B9%99-%EC%84%A4%EC%A0%95.html</link>
         <guid isPermaLink="true">http://localhost:4000/operation/outlook/2024/04/22/34_Outlook-%EA%B7%9C%EC%B9%99-%EC%84%A4%EC%A0%95.html</guid>
-        
-        
-        <category>Operation</category>
-        
-        <category>Outlook</category>
-        
-      </item>
-    
-      <item>
-        <title>[Outlook] Outlook 자동실행</title>
-        <description>&lt;p&gt;개인적으로 제가 생각하는, 사용자분들이 보다 편하게 Office 를 이용할 수 있는 주관적인 몇 가지 꿀팁들이 있습니다.&lt;/p&gt;
-
-&lt;p&gt;본 포스팅에서는, 그 중 하나인 PC 부팅 시 &lt;a href=&quot;https://support.microsoft.com/ko-kr/office/%EC%BB%B4%ED%93%A8%ED%84%B0%EB%A5%BC-%EC%8B%9C%EC%9E%91%ED%95%A0-%EB%95%8C-office-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9E%90%EB%8F%99-%EC%8B%9C%EC%9E%91-4a42ed45-c064-47b6-b497-119c870f7bab&quot;&gt;Outlook이 자동실행 되는 방법&lt;/a&gt;에 대해 소개해드리고자 합니다.&lt;br /&gt;
-“Operation” 태그를 통해, 사용자분들께 적용 가능한 운영 팁들을 확인해주세요 😉&lt;/p&gt;
-
-&lt;h3 id=&quot;outlook-자동실행-설정&quot;&gt;Outlook 자동실행 설정&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Windows 검색 &amp;gt; “Outlook” 검색 &amp;gt; 우클릭 후 “파일 위치 열기” 를 클릭합니다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/33/1.PNG&quot; title=&quot;Outlook 자동실행 설정1&quot; /&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;“Win 키 + R” 클릭 후, 아래 경로를 복사해서 붙여넣고 경로로 이동합니다.
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;%AppData%\Microsoft\Windows\Start Menu\Programs\Startup
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/33/2.PNG&quot; title=&quot;Outlook 자동실행 설정2&quot; /&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;1번에 있는 Outlook 바로가기 파일을 복사(Ctrl + C)해서, 2번 폴더에 붙여넣습니다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;기타&quot;&gt;기타&lt;/h3&gt;
-&lt;p&gt;필요 시, 동일한 방법으로 다른 프로그램을 자동실행 시키는 것도 가능합니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Fri, 19 Apr 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/operation/outlook/2024/04/19/33_Outlook-%EC%9E%90%EB%8F%99%EC%8B%A4%ED%96%89.html</link>
-        <guid isPermaLink="true">http://localhost:4000/operation/outlook/2024/04/19/33_Outlook-%EC%9E%90%EB%8F%99%EC%8B%A4%ED%96%89.html</guid>
         
         
         <category>Operation</category>
