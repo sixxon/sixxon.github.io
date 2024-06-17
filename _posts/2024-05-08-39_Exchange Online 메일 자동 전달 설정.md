@@ -29,6 +29,14 @@ Set-Mailbox -Identity "사용자UPN" -DeliverToMailboxAndForward $true -Forwardi
 상기 명령어를 통해 [메일 포워딩 구성][2]이 가능합니다.  
 ForwardingSMTPAddress 옵션에 인자로 포워딩할 메일 주소를 넣어주면 됩니다.  
 
+만약 DeliverToMailboxAndForward 값이 "true"인 경우, 사용자의 M365 사서함과 포워딩하고자 하는 계정 모두에 메일이 전달됩니다.  
+그러나 "false"의 경우, 포워딩하고자 하는 계정에만 메일이 전달되며 사용자의 M365 사서함에는 메일이 전달되지 않습니다.  
+
+해당 설정은 사용자가 직접 설정하는 것도 가능합니다.
+
+<img src="{{site.baseurl}}/assets/images/39/1.PNG" title="Outlook 전달 설정">  
+
+Outlook 웹 기준으로, [설정] > [메일] > [전달] 에서 설정이 가능합니다.  
 
 
 [1]: https://sixxon.github.io/operation/outlook/2024/04/22/34_Outlook-%EA%B7%9C%EC%B9%99-%EC%84%A4%EC%A0%95.html
