@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>[Admin] M365 테넌트 구축 - 개요 | Allways365</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[Admin] M365 테넌트 구축 - 개요 | Allways365</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="[Admin] M365 테넌트 구축 - 개요" />
+<meta name="author" content="sion" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="47" />
+<meta property="og:description" content="47" />
+<link rel="canonical" href="http://localhost:4000/administration/guide/project_m365tenant/2024/06/22/47_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95-%EA%B0%9C%EC%9A%94.html" />
+<meta property="og:url" content="http://localhost:4000/administration/guide/project_m365tenant/2024/06/22/47_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95-%EA%B0%9C%EC%9A%94.html" />
+<meta property="og:site_name" content="Allways365" />
+<meta property="og:image" content="http://localhost:4000/assets/images/thumbnail/admin.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-06-22T00:00:00+09:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/assets/images/thumbnail/admin.png" />
+<meta property="twitter:title" content="[Admin] M365 테넌트 구축 - 개요" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"sion"},"dateModified":"2024-06-22T00:00:00+09:00","datePublished":"2024-06-22T00:00:00+09:00","description":"47","headline":"[Admin] M365 테넌트 구축 - 개요","image":"http://localhost:4000/assets/images/thumbnail/admin.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/administration/guide/project_m365tenant/2024/06/22/47_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95-%EA%B0%9C%EC%9A%94.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"sion"},"url":"http://localhost:4000/administration/guide/project_m365tenant/2024/06/22/47_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95-%EA%B0%9C%EC%9A%94.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Allways365">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Home</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+                </li>
+
+                <!--
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li>
+                -->
+
+                <script src="/assets/js/lunr.js" charset="utf-8"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #000000;}
+    .lunrsearchresult .url {display: none; color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and Enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js" charset="utf-8"></script>
+
+                <a href="https://hits.seeyoufarm.com">
+                    <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fsixxon%2F&count_bg=%2340AAC6&title_bg=%23BABABA&icon=&icon_color=%23E7E7E7&title=Today&edge_flat=false"/>
+                </a>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Allways365</h1>
+    <p class="lead">
+        모든 곳에서 365일 사용되는 Microsoft365 서비스의 기술 블로그📘
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <!--
+<div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=[Admin] M365 테넌트 구축 - 개요&url=http://localhost:4000/administration/guide/project_m365tenant/2024/06/22/47_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95-%EA%B0%9C%EC%9A%94.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/administration/guide/project_m365tenant/2024/06/22/47_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95-%EA%B0%9C%EC%9A%94.html" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/administration/guide/project_m365tenant/2024/06/22/47_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95-%EA%B0%9C%EC%9A%94.html" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+-->
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-10 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="/assets/images/avatar_sion.png" alt="Sion">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark">Sion</a>
+                        <div>
+                            <span class="author-description">M365 운영 업무를 담당하고 있습니다. 배우고 경험한 것들을 조금씩 기록해나갑니다.</span>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">[Admin] M365 테넌트 구축 - 개요</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="/assets/images/thumbnail/admin.png" alt="[Admin] M365 테넌트 구축 - 개요">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                <!-- End Toc -->
+                <p>처음 회사에 입사하고, 저는 Microsoft 365 운영이라는 직무를 담당하게 되었습니다.<br />
+학생 때는 개발을 위주로 하다가 운영 직무를 맡게 되어, 처음에는 꽤나 낯설었던 기억이 있네요😅</p>
+
+<p>해당 직무는 비즈니스 및 운영하는 서비스에 대한 이해도를 필요로 하는 직무였습니다.<br />
+Microsoft에서 제공하는 여러가지 SaaS 서비스들에 익숙해져야 했고, 서비스 제공을 위해 조직에 구축된 인프라와 구성을 파악하고 감을 잡기까지 시간이 소요되었던 것 같습니다.</p>
+
+<p>점점 제가 맡은 직무에 대한 전문성을 높이고 싶다는 생각이 들기 시작하면서,<br />
+저는 이 블로그를 운영하기 시작하였고 또한 작은 프로젝트를 진행해보기로 결심하게 됩니다.<br />
+<strong>AD 서버를 이용한 하이브리드 구조의 M365 테넌트</strong> 를 직접 구축해보기로요😄</p>
+
+<p>본 시리즈에서는, 테넌트를 구축하고, AD/AADC 서버를 구성하고, 하이브리드 구조를 구성하는 방법에 대해 포스팅하고자 합니다.</p>
+
+<h3 id="구축-환경">구축 환경</h3>
+
+<ol>
+  <li>로컬 환경
+    <ul>
+      <li>Macbook Pro 14</li>
+      <li>CPU: Apple M3 Pro</li>
+      <li>Memory: 18GB</li>
+      <li>SSD: 1TB</li>
+    </ul>
+  </li>
+  <li>VM 환경 (AD / AADC 서버)
+    <ul>
+      <li>Windows Server 2019 Standard</li>
+      <li>CPU: QEMU Virtual CPU Version 2.5+ 1.00GHz (x64)</li>
+      <li>Memory: 2GB</li>
+      <li>SSD: 20GB</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="사전-준비">사전 준비</h3>
+
+<ol>
+  <li>도메인 준비
+    <ul>
+      <li>테넌트 구성을 위해 사용할 도메인을 준비합니다.</li>
+      <li>유명한 최상위 도메인(TLD)을 사용하기 위해서는 도메인 제공업체를 통해 유료로 구매할 수 있습니다.  (저는 겸사겸사 블로그 운영을 위해 별도로 도메인을 구매했습니다)</li>
+      <li><a href="https://xn--220b31d95hq8o.xn--3e0b707e/">무료로 도메인을 발급</a>받는 것도 가능합니다.</li>
+    </ul>
+  </li>
+  <li>가상머신 프로그램 설치
+    <ul>
+      <li>저는 Mac(M3) 환경에서 Windows Server를 올려야했기 때문에, <a href="https://mac.getutm.app/">UTM</a> 가상머신을 설치했습니다.</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="참고-사항">참고 사항</h3>
+
+<ul>
+  <li><a href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/naming-conventions-for-computer-domain-site-ou">Windows Server 네이밍 컨벤션</a></li>
+</ul>
+
+<h3 id="프로젝트-목표">프로젝트 목표</h3>
+<ul>
+  <li>M365 테넌트를 구축할 수 있다.</li>
+  <li>Windows Server에 대한 이해도를 높인다.</li>
+  <li>하이브리드 구조를 이해하고 구성할 수 있다.</li>
+</ul>
+
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2024-06-22">22 Jun 2024</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Administration">Administration</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Guide">Guide</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Project_M365Tenant">Project_M365Tenant</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="https://sixxon.github.io/administration/entra/2024/06/21/46_Entra-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%93%B1%EB%A1%9D-%EB%AC%B4%EC%9D%B8-%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8.html"> &laquo; [Entra] 애플리케이션 등록 - 무인 스크립트</a>
+            
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <!--
+    <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = '{"comments"=>true, "shortname"=>"sixxon-github-io"}'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+-->
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://sixxon-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Category</h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Administration">Administration (33)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Guide">Guide (5)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#etc">etc (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Operation">Operation (16)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Teams">Teams (5)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Office">Office (5)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Outlook">Outlook (24)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Windows">Windows (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#OneDrive">OneDrive (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Entra">Entra (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Project_M365Tenant">Project_M365Tenant (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2024 Allways365 
+            </div>
+
+            <!--
+            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+            -->
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//{"comments"=>true, "shortname"=>"sixxon-github-io"}.disqus.com/count.js"></script>
+
+
+</body>
+</html>

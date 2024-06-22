@@ -5,9 +5,458 @@
     <description>모든 곳에서 365일 사용되는 Microsoft365 서비스의 기술 블로그📘</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 17 Jun 2024 22:25:43 +0900</pubDate>
-    <lastBuildDate>Mon, 17 Jun 2024 22:25:43 +0900</lastBuildDate>
+    <pubDate>Sat, 22 Jun 2024 17:17:01 +0900</pubDate>
+    <lastBuildDate>Sat, 22 Jun 2024 17:17:01 +0900</lastBuildDate>
     <generator>Jekyll v4.3.3</generator>
+    
+      <item>
+        <title>[Admin] M365 테넌트 구축 - 개요</title>
+        <description>&lt;p&gt;처음 회사에 입사하고, 저는 Microsoft 365 운영이라는 직무를 담당하게 되었습니다.&lt;br /&gt;
+학생 때는 개발을 위주로 하다가 운영 직무를 맡게 되어, 처음에는 꽤나 낯설었던 기억이 있네요😅&lt;/p&gt;
+
+&lt;p&gt;해당 직무는 비즈니스 및 운영하는 서비스에 대한 이해도를 필요로 하는 직무였습니다.&lt;br /&gt;
+Microsoft에서 제공하는 여러가지 SaaS 서비스들에 익숙해져야 했고, 서비스 제공을 위해 조직에 구축된 인프라와 구성을 파악하고 감을 잡기까지 시간이 소요되었던 것 같습니다.&lt;/p&gt;
+
+&lt;p&gt;점점 제가 맡은 직무에 대한 전문성을 높이고 싶다는 생각이 들기 시작하면서,&lt;br /&gt;
+저는 이 블로그를 운영하기 시작하였고 또한 작은 프로젝트를 진행해보기로 결심하게 됩니다.&lt;br /&gt;
+&lt;strong&gt;AD 서버를 이용한 하이브리드 구조의 M365 테넌트&lt;/strong&gt; 를 직접 구축해보기로요😄&lt;/p&gt;
+
+&lt;p&gt;본 시리즈에서는, 테넌트를 구축하고, AD/AADC 서버를 구성하고, 하이브리드 구조를 구성하는 방법에 대해 포스팅하고자 합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;구축-환경&quot;&gt;구축 환경&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;로컬 환경
+    &lt;ul&gt;
+      &lt;li&gt;Macbook Pro 14&lt;/li&gt;
+      &lt;li&gt;CPU: Apple M3 Pro&lt;/li&gt;
+      &lt;li&gt;Memory: 18GB&lt;/li&gt;
+      &lt;li&gt;SSD: 1TB&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;VM 환경 (AD / AADC 서버)
+    &lt;ul&gt;
+      &lt;li&gt;Windows Server 2019 Standard&lt;/li&gt;
+      &lt;li&gt;CPU: QEMU Virtual CPU Version 2.5+ 1.00GHz (x64)&lt;/li&gt;
+      &lt;li&gt;Memory: 2GB&lt;/li&gt;
+      &lt;li&gt;SSD: 20GB&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;사전-준비&quot;&gt;사전 준비&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;도메인 준비
+    &lt;ul&gt;
+      &lt;li&gt;테넌트 구성을 위해 사용할 도메인을 준비합니다.&lt;/li&gt;
+      &lt;li&gt;유명한 최상위 도메인(TLD)을 사용하기 위해서는 도메인 제공업체를 통해 유료로 구매할 수 있습니다.  (저는 겸사겸사 블로그 운영을 위해 별도로 도메인을 구매했습니다)&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://xn--220b31d95hq8o.xn--3e0b707e/&quot;&gt;무료로 도메인을 발급&lt;/a&gt;받는 것도 가능합니다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;가상머신 프로그램 설치
+    &lt;ul&gt;
+      &lt;li&gt;저는 Mac(M3) 환경에서 Windows Server를 올려야했기 때문에, &lt;a href=&quot;https://mac.getutm.app/&quot;&gt;UTM&lt;/a&gt; 가상머신을 설치했습니다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;참고-사항&quot;&gt;참고 사항&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/naming-conventions-for-computer-domain-site-ou&quot;&gt;Windows Server 네이밍 컨벤션&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;프로젝트-목표&quot;&gt;프로젝트 목표&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;M365 테넌트를 구축할 수 있다.&lt;/li&gt;
+  &lt;li&gt;Windows Server에 대한 이해도를 높인다.&lt;/li&gt;
+  &lt;li&gt;하이브리드 구조를 이해하고 구성할 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Sat, 22 Jun 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/guide/project_m365tenant/2024/06/22/47_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95-%EA%B0%9C%EC%9A%94.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/guide/project_m365tenant/2024/06/22/47_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95-%EA%B0%9C%EC%9A%94.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Guide</category>
+        
+        <category>Project_M365Tenant</category>
+        
+      </item>
+    
+      <item>
+        <title>[Entra] 애플리케이션 등록 - 무인 스크립트</title>
+        <description>&lt;p&gt;조직에서 M365 테넌트를 운영하면서, 로그 열람 및 수집 등을 위해 특정 사용자에게 관리자 권한을 일부 제공해야 하는 경우가 있습니다.&lt;br /&gt;
+이 경우 보통 API 권한을 주거나(&lt;a href=&quot;https://allways365.com/administration/entra/2024/06/18/44_Entra-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%93%B1%EB%A1%9D-API.html&quot;&gt;이전 포스팅&lt;/a&gt;), Powershell 명령어를 사용할 수 있는 권한을 주곤 하는데요.&lt;/p&gt;
+
+&lt;p&gt;본 포스팅에서는 이전 포스팅에 이어, 애플리케이션 생성을 통해 무인 스크립트를 구성하는 방법을 소개해보도록 하겠습니다.&lt;br /&gt;
+ExchangeOnline 모듈을 사용하는 것을 가정합니다🙂&lt;/p&gt;
+
+&lt;h3 id=&quot;무인-스크립트&quot;&gt;무인 스크립트&lt;/h3&gt;
+
+&lt;p&gt;관리자 권한으로 Powershell 모듈에 연결하기 위해서는, 관리자 계정에 대한 자격증명 정보가 필요합니다.&lt;br /&gt;
+다만 무인 스크립트를 구성하면, 자격증명 정보가 없이도 관리자 권한으로 명령어 실행이 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;관련 상세 문서는 &lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/exchange/app-only-auth-powershell-v2?view=exchange-ps&quot;&gt;링크&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
+
+&lt;h3 id=&quot;애플리케이션-생성&quot;&gt;애플리케이션 생성&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/46/1.PNG&quot; title=&quot;애플리케이션 생성1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Microsoft Entra 관리 센터] &amp;gt; [애플리케이션]&amp;gt; [엔터프라이즈 애플리케이션] 으로 이동합니다.&lt;br /&gt;
+“새로운 애플리케이션” 을 눌러 애플리케이션을 생성합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/46/2.PNG&quot; title=&quot;애플리케이션 생성2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;마찬가지로, 적절한 네이밍 규칙을 기반으로 애플리케이션 이름을 정해줍니다.&lt;/p&gt;
+
+&lt;p&gt;“지원되는 계정 유형”은 기본 항목으로 선택해주어도 무방합니다.&lt;br /&gt;
+다중 테넌트와 사용이 필요한 경우, 두 번째/세 번째 항목을 선택해줍니다.&lt;/p&gt;
+
+&lt;p&gt;“등록” 버튼을 눌러 애플리케이션을 생성해줍니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;매니페스트-수정&quot;&gt;매니페스트 수정&lt;/h3&gt;
+
+&lt;p&gt;애플리케이션이 생성되었습니다.&lt;br /&gt;
+왼쪽 항목의 “매니페스트” 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/46/3.PNG&quot; title=&quot;매니페스트 수정1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 화면과 같이 JSON 형식의 내용이 확인되는데요.&lt;br /&gt;
+“다운로드” 버튼을 클릭하여 JSON 파일을 다운로드 받아줍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/46/4.PNG&quot; title=&quot;매니페스트 수정2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;JSON 파일을 열어서 확인합니다.&lt;br /&gt;
+약 42번째 줄에 “requiredResourceAccess” 라는 속성값이 있는데, 해당 속성값을 아래 항목으로 대체시켜 줍니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&quot;requiredResourceAccess&quot;: [
+    {
+        &quot;resourceAppId&quot;: &quot;00000002-0000-0ff1-ce00-000000000000&quot;,
+        &quot;resourceAccess&quot;: [
+            {
+                &quot;id&quot;: &quot;dc50a0fb-09a3-484d-be87-e023b12c6440&quot;,
+                &quot;type&quot;: &quot;Role&quot;
+            }
+        ]
+    },
+    {
+        &quot;resourceAppId&quot;: &quot;00000003-0000-0000-c000-000000000000&quot;,
+        &quot;resourceAccess&quot;: [
+            {
+                &quot;id&quot;: &quot;e1fe6dd8-ba31-4d61-89e7-88639da4683d&quot;,
+                &quot;type&quot;: &quot;Scope&quot;
+            }
+        ]
+    }
+],
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;파일을 저장하고, 다시 업로드합니다.&lt;br /&gt;
+매니페스트의 각 속성에 대한 상세 정보는 다음 &lt;a href=&quot;https://learn.microsoft.com/en-us/entra/identity-platform/reference-app-manifest?WT.mc_id=Portal-Microsoft_AAD_RegisteredApps&quot;&gt;링크&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/46/5.PNG&quot; title=&quot;매니페스트 수정3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[API 사용 권한] 항목을 클릭합니다.&lt;br /&gt;
+상기 사진과 같이, “Office 365 Exchange Online”의 “Exchange.ManageAsApp” 권한이 잘 들어가있는지 확인합니다.&lt;/p&gt;
+
+&lt;p&gt;권한이 잘 부여되었다면, “&lt;em&gt;테넌트명&lt;/em&gt; 에 대한 관리자 동의 허용” 을 클릭합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;인증서-생성-및-연결&quot;&gt;인증서 생성 및 연결&lt;/h3&gt;
+
+&lt;p&gt;Powershell 모듈 연결 시, 자격증명 대신 사용할 수 있는 인증서를 생성해보겠습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;# 인증서 패스워드
+$mypwd = ConvertTo-SecureString -String &apos;패스워드&apos; -Force -AsPlainText
+
+# 인증서 생성 (2년)
+$mycert = New-SelfSignedCertificate -DnsName &quot;DNS명&quot; -CertStoreLocation &quot;cert:\CurrentUser\My&quot; -NotAfter (Get-Date).AddYears(2) -KeySpec KeyExchange
+
+# 인증서 pfx 파일 추출
+$mycert | Export-PfxCertificate -FilePath mycert.pfx -Password $mypwd
+
+# 인증서 cer 파일 추출
+$mycert | Export-Certificate -FilePath mycert.cer
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;상기 명령어를 통해, 자체 서명된 인증서 파일을 생성합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/46/6.PNG&quot; title=&quot;인증서 연결1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[인증서 및 암호] &amp;gt; [인증서] 를 클릭합니다.&lt;br /&gt;
+“인증서 업로드” 를 클릭하여, 생성된 cer 파일을 업로드합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;앱-역할-부여&quot;&gt;앱 역할 부여&lt;/h3&gt;
+
+&lt;p&gt;마지막으로, 앱에 역할 할당을 진행해주면 설정은 마무리됩니다.&lt;/p&gt;
+
+&lt;p&gt;ExchangeOnline 모듈은 “Connect-ExhangeOnline” 및 “Connect-IPPSSession” 연결에 사용되는데요,&lt;br /&gt;
+연결하고자 하는 서비스에 따라 아래와 같이 앱 역할을 부여하면 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/46/7.PNG&quot; title=&quot;앱 역할 부여1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/46/8.PNG&quot; title=&quot;앱 역할 부여2&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Connect-ExchangeOnline: [Microsoft Entra 역할 및 관리자] &amp;gt; “Exchange 관리자” &amp;gt; 앱 이름을 검색하여 추가합니다.&lt;/li&gt;
+  &lt;li&gt;Connect-IPPSSession: [Microsoft Entra 역할 및 관리자] &amp;gt; “준수 관리자” &amp;gt; 앱 이름을 검색하여 추가합니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;모듈-연결&quot;&gt;모듈 연결&lt;/h3&gt;
+
+&lt;p&gt;권한이 필요한 사용자의 PC에, 인증서를 통해 모듈에 연결하는 작업을 진행해봅시다.&lt;/p&gt;
+
+&lt;p&gt;사용자에게 제공해야 하는 정보는 다음과 같습니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;인증서 파일&lt;/li&gt;
+  &lt;li&gt;인증서 패스워드&lt;/li&gt;
+  &lt;li&gt;인증서 지문(Thumbprint)&lt;/li&gt;
+  &lt;li&gt;애플리케이션 ID&lt;/li&gt;
+  &lt;li&gt;테넌트명&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;먼저, 사용자 PC에 인증서 파일을 설치합니다.&lt;br /&gt;
+이때 인증서의 패스워드를 입력합니다.&lt;/p&gt;
+
+&lt;p&gt;그 후, 아래와 같은 Powershell 명령어를 통해 모듈에 연결하면 됩니다.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-ExchangeOnline -CertificateThumbprint &quot;인증서 지문&quot; -Organization &quot;테넌트명.onmicrosoft.com&quot; -AppId &quot;애플리케이션 ID&quot;
+Connect-IPPSSession -CertificateThumbprint &quot;인증서 지문&quot; -Organization &quot;테넌트명.onmicrosoft.com&quot; -AppId &quot;애플리케이션 ID&quot;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Fri, 21 Jun 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/entra/2024/06/21/46_Entra-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%93%B1%EB%A1%9D-%EB%AC%B4%EC%9D%B8-%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/entra/2024/06/21/46_Entra-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%93%B1%EB%A1%9D-%EB%AC%B4%EC%9D%B8-%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Entra</category>
+        
+      </item>
+    
+      <item>
+        <title>[Entra] 애플리케이션 등록 - 앱 연동</title>
+        <description>&lt;p&gt;&lt;a href=&quot;https://allways365.com/administration/entra/2024/06/18/44_Entra-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%93%B1%EB%A1%9D-API.html&quot;&gt;이전 포스팅&lt;/a&gt;에 이어, 본 포스팅에서는 애플리케이션을 생성하여&lt;br /&gt;
+테넌트의 Microsoft Entra를 IdP로 하여 타 서비스와 연동하는 방법에 대해 소개해보도록 하겠습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.microsoft.com/en-us/azure/active-directory/saas-apps/slack-tutorial&quot;&gt;Slack을 연동&lt;/a&gt;하는 것을 가정하고 실습을 진행해보도록 하겠습니다 🙂&lt;/p&gt;
+
+&lt;p&gt;*Entra 애플리케이션과 타 서비스를 연동하는 방법은 서비스 별로 상이할 수 있습니다.&lt;br /&gt;
+실제 연동 작업은 해당 서비스 담당자와 함께 진행이 필요합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;애플리케이션-생성&quot;&gt;애플리케이션 생성&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/45/1.PNG&quot; title=&quot;애플리케이션 생성1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Microsoft Entra 관리 센터] &amp;gt; [애플리케이션]&amp;gt; [엔터프라이즈 애플리케이션] 으로 이동합니다.&lt;br /&gt;
+“새로운 애플리케이션” 을 눌러 애플리케이션을 생성합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/45/2.PNG&quot; title=&quot;애플리케이션 생성2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Microsoft Entra 갤러리에서는 다양한 종류의 앱 목록을 제공하고 있습니다.&lt;br /&gt;
+연동하고자 하는 앱을 검색하여 선택하고, 적절한 이름을 생성하여 앱을 만듭니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;사용자-및-그룹-추가&quot;&gt;사용자 및 그룹 추가&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/45/3.PNG&quot; title=&quot;API 사용 권한 추가1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[사용자 및 그룹] 을 클릭합니다.&lt;br /&gt;
+목록에 포함된 사용자/그룹이 해당 서비스에 실제 연동될 계정 목록에 해당됩니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;single-sign-on-설정&quot;&gt;Single Sign-On 설정&lt;/h3&gt;
+
+&lt;p&gt;테넌트에 등록된 사용자 정보를 연동하기 위해, SSO를 설정해줍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/45/4.PNG&quot; title=&quot;Single Sign-On 설정1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/45/5.PNG&quot; title=&quot;Single Sign-On 설정1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Singne Sign-On] 항목을 클릭해줍니다.&lt;br /&gt;
+서비스 담당자가 제공해주는 메타데이터 파일을 업로드하여 간편하게 설정을 구성할 수도 있습니다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;SAML 구성 정보: 전달받은 정보를 기반으로 SAML 구성을 진행합니다.&lt;/li&gt;
+  &lt;li&gt;특정 및 클레임: Slack에 동기화 할 사용자의 속성 값을 설정합니다.&lt;/li&gt;
+  &lt;li&gt;SAML 인증서: 생성된 인증서 파일 및 지문 정보는 필요 시 서비스 측에 전달합니다.&lt;/li&gt;
+  &lt;li&gt;설정: 인증을 위해 필요한 로그인/로그아웃 URL 등을 설정합니다.&lt;/li&gt;
+  &lt;li&gt;Test Single Sign-On 사용: SSO 연동이 정상적으로 진행되었는지 테스트합니다.
+    &lt;ul&gt;
+      &lt;li&gt;테스트를 위해선, 사전에 사용자 및 그룹 추가가 필요&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;프로비전-진행&quot;&gt;프로비전 진행&lt;/h3&gt;
+
+&lt;p&gt;왼쪽의 [프로비전 중] 항목을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/45/6.PNG&quot; title=&quot;프로비전 진행1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[프로비전 시작] 을 클릭하면, [사용자 및 그룹] 에서 추가한 계정 목록이 실제 Slack 으로 프로비저닝 됩니다.&lt;br /&gt;
+프로비저닝이 완료되면, Slack 서비스에서 M365 테넌트 내 계정을 통해 접속이 가능하게 됩니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 20 Jun 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/entra/2024/06/20/45_Entra-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%93%B1%EB%A1%9D-%EC%95%B1-%EC%97%B0%EB%8F%99.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/entra/2024/06/20/45_Entra-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%93%B1%EB%A1%9D-%EC%95%B1-%EC%97%B0%EB%8F%99.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Entra</category>
+        
+      </item>
+    
+      <item>
+        <title>[Entra] 애플리케이션 등록 - API</title>
+        <description>&lt;p&gt;Microsoft Entra 는 통합 클라우드 ID 및 액세스 솔루션입니다.&lt;br /&gt;
+사용자 및 그룹 관리뿐만 아니라, 애플리케이션에 대한 관리 또한 할 수 있는데요.&lt;/p&gt;
+
+&lt;p&gt;애플리케이션 추가를 통해 우리는 다음과 같은 작업들을 진행할 수 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Microsoft에서 제공하는 API를 사용&lt;/li&gt;
+  &lt;li&gt;테넌트를 IdP로 하여 다른 앱과 연동 (SSO)&lt;/li&gt;
+  &lt;li&gt;매니페스트 수정을 통한 기능 제공&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;본 포스팅에서는, 우선적으로 Microsoft에서 제공하는 API 사용을 위한 애플리케이션을 생성해보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;애플리케이션-생성&quot;&gt;애플리케이션 생성&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/44/1.PNG&quot; title=&quot;애플리케이션 생성1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Microsoft Entra 관리 센터] &amp;gt; [애플리케이션]&amp;gt; [앱 등록] &amp;gt; [모든 애플리케이션] 으로 이동합니다.&lt;br /&gt;
+“새 등록” 을 눌러 애플리케이션을 생성합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/44/2.PNG&quot; title=&quot;애플리케이션 생성2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;적절한 네이밍 규칙을 기반으로, 애플리케이션 이름을 정해줍니다.&lt;/p&gt;
+
+&lt;p&gt;“지원되는 계정 유형”은 기본 항목으로 선택해주어도 무방합니다.&lt;br /&gt;
+다중 테넌트와 사용이 필요한 경우, 두 번째/세 번째 항목을 선택해줍니다.&lt;/p&gt;
+
+&lt;p&gt;“등록” 버튼을 눌러 애플리케이션을 생성해줍니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;api-사용-권한-추가&quot;&gt;API 사용 권한 추가&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/44/3.PNG&quot; title=&quot;API 사용 권한 추가1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;애플리케이션이 생성되었습니다.&lt;br /&gt;
+왼쪽 항목의 “API 사용 권한” 을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/44/4.PNG&quot; title=&quot;API 사용 권한 추가2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;화면과 같이, 기본적으로 “Microsoft Graph”의 User.Read 권한이 부여되어 있는 것을 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;저는 본 포스팅에서는 “Microsoft Graph” API의 “ServiceHealth.Read.All”과 “ServiceMessage.Read.All” 사용 권한을 추가해볼건데요,&lt;br /&gt;
+해당 권한은 [Microsoft 관리 센터] 에서 불러오는 [서비스 상태] 에 대한 &lt;a href=&quot;https://learn.microsoft.com/en-us/graph/api/serviceannouncement-list-issues?view=graph-rest-1.0&amp;amp;tabs=http&quot;&gt;API&lt;/a&gt; 입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/44/5.PNG&quot; title=&quot;API 사용 권한 추가3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“권한 추가” &amp;gt; “Microsoft Graph” &amp;gt; “애플리케이션 사용 권한” 클릭 &amp;gt; “ServiceHealth.Read.All”과 “ServiceMessage.Read.All” 권한을 선택하여 추가합니다.&lt;br /&gt;
+User.Read 권한은 제거해도 무방합니다.&lt;/p&gt;
+
+&lt;p&gt;권한은 &lt;em&gt;위임된 권한&lt;/em&gt; 과 &lt;em&gt;애플리케이션 사용 권한&lt;/em&gt; 으로 나뉩니다.&lt;br /&gt;
+위임된 권한은 사용자의 자격증명에 대한 정보가 필요한 권한이고, 애플리케이션 사용 권한은 별도 사용자 정보 없이 자체적으로 권한을 가지고 작업을 수행합니다.&lt;br /&gt;
+관련 내용은 &lt;a href=&quot;https://learn.microsoft.com/en-us/security/zero-trust/develop/acquire-application-authorization-to-access-resources&quot;&gt;링크&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/44/6.PNG&quot; title=&quot;API 사용 권한 추가4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“&lt;em&gt;테넌트명&lt;/em&gt; 에 대한 관리자 동의 허용” 을 클릭합니다.&lt;br /&gt;
+해당 버튼을 누르지 않으면, 엔드 유저가 API 이용 시 권한 사용에 대한 동의를 직접 수락해야 합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;클라이언트-시크릿client-secret-생성&quot;&gt;클라이언트 시크릿(Client Secret) 생성&lt;/h3&gt;
+
+&lt;p&gt;“Microsoft Graph” API 를 호출할 수 있는 권한을 가진 애플리케이션을 생성하였습니다.&lt;br /&gt;
+이번에는 토큰 발급을 위한 클라이언트 시크릿을 생성해보겠습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/44/7.PNG&quot; title=&quot;클라이언트 시크릿 생성1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;왼쪽 항목의 [인증서 및 암호] &amp;gt; [클라이언트 비밀] 을 클릭합니다.&lt;br /&gt;
+그리고 “새 클라이언트 암호” 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/44/8.PNG&quot; title=&quot;클라이언트 시크릿 생성2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;적절한 설명을 입력하고, 만료 기간을 선택한 뒤 “추가” 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/44/9.PNG&quot; title=&quot;클라이언트 시크릿 생성3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 사진과 같이 “값”과 “비밀 ID” 값이 추가되는데요, 토큰 발급에 꼭 필요한 정보이니 기입을 해둡시다.&lt;br /&gt;
+만료 기간이 지나면 사용하지 못하므로, 만료 기간 전에 새 클라이언트 암호를 생성해야 합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;애플리케이션-속성-확인&quot;&gt;애플리케이션 속성 확인&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/44/3.PNG&quot; title=&quot;애플리케이션 속성 확인&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[개요] 로 이동합니다.&lt;/p&gt;
+
+&lt;p&gt;사진과 같이 애플리케이션에 대한 여러가지 정보가 있는데요,&lt;br /&gt;
+인증 및 API 사용을 위한 토큰 발급을 위해서는 애플리케이션(클라이언트) ID 와 디렉터리(테넌트) ID 값 또한 알아두어야 합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;api-테스트&quot;&gt;API 테스트&lt;/h3&gt;
+
+&lt;p&gt;API 사용을 위한 애플리케이션 생성 및 구성은 완료되었습니다.&lt;br /&gt;
+실제로 API 호출을 진행해볼까요?&lt;/p&gt;
+
+&lt;p&gt;대표적인 REST API 툴인 Postman을 이용하거나, MS에서 제공하는 &lt;a href=&quot;https://developer.microsoft.com/en-us/graph/graph-explorer&quot;&gt;Graph Explorer&lt;/a&gt;를 사용하면 됩니다.&lt;br /&gt;
+저는 Postman을 이용해 테스트를 진행해보았습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/44/10.PNG&quot; title=&quot;API 테스트1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;적절한 정보를 기입해주고, 액세스 토큰을 발급해줍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/44/11.PNG&quot; title=&quot;API 테스트2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;해당 토큰을 헤더에 삽입하여 호출을 진행하니, 정상적으로 결과가 반환되는 것으로 확인됩니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 18 Jun 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/entra/2024/06/18/44_Entra-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%93%B1%EB%A1%9D-API.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/entra/2024/06/18/44_Entra-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%93%B1%EB%A1%9D-API.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Entra</category>
+        
+      </item>
     
       <item>
         <title>[OneDrive] Teams 채팅에서 공유한 OneDrive 파일 링크 접근이 불가한 경우</title>
@@ -406,349 +855,6 @@ ForwardingSMTPAddress 옵션에 인자로 포워딩할 메일 주소를 넣어�
         <category>Administration</category>
         
         <category>Office</category>
-        
-      </item>
-    
-      <item>
-        <title>[Outlook] Outlook 주소록 및 정책 생성</title>
-        <description>&lt;p&gt;이전 포스팅에서는 Outlook 주소록 및 주소록 정책에 대해 살펴봤습니다.&lt;br /&gt;
-본 포스팅에서는 Outlook 주소록, 주소록 정책 등을 생성하고 구성하는 방법에 대해 알아보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;outlook-주소록-outlook-address-book&quot;&gt;Outlook 주소록 (Outlook Address Book)&lt;/h3&gt;
-
-&lt;p&gt;Outlook 주소록은 3종류가 있으며, Exchange Online에서 기본적으로 구성되는 주소록이 있습니다.&lt;/p&gt;
-
-&lt;p&gt;Powershell 을 이용해 새로운 주소록 생성이 가능하며,&lt;br /&gt;
-필터링 조건을 통해 자동으로 구성원을 할당할 수 있습니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;address-lists&quot;&gt;Address Lists&lt;/h4&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-ExchangeOnline
-New-AddressList -Name &quot;주소록명&quot; -RecipientFilter &quot;필터링조건&quot;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/exchange/new-addresslist?view=exchange-ps&quot;&gt;New-AddressList&lt;/a&gt; 명령어를 통해, Address List 생성이 가능합니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;gal&quot;&gt;GAL&lt;/h4&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-ExchangeOnline
-New-GlobalAddressList -Name &quot;주소록명&quot; -RecipientFilter &quot;필터링조건&quot;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/exchange/new-globaladdresslist?view=exchange-ps&quot;&gt;New-GlobalAddressList&lt;/a&gt; 명령어를 통해, GAL 생성이 가능합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;outlook-주소록-정책-address-book-policy&quot;&gt;Outlook 주소록 정책 (Address Book Policy)&lt;/h3&gt;
-
-&lt;p&gt;ABP도 Powershell 을 통해 생성이 가능합니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-ExchangeOnline
-New-AddressBookPolicy -Name &quot;정책명&quot; -AddressLists &quot;주소록리스트&quot; -GlobalAddressList &quot;주소록리스트&quot; -OfflineAddressBook &quot;주소록리스트&quot; -RoomList &quot;주소록리스트&quot;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/exchange/new-addressbookpolicy?view=exchange-ps&quot;&gt;New-AddressBookPolicy&lt;/a&gt; 명령어를 통해, ABP 생성이 가능합니다.&lt;br /&gt;
-하나의 정책으로 묶을 주소록 목록을 옵션으로 주어야 하며, 가능한 옵션은 4가지 입니다.&lt;br /&gt;
-(AddressLists, GlobalAddressList, OfflineAddressBook, RoomList)&lt;/p&gt;
-
-&lt;p&gt;이후, 생성한 ABP를 사용자에 할당해야 합니다.&lt;br /&gt;
-EAC 및 Powershell에서 모두 할당이 가능합니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Set-Mailbox -Identity &quot;계정UPN&quot; -AddressBookPolicy &quot;ABP정책명&quot;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Powershell을 통해서는 Set-Mailbox 명령어로 설정이 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;RecipientFilter를 주는 것과 같이 자동으로 정책 구성원을 설정하거나,&lt;br /&gt;
-디폴트로 정책이 구성되게끔 설정하는 방법은 없습니다.&lt;/p&gt;
-
-&lt;p&gt;정책 미할당 시(디폴트 정책 사용 시), 테넌트 내 모든 주소록이 보이게 됩니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;숨김-처리&quot;&gt;숨김 처리&lt;/h3&gt;
-
-&lt;p&gt;주소록 및 주소록 정책을 설정하는 것 외로,&lt;br /&gt;
-“받는 사람” 란에서 아예 사용자가 검색되지 않게끔 설정하는 것도 가능합니다.&lt;br /&gt;
-이는 AD에서 msExchHideFromAddressLists 속성값 변경을 통해 가능합니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Get-ADuser -Identity username -property msExchHideFromAddressLists |  Set-ADObject -Replace @{msExchHideFromAddressLists=$true}
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;위와 같이 Powershell 명령어를 실행하거나, 혹은 GUI 에서 해당 속성값을 True 로 변경해도 무방합니다.&lt;br /&gt;
-이후 AADC 동기화를 진행하여 해당 속성값을 Exchange Online 으로 동기화 시켜줍니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-ExchangeOnline
-Get-Mailbox &quot;계정UPN&quot; | fl HiddenFromAddressListsEnabled
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;동기화 후, Exchange Online 에서 위 명령어를 통해 숨김처리가 되어 있는지 여부를 확인할 수 있습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;추가-사항&quot;&gt;추가 사항&lt;/h3&gt;
-
-&lt;p&gt;주소록 관련하여 참고할 내용은 다음과 같습니다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;사용자 당 1개의 GAL 만 열람 가능
-    &lt;ul&gt;
-      &lt;li&gt;여러 GAL에 속해있는 경우, 가장 많은 사용자들이 속해있는 GAL의 리스트만 볼 수 있음&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Exchange Server의 주소록과는 별개
-    &lt;ul&gt;
-      &lt;li&gt;AADC 를 통해 주소록은 동기화가 되나, 필터링 조건이 제대로 설정되어 있지 않아 삭제/재생성 필요&lt;/li&gt;
-      &lt;li&gt;주소록 정책도 별도 설정 필요&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;주소록 정책 자동 할당 불가
-    &lt;ul&gt;
-      &lt;li&gt;특정 계열사 사용자들이 해당 계열사 주소록만 볼 수 있게끔 하려면, 사용자들에게 일일히 정책을 할당해야 함&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-</description>
-        <pubDate>Tue, 30 Apr 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/outlook/2024/04/30/37_Outlook-%EC%A3%BC%EC%86%8C%EB%A1%9D-%EB%B0%8F-%EC%A0%95%EC%B1%85-%EC%83%9D%EC%84%B1.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/outlook/2024/04/30/37_Outlook-%EC%A3%BC%EC%86%8C%EB%A1%9D-%EB%B0%8F-%EC%A0%95%EC%B1%85-%EC%83%9D%EC%84%B1.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Outlook</category>
-        
-      </item>
-    
-      <item>
-        <title>[Outlook] Outlook 주소록에 대하여</title>
-        <description>&lt;p&gt;Outlook 사서함은 여러가지 요소로 구성되어 있습니다.&lt;br /&gt;
-메일, 일정, 규칙, 주소록, Teams 채팅 등…&lt;/p&gt;
-
-&lt;p&gt;본 포스팅에서는 Exchange Online에서 Outlook 주소록이 무엇인지 알아보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;outlook-주소록-outlook-address-book&quot;&gt;Outlook 주소록 (Outlook Address Book)&lt;/h3&gt;
-
-&lt;p&gt;Outlook에서 메일을 작성할 때, 우리는 특정 사용자 이름/메일주소/부서 등의 키워드를 검색하여, 해당하는 사용자를 찾아 메일을 전송할 수 있습니다.&lt;br /&gt;
-이는 Exchange Online에 사용자들에 대한 정보를 포함하는 주소록이 있기 때문입니다.&lt;/p&gt;
-
-&lt;p&gt;Exchange Online에는 사용자 사서함, 공유 사서함, 리소스 사서함 등 여러 종류의 &lt;a href=&quot;https://learn.microsoft.com/en-us/exchange/recipients-in-exchange-online/recipients-in-exchange-online&quot;&gt;Recipient type&lt;/a&gt;이 존재합니다.&lt;/p&gt;
-
-&lt;p&gt;Outlook 주소록은 이런 다양한 종류의 메일 사용 가능한 Recipient들을 포함하고 있으며,&lt;br /&gt;
-특정 조건(회사, 부서, 회의실 등)에 부합하는 오브젝트들을 하나의 주소록으로 묶거나, 특정 주소록을 특정 사용자들에게만 보여주는 등의 기능을 제공합니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;outlook-주소록-종류&quot;&gt;Outlook 주소록 종류&lt;/h4&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/exchange/address-books/address-lists/address-lists&quot;&gt;Outlook 주소록&lt;/a&gt;은 다음과 같이 세 가지 종류가 있습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Address List: 메일 사용 가능한 오브젝트를 포함한 주소록&lt;/li&gt;
-  &lt;li&gt;GAL(Global Address List): 메일 사용 가능 오브젝트, Address List 등을 포함한 주소록. 멀티 테넌트에서 사용 가능.&lt;/li&gt;
-  &lt;li&gt;OAB(Offline Address Book): Address List, GAL 등을 포함한 주소록. 캐시 데이터로 저장되어 주소록 검색을 용이하게 해줌.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Address List와 GAL의 차이는, 멀티 테넌트에서 사용 가능 여부 및 subset 여부 정도의 차이로 보입니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;outlook-기본-주소록&quot;&gt;Outlook 기본 주소록&lt;/h4&gt;
-
-&lt;p&gt;Exchange Online에는 디폴트로 제공되는 기본 주소록이 있습니다.&lt;/p&gt;
-
-&lt;p&gt;Exchange Online 구성 시, 총 6가지의 주소록이 기본적으로 생성됩니다.&lt;br /&gt;
-(5개의 빌트인 Address List, 1개의 Global Address List)&lt;/p&gt;
-
-&lt;p&gt;[Address Lists]&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;All Contacts&lt;/li&gt;
-  &lt;li&gt;All Distribution Lists&lt;/li&gt;
-  &lt;li&gt;All Rooms&lt;/li&gt;
-  &lt;li&gt;All Users&lt;/li&gt;
-  &lt;li&gt;Public Folders&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;[Global Address Lists]&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Default Global Address Lists&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;outlook-주소록-정책-address-book-policy&quot;&gt;Outlook 주소록 정책 (Address Book Policy)&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/exchange/address-books/address-book-policies/address-book-policies&quot;&gt;Outlook 주소록 정책&lt;/a&gt;이란, 주소록 생성과 별개로, 어떤 사용자한테 어떤 주소록이 보이는지를 설정할 수 있는 정책입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/36/1.PNG&quot; title=&quot;Outlook 주소록&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;상기 사진과 같이, 주소록들을 생성하더라도 주소록 정책(Address Book Policy)을 할당하지 않으면 해당 주소록을 볼 수 있는 권한이 없습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;숨김-처리&quot;&gt;숨김 처리&lt;/h3&gt;
-
-&lt;p&gt;Outlook에 주소록 및 주소록 정책을 구성한다 하더라도, “받는 사람” 에서 모든 오브젝트들에 대한 검색이 가능합니다.&lt;br /&gt;
-단순히 주소록 목록에서만 확인이 불가능할 뿐이지, Exchange Online 상에는 해당 오브젝트가 존재하기 때문입니다.&lt;/p&gt;
-
-&lt;p&gt;하지만, “받는 사람” 란에서 아예 사용자가 검색되지 않게끔 설정하는 것도 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;다음 포스팅에서 주소록/주소록 정책/숨김 처리 를 설정하는 방법에 대해 살펴보도록 하겠습니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 29 Apr 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/outlook/2024/04/29/36_Outlook-%EC%A3%BC%EC%86%8C%EB%A1%9D%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/outlook/2024/04/29/36_Outlook-%EC%A3%BC%EC%86%8C%EB%A1%9D%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Outlook</category>
-        
-      </item>
-    
-      <item>
-        <title>[Outlook] Outlook 숨은 규칙</title>
-        <description>&lt;p&gt;드문 경우이긴 하나, Outlook 이용 시 특정 메일이 특정 폴더로 이동하는 등, 비정상적인 패턴을 보이는 경우가 있습니다.&lt;br /&gt;
-Outlook 규칙을 살펴봐도 관련 규칙이 없는 경우라면, 숨은 규칙을 확인해 볼 필요가 있습니다.&lt;/p&gt;
-
-&lt;p&gt;본 포스팅에서는 Outlook 숨은 규칙을 확인하고 삭제하는 방법에 대해 알아보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;숨은-규칙이란&quot;&gt;숨은 규칙이란?&lt;/h3&gt;
-
-&lt;p&gt;“숨은 규칙(Hidden Rule)” 이란, 사용자 Outlook 규칙에서는 보이지 않으나 시스템 내부적으로는 존재하는 숨겨진 규칙을 뜻합니다(ex. Junk Mail 규칙).&lt;br /&gt;
-Outlook에서는 설정할 수 없는 방법을 통해 만들어진 규칙으로, &lt;a href=&quot;https://learn.microsoft.com/en-us/cpp/mfc/mapi?view=msvc-170&quot;&gt;MAPI&lt;/a&gt; API를 통해 규칙 속성값을 변경하여 구성할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;숨김 규칙은 공격자에 의해 정보 탈취의 목적으로 사용될 수 있으므로, 유의할 필요가 있습니다.&lt;br /&gt;
-예를 들어, 피싱 메일을 통해 사용자 자격증명을 탈취하게 되면, 공격자는 자신에게 메일을 포워딩하는 규칙을 생성합니다.&lt;br /&gt;
-그 후, MAPI API로 해당 규칙을 hidden 처리하여 사용자의 정보를 몰래 수집합니다.&lt;/p&gt;
-
-&lt;p&gt;숨은 규칙은 규칙 MAPI 속성 중 PR_RULE_MSG_PROVIDER 값이 비어있는 경우에 해당됩니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;숨은-규칙-확인하기&quot;&gt;숨은 규칙 확인하기&lt;/h3&gt;
-
-&lt;p&gt;숨은 규칙을 확인하는 방법에는 두 가지가 있습니다.&lt;br /&gt;
-관리자가 Powershell 을 통해 확인하거나, 사용자 자격증명을 통해 &lt;a href=&quot;https://github.com/microsoft/mfcmapi/releases&quot;&gt;MFCMAPI&lt;/a&gt; 툴로 확인하는 방법입니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;powershell&quot;&gt;Powershell&lt;/h4&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-ExchangeOnline
-Get-InboxRule -mailbox &quot;사용자UPN&quot; -IncludeHidden | fl
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/ko-kr/powershell/module/exchange/get-inboxrule?view=exchange-ps&quot;&gt;Get-InboxRule&lt;/a&gt; 명령어를 통해 규칙 확인이 가능합니다.&lt;br /&gt;
-IncludeHidden 옵션을 줘야 숨은 규칙까지 확인할 수 있습니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Remove-InboxRule
-Get-InboxRule -mailbox &quot;사용자UPN&quot; -IncludeHidden | Remove-inboxrule
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/exchange/remove-inboxrule?view=exchange-ps&quot;&gt;Remove-InboxRule&lt;/a&gt; 명령어를 통해 규칙 삭제가 가능합니다.&lt;br /&gt;
-모든 규칙을 삭제하기를 원하는 경우, 두 번째 명령어와 같이 실행해주면 됩니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;mfcmapi&quot;&gt;MFCMAPI&lt;/h4&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/microsoft/mfcmapi/releases&quot;&gt;MFCMAPI&lt;/a&gt; 툴을 다운로드 후 실행합니다.&lt;br /&gt;
-Portable 하므로, 별도로 설치할 필요는 없습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/35/1.PNG&quot; title=&quot;Outlook MFCMAPI 1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[Session] &amp;gt; [Logon] &amp;gt; 프로필 선택 &amp;gt; 원하는 계정 사서함을 더블클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/35/2.PNG&quot; title=&quot;Outlook MFCMAPI 2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[IPM_SUBTREE] (Outlook 캐싱 활성화 한 경우) / [최상위 정보 저장소(Top of Information Store)] (Outlook 캐싱 비활성화 한 경우) &amp;gt; “받은 편지함”/”Inbox” 우클릭 &amp;gt; “Open Associated Contents Table” 을 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/35/3.PNG&quot; title=&quot;Outlook MFCMAPI 3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;“Message Class” 속성을 정렬합니다.&lt;br /&gt;
-여러 종류의 Class가 존재하는데, 이 중 Outlook 규칙과 관련된 Class 는 다음과 같습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;IPM.Rule.Version2.Message: Outlook 규칙(사용자 설정)&lt;/li&gt;
-  &lt;li&gt;IPM.ExtendedRule.Message: Junk Email 규칙&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;원하는 규칙을 선택 &amp;gt; [Delete messsage] &amp;gt; “Permanent delete passing DELETE_HARD_DELETE (unrecoverable)” 을 선택하여 규칙을 삭제합니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Thu, 25 Apr 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/outlook/2024/04/25/35_Outlook-%EC%88%A8%EC%9D%80-%EA%B7%9C%EC%B9%99.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/outlook/2024/04/25/35_Outlook-%EC%88%A8%EC%9D%80-%EA%B7%9C%EC%B9%99.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Outlook</category>
-        
-      </item>
-    
-      <item>
-        <title>[Outlook] Outlook 규칙 설정</title>
-        <description>&lt;p&gt;사용자분들이 Outlook을 보다 편하게 이용하는 방법 중 하나로, Outlook에서 규칙 설정이 가능합니다.&lt;br /&gt;
-규칙을 통해 폴더별로 메일을 정리하거나, 특정 메일을 삭제하거나, 메일을 전달하는 등 반복적인 작업에 대해 자동화가 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;본 포스팅에서는 Exchange Online에서 Outlook 규칙을 설정하는 방법에 대해 소개해보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;규칙-생성&quot;&gt;규칙 생성&lt;/h3&gt;
-
-&lt;h4 id=&quot;앱&quot;&gt;앱&lt;/h4&gt;
-
-&lt;p&gt;상단의 [홈] &amp;gt; [이동] &amp;gt; [규칙] &amp;gt; [규칙 및 알림 관리] 를 선택합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/34/1.PNG&quot; title=&quot;Outlook 규칙 생성1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[전자 메일 규칙] 에서, 현재 설정되어 있는 규칙을 확인할 수 있습니다.&lt;br /&gt;
-규칙 목록을 더블클릭 하면, 설정되어 있는 내용에 대해 확인이 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/34/2.PNG&quot; title=&quot;Outlook 규칙 생성2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[새 규칙] 을 클릭하면 규칙을 만들 수 있습니다.&lt;br /&gt;
-기본으로 제공하는 템플릿 중 원하는 템플릿을 선택해주세요.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/34/3.PNG&quot; title=&quot;Outlook 규칙 생성3&quot; /&gt;
-&lt;img src=&quot;/assets/images/34/4.PNG&quot; title=&quot;Outlook 규칙 생성4&quot; /&gt;
-&lt;img src=&quot;/assets/images/34/5.PNG&quot; title=&quot;Outlook 규칙 생성5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;조건, 동작, 예외처리 를 원하는 대로 선택해줍니다.&lt;br /&gt;
-스크롤을 내리면 여러가지 조건/동작에 대해 확인이 가능합니다.&lt;br /&gt;
-파란색 밑줄이 쳐진 부분을 클릭하여, 상세 조건을 부여할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/34/6.PNG&quot; title=&quot;Outlook 규칙 생성6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;저의 경우, 예시로 특정 사용자로부터 수신받은 메일을 특정 폴더로 이동하는 규칙을 만들어보았습니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;웹&quot;&gt;웹&lt;/h4&gt;
-
-&lt;p&gt;상단의 톱니바퀴 버튼을 클릭한 후, [메일] &amp;gt; [규칙] 으로 이동합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/34/7.PNG&quot; title=&quot;Outlook 규칙 생성7&quot; /&gt;
-설정된 규칙 목록을 확인할 수 있으며, “새 규칙 추가” 를 통해 신규 규칙 생성이 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;앱과 동일하게, 여러가지 조건/동작을 선택한 후 저장합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;규칙-적용&quot;&gt;규칙 적용&lt;/h3&gt;
-
-&lt;h4 id=&quot;앱-1&quot;&gt;앱&lt;/h4&gt;
-
-&lt;p&gt;[홈] &amp;gt; [이동] &amp;gt; [규칙] &amp;gt; [규칙 및 알림 관리] &amp;gt; [지금 규칙 실행] 을 클릭합니다.&lt;br /&gt;
-실행할 규칙을 선택합니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;웹-1&quot;&gt;웹&lt;/h4&gt;
-
-&lt;p&gt;상단의 톱니바퀴 버튼을 클릭한 후, [메일] &amp;gt; [규칙] &amp;gt; ▷ 버튼(지금 규칙 실행) 을 클릭합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;규칙-내보내기가져오기&quot;&gt;규칙 내보내기/가져오기&lt;/h3&gt;
-
-&lt;p&gt;규칙 내보내기/가져오기는 앱에서만 가능합니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;앱-2&quot;&gt;앱&lt;/h4&gt;
-
-&lt;p&gt;[홈] &amp;gt; [이동] &amp;gt; [규칙] &amp;gt; [규칙 및 알림 관리] &amp;gt; [옵션] 을 클릭합니다.&lt;br /&gt;
-.rwz 확장자 파일을 통해 규칙 내보내기 / 가져오기가 가능합니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 22 Apr 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/operation/outlook/2024/04/22/34_Outlook-%EA%B7%9C%EC%B9%99-%EC%84%A4%EC%A0%95.html</link>
-        <guid isPermaLink="true">http://localhost:4000/operation/outlook/2024/04/22/34_Outlook-%EA%B7%9C%EC%B9%99-%EC%84%A4%EC%A0%95.html</guid>
-        
-        
-        <category>Operation</category>
-        
-        <category>Outlook</category>
         
       </item>
     
