@@ -5,9 +5,507 @@
     <description>모든 곳에서 365일 사용되는 Microsoft365 서비스의 기술 블로그📘</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 23 Jun 2024 15:11:44 +0900</pubDate>
-    <lastBuildDate>Sun, 23 Jun 2024 15:11:44 +0900</lastBuildDate>
+    <pubDate>Sat, 06 Jul 2024 14:48:40 +0900</pubDate>
+    <lastBuildDate>Sat, 06 Jul 2024 14:48:40 +0900</lastBuildDate>
     <generator>Jekyll v4.3.3</generator>
+    
+      <item>
+        <title>[Admin] M365 테넌트 구축(2) - Windows Server 2019 설치</title>
+        <description>&lt;p&gt;해당 시리즈에서는 &lt;strong&gt;AD 서버를 이용한 하이브리드 구조의 M365 테넌트&lt;/strong&gt; 를 직접 구축해보도록 합니다.&lt;/p&gt;
+
+&lt;p&gt;본 포스팅에서는, AD 및 AADC 서버를 위한 가상 머신 및 Windows Server 2019를 설치해보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;사전-준비&quot;&gt;사전 준비&lt;/h3&gt;
+
+&lt;p&gt;서버 구축을 위해, 사전에 가상 머신을 설치하고 Windows Server 2019 iso 파일을 준비합니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;가상머신: &lt;a href=&quot;https://mac.getutm.app/&quot;&gt;UTM&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Windows Server 2019: &lt;a href=&quot;https://www.microsoft.com/en-us/evalcenter/download-windows-server-2019&quot;&gt;iso 파일&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;저의 경우 Mac 환경에서 M3 Pro 칩을 사용하고 있어, VMWare를 이용해 Windows 환경을 올릴 수 없는 것을 확인했습니다.&lt;br /&gt;
+결과적으로 UTM에서 Emulate 기능을 통해 서버를 올릴 수 있었습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;windows-server-2019-설치&quot;&gt;Windows Server 2019 설치&lt;/h3&gt;
+
+&lt;p&gt;UTM에 Windows Server 2019를 설치합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/54/1.png&quot; title=&quot;Windows Server 2019 설치1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/54/2.png&quot; title=&quot;Windows Server 2019 설치2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[새 가상머신 만들기]를 누르고, Emulate 를 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/54/3.png&quot; title=&quot;Windows Server 2019 설치3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;다운로드 받은 iso 파일을 가져옵니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/54/4.png&quot; title=&quot;Windows Server 2019 설치4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;x86_64 아키텍처를 선택하고, 원하는 시스템 사양을 설정해줍니다.&lt;br /&gt;
+저의 경우 CPU는 디폴트로 두었고, 메모리는 4GB로 증설해주었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/54/5.png&quot; title=&quot;Windows Server 2019 설치5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;스토리지 용량은 넉넉하게 30GB로 잡아줍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/54/6.png&quot; title=&quot;Windows Server 2019 설치6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Mac 환경과 함께 사용할 공유 폴더가 필요한 경우, 해당 기능을 활성화합니다.&lt;br /&gt;
+저는 굳이 사용하진 않을 듯 하여 활성화 하지 않았습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/54/7.png&quot; title=&quot;Windows Server 2019 설치7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;서버명을 저장하고, 시스템 사양을 더블체크 한 뒤 저장을 클릭해줍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/54/8.png&quot; title=&quot;Windows Server 2019 설치8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;재생 버튼을 눌러 가상 머신을 실행해줍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/54/9.png&quot; title=&quot;Windows Server 2019 설치9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;부팅 시 Windows Server 2019 설치 화면이 나옵니다.&lt;br /&gt;
+Next 를 누릅니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/54/10.png&quot; title=&quot;Windows Server 2019 설치10&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Windows Server 2019 Standard Evaluation (Desktop Experience) 버전을 선택해줍니다.&lt;br /&gt;
+Desktop Experience 버전을 선택해야 GUI 환경을 사용할 수 있으며, 그렇지 않은 경우 TUI 환경으로만 사용이 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;Standard와 DataCenter 버전의 차이점은 다음 &lt;a href=&quot;https://learn.microsoft.com/ko-kr/windows-server/get-started/editions-comparison-windows-server-2019?tabs=full-comparison&quot;&gt;링크&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/54/11.png&quot; title=&quot;Windows Server 2019 설치11&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“Next” 를 누르고,&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/54/13.png&quot; title=&quot;Windows Server 2019 설치13&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“Close” 를 누릅니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/54/14.png&quot; title=&quot;Windows Server 2019 설치14&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;디스크 파티션을 나누고 싶으신 경우, 해당 화면에서 설정을 진행해줍니다.&lt;br /&gt;
+저는 따로 설정하지 않고, “Next” 를 눌러주었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/54/15.png&quot; title=&quot;Windows Server 2019 설치15&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Windows Server 2019 OS 설치가 완료될때까지 기다려줍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/54/16.png&quot; title=&quot;Windows Server 2019 설치16&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;설치가 완료되면 위와 같이 어드민 계정 생성을 위한 화면이 뜹니다.&lt;br /&gt;
+적절한 패스워드를 입력해주면, PC가 재부팅되며 Windows Server 2019 를 사용할 수 있게 됩니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;기타&quot;&gt;기타&lt;/h3&gt;
+
+&lt;p&gt;Windows Server를 사용하기 위해서는, 라이선스 키를 등록해야 합니다.&lt;br /&gt;
+평가판으로는 180일 동안 이용할 수 있으며, 기간이 지난 후 사용 시에는 1시간마다 시스템이 종료됩니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 06 Jul 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/guide/project_m365tenant/2024/07/06/54_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(2)-Windows-Server-2019-%EC%84%A4%EC%B9%98.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/guide/project_m365tenant/2024/07/06/54_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(2)-Windows-Server-2019-%EC%84%A4%EC%B9%98.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Guide</category>
+        
+        <category>Project_M365Tenant</category>
+        
+      </item>
+    
+      <item>
+        <title>[Outlook] Outlook 보관(아카이빙) 기능</title>
+        <description>&lt;p&gt;본 포스팅에서는, Exchange Online에서 Outlook 아카이빙 기능을 활성화 하는 방법에 대해서 알아보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;기능-사용-요건&quot;&gt;기능 사용 요건&lt;/h3&gt;
+
+&lt;p&gt;아카이빙 기능 사용을 위해서는 “Exchange Online Archiving” 라이선스가 필요합니다.&lt;br /&gt;
+다만, 아래 라이선스에는 이미 아카이빙 기능이 포함되어 있으므로 별도로 라이선스 구매를 진행하지 않아도 됩니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Exchange Online Plan 2&lt;/li&gt;
+  &lt;li&gt;Microsoft 365 Business Premium&lt;/li&gt;
+  &lt;li&gt;Microsoft 365 E3&lt;/li&gt;
+  &lt;li&gt;Microsoft 365 E5&lt;/li&gt;
+  &lt;li&gt;Microsoft 365 F5 규정 준수&lt;/li&gt;
+  &lt;li&gt;Office 365 A3&lt;/li&gt;
+  &lt;li&gt;Office 365 A5&lt;/li&gt;
+  &lt;li&gt;Office 365 E3&lt;/li&gt;
+  &lt;li&gt;Office 365 E5&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;관련 상세 정보는 다음 &lt;a href=&quot;https://learn.microsoft.com/en-us/office365/servicedescriptions/exchange-online-archiving-service-description/exchange-online-archiving-service-description&quot;&gt;링크&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
+
+&lt;h3 id=&quot;아카이빙-활성화비활성화&quot;&gt;아카이빙 활성화/비활성화&lt;/h3&gt;
+
+&lt;p&gt;아카이빙 활성화/비활성화는 관리 센터 및 Powershell 을 통해 가능합니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;관리-센터&quot;&gt;관리 센터&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/53/1.PNG&quot; title=&quot;아카이빙 활성화/비활성화&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Exchange 관리 센터] &amp;gt; [받는 사람] &amp;gt; [사서함] &amp;gt; 사용자 검색 &amp;gt; [기타] &amp;gt; [사서함 보관함] &amp;gt; “사서함 보관함 관리” 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;“사서함 보관 상태” 토글 버튼을 활성화하면 기능이 켜지며, 이름은 공란으로 두어도 무방합니다.&lt;br /&gt;
+토글 버튼을 비활성화하면 기능이 꺼집니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;powershell&quot;&gt;Powershell&lt;/h4&gt;
+
+&lt;p&gt;Powershell을 통해 다음과 같이 메일 아카이빙 설정이 가능합니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-ExchangeOnline
+
+#Archive 활성화
+Enable-Mailbox &quot;사용자UPN&quot; -Archive
+#Archive 비활성화
+Disable-Mailbox &quot;사용자UPN&quot; -Archive
+
+#Archive 활성화 여부 검색
+Get-Mailbox &quot;사용자UPN&quot; | fl *Archive*
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;아카이브-용량&quot;&gt;아카이브 용량&lt;/h3&gt;
+
+&lt;p&gt;아카이브 사서함의 디폴트 용량은 100GB로 할당되어 있으며,&lt;br /&gt;
+사용자가 많은 용량을 사용함에 따라 최대 1.5TB 까지 자동으로 용량이 증설됩니다.&lt;/p&gt;
+
+&lt;p&gt;용량 증설은 시스템에서 동작하므로 관리자가 별도로 아카이브 사서함의 용량을 지정할 수는 없습니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 05 Jul 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/outlook/2024/07/05/53_Outlook-%EB%B3%B4%EA%B4%80(%EC%95%84%EC%B9%B4%EC%9D%B4%EB%B9%99)-%EA%B8%B0%EB%8A%A5.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/outlook/2024/07/05/53_Outlook-%EB%B3%B4%EA%B4%80(%EC%95%84%EC%B9%B4%EC%9D%B4%EB%B9%99)-%EA%B8%B0%EB%8A%A5.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Outlook</category>
+        
+      </item>
+    
+      <item>
+        <title>[Outlook] Outlook 데스크톱 앱에서 일정 생성 불가 오류 (동기화한 폴더에 있는 일부 항목이 일치하지 않습니다)</title>
+        <description>&lt;p&gt;&lt;img src=&quot;/assets/images/52/1.PNG&quot; title=&quot;Outlook 앱 일정 생성 오류&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Outlook 데스크톱 앱에서 모임 일정 생성 시, 다음과 같은 오류가 발생합니다.&lt;br /&gt;
+“동기화한 폴더에 있는 일부 항목이 일치하지 않습니다. 충돌 문제를 해결하려면 해당 항목을 연 다음, 이 작업을 다시 수행해 보십시오. (One or more items in the folder you synchronized do not match. To resolve the conflicts, open the items, and then try this operation again)”&lt;/p&gt;
+
+&lt;p&gt;본 포스팅에서는 해당 오류의 해결 방법에 대해 살펴보도록 합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;오프라인-일정-항목-삭제&quot;&gt;오프라인 일정 항목 삭제&lt;/h3&gt;
+
+&lt;p&gt;일정에 대한 캐시를 지웁니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/52/2.PNG&quot; title=&quot;오프라인 일정 항목 삭제1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Outlook 데스크톱 앱] &amp;gt; [일정] &amp;gt; 내 일정 우클릭 &amp;gt; [속성] 을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/52/3.PNG&quot; title=&quot;오프라인 일정 항목 삭제1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“오프라인 항목 지우기” 를 클릭합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;프로필-삭제&quot;&gt;프로필 삭제&lt;/h3&gt;
+
+&lt;p&gt;이후 증상이 동일한 경우, 메일 프로필을 삭제 후 재생성합니다.&lt;/p&gt;
+
+&lt;p&gt;[제어판] &amp;gt; [자격증명 관리자] &amp;gt; [Windows 자격 증명] &amp;gt; [일반 자격 증명]에 Office 관련 모든 자격증명을 제거합니다.&lt;br /&gt;
+그 후, Outlook 을 실행하여 로그인합니다.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 04 Jul 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/operation/outlook/2024/07/04/52_Outlook-%EB%8D%B0%EC%8A%A4%ED%81%AC%ED%86%B1-%EC%95%B1%EC%97%90%EC%84%9C-%EC%9D%BC%EC%A0%95-%EC%83%9D%EC%84%B1-%EB%B6%88%EA%B0%80-%EC%98%A4%EB%A5%98-(%EB%8F%99%EA%B8%B0%ED%99%94%ED%95%9C-%ED%8F%B4%EB%8D%94%EC%97%90-%EC%9E%88%EB%8A%94-%EC%9D%BC%EB%B6%80-%ED%95%AD%EB%AA%A9%EC%9D%B4-%EC%9D%BC%EC%B9%98%ED%95%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4).html</link>
+        <guid isPermaLink="true">http://localhost:4000/operation/outlook/2024/07/04/52_Outlook-%EB%8D%B0%EC%8A%A4%ED%81%AC%ED%86%B1-%EC%95%B1%EC%97%90%EC%84%9C-%EC%9D%BC%EC%A0%95-%EC%83%9D%EC%84%B1-%EB%B6%88%EA%B0%80-%EC%98%A4%EB%A5%98-(%EB%8F%99%EA%B8%B0%ED%99%94%ED%95%9C-%ED%8F%B4%EB%8D%94%EC%97%90-%EC%9E%88%EB%8A%94-%EC%9D%BC%EB%B6%80-%ED%95%AD%EB%AA%A9%EC%9D%B4-%EC%9D%BC%EC%B9%98%ED%95%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4).html</guid>
+        
+        
+        <category>Operation</category>
+        
+        <category>Outlook</category>
+        
+      </item>
+    
+      <item>
+        <title>[Teams] 특정 정책에 속해있는 사용자 검색</title>
+        <description>&lt;p&gt;Teams 관리센터에서는 팀/앱/모임 등에 대한 정책을 설정할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;다만, 그룹 단위로 할당할 수 있는 정책이 있는 반면, 일일히 사용자를 추가해야 하는 정책도 있는데요.&lt;br /&gt;
+이 경우에는 어떤 사용자에게 어떤 정책이 할당되어있는지 관리하기가 어렵습니다.&lt;/p&gt;
+
+&lt;p&gt;본 포스팅에서는, Teams 관리센터에서 특정 정책에 속해있는 사용자를 일괄적으로 검색하는 방법에 대해 소개합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;사용자-검색&quot;&gt;사용자 검색&lt;/h3&gt;
+
+&lt;p&gt;Powershell 명령어를 이용해 특정 정책에 속하는 사용자를 검색해 보도록 하겠습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-MicrosoftTeams
+$user = Get-CsOnlineUser -Filter {TeamsAppPermissionPolicy -eq &apos;정책명&apos;}
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;MicrosoftTeams 모듈을 통해, 특정 필터링 조건에 만족하는 사용자를 일괄적으로 검색합니다.&lt;br /&gt;
+저는 [Teams apps] &amp;gt; [Permission policies] 내 정책명을 조건으로 부여해봤습니다.&lt;/p&gt;
+
+&lt;p&gt;Filter에서 사용할 수 있는 [조건]은, &lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/teams/get-csonlineuser?view=teams-ps&quot;&gt;Get-CsOnlineUser&lt;/a&gt; 에서 Filter 인자에 대한 항목을 확인해주세요.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 03 Jul 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/teams/2024/07/03/51_Teams-%ED%8A%B9%EC%A0%95-%EC%A0%95%EC%B1%85%EC%97%90-%EC%86%8D%ED%95%B4%EC%9E%88%EB%8A%94-%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B2%80%EC%83%89.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/teams/2024/07/03/51_Teams-%ED%8A%B9%EC%A0%95-%EC%A0%95%EC%B1%85%EC%97%90-%EC%86%8D%ED%95%B4%EC%9E%88%EB%8A%94-%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B2%80%EC%83%89.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Teams</category>
+        
+      </item>
+    
+      <item>
+        <title>[Admin] M365 테넌트 구축(1) - 테넌트 생성</title>
+        <description>&lt;p&gt;해당 시리즈에서는 &lt;strong&gt;AD 서버를 이용한 하이브리드 구조의 M365 테넌트&lt;/strong&gt; 를 직접 구축해보도록 합니다.&lt;/p&gt;
+
+&lt;p&gt;본 포스팅에서는, 우선 체험판 테넌트를 생성하는 방법에 대해 소개해보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;사전-준비&quot;&gt;사전 준비&lt;/h3&gt;
+
+&lt;p&gt;작업을 진행하기 전, M365 테넌트 및 Active Directory 서버에서 사용할 도메인을 준비해주세요.&lt;br /&gt;
+도메인은 보통 도메인 제공업체를 통해 구매가 필요하지만, &lt;a href=&quot;https://xn--220b31d95hq8o.xn--3e0b707e/&quot;&gt;무료&lt;/a&gt;로도 발급이 가능합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;테넌트-생성&quot;&gt;테넌트 생성&lt;/h3&gt;
+
+&lt;p&gt;저는 규모가 큰 조직의 E3 기반 테넌트를 구성하고자 합니다.&lt;br /&gt;
+다음 &lt;a href=&quot;https://signup.microsoft.com/get-started/signup?offerid=B07A1127-DE83-4a6d-9F85-2C104BDAE8B4&amp;amp;dl=ENTERPRISEPACK&amp;amp;ispolaris=1&amp;amp;culture=ko-kr&amp;amp;country=KR&amp;amp;ali=1&amp;amp;products=cfq7ttc0k59j%3a0009&amp;amp;brandingId=28b276fb-d2a0-4379-a7c0-57dce33da0f9&quot;&gt;링크&lt;/a&gt;를 클릭하면, Microsoft에서 무료로 제공해주는 체험판 테넌트를 생성할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/50/1.png&quot; title=&quot;테넌트 생성1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;맨 처음 사용하는 개인 메일주소를 입력한 뒤,&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/50/2.png&quot; title=&quot;테넌트 생성2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;상기 화면과 같이 계정 설정을 진행해줍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/50/3.png&quot; title=&quot;테넌트 생성3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;핸드폰 번호로 보안 검사를 진행해준 뒤, 테넌트의 전역 관리자가 될 계정을 설정해줍니다.&lt;br /&gt;
+준비해 준 도메인을 여기에서 입력해주세요.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/50/4.png&quot; title=&quot;테넌트 생성4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이후 라이선스 구매에 대한 결제 수단을 등록해주면&lt;br /&gt;
+상기 사진과 같이 Microsoft 365 관리 센터에 접속하게 되면서 테넌트 생성이 완료됩니다.&lt;/p&gt;
+
+&lt;p&gt;E3 라이선스 25개가 포함된 테넌트를 한 달 동안 무료로 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;*기존에는 E3 라이선스에는 Teams가 포함되어 있었으나, 최근 라이선스 정책이 변경되었습니다&lt;br /&gt;
+*2024년 4월 1일부로 E3 라이선스 구매 시 Teams 서비스가 제외되며, 필요 시 별도 라이선스를 함께 구매하여 사용하셔야 합니다&lt;/p&gt;
+
+&lt;h3 id=&quot;체험판-기간-늘리기&quot;&gt;체험판 기간 늘리기&lt;/h3&gt;
+
+&lt;p&gt;[청구] &amp;gt; [사용자 제품] 으로 이동한 후, E3 라이선스를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/50/5.png&quot; title=&quot;체험판 기간 늘리기1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[평가판 구독] &amp;gt; [만료 날짜] 에 있는 “평가판 종료 날짜 연장” 을 클릭해줍니다.&lt;br /&gt;
+최대 30일 더 연장이 가능하며, 총 &lt;strong&gt;60일&lt;/strong&gt; 동안 테넌트를 무료로 사용할 수 있게 됩니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;사용자-추가&quot;&gt;사용자 추가&lt;/h3&gt;
+
+&lt;p&gt;테넌트 내에 사용자를 추가해봅시다.&lt;/p&gt;
+
+&lt;p&gt;[사용자] &amp;gt; [활성 사용자] &amp;gt; “사용자 추가” 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/50/6.png&quot; title=&quot;사용자 추가1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;사용자의 성과 이름, 표시 이름(Display Name) 을 입력해줍니다.&lt;br /&gt;
+표시 이름은 실제 서비스 이용 시 사용자 계정에 보여질 이름입니다.&lt;/p&gt;
+
+&lt;p&gt;사용자 이름, 즉 메일 주소를 입력해줍니다.&lt;/p&gt;
+
+&lt;p&gt;원하는 방식으로 암호도 설정해줍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/50/7.png&quot; title=&quot;사용자 추가2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;사용자 생성과 동시에, 계정에 라이선스 할당이 가능합니다.&lt;br /&gt;
+저는 “제품 라이선스 없이 사용자 만들기” 를 선택해주도록 하겠습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/50/8.png&quot; title=&quot;사용자 추가3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;역할을 부여하거나, 프로필 정보를 추가로 설정할 수도 있는데요.&lt;/p&gt;
+
+&lt;p&gt;역할의 경우, 보통 관리자 권한이 필요한 계정에 부여하므로 본 포스팅에서 따로 설명하지는 않겠습니다.&lt;br /&gt;
+프로필 정보도 마찬가지로, 사용자의 여러가지 정보 (사무실, 부서, 전화번호, 위치 등)를 설정할 수 있는 항목이나&lt;br /&gt;
+추후 AADC 를 통해 계정을 동기화 하는 과정에서 자연스럽게 살펴보게 될 것이므로 마찬가지로 패스하도록 합시다🙃&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/50/9.png&quot; title=&quot;사용자 추가4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이렇게 사용자 생성은 간단하게 완료되었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/50/10.png&quot; title=&quot;사용자 추가5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;사용자를 클릭하고, [라이선스 및 앱] 을 확인하면 아까 진행하지 못했던 라이선스 할당을 이렇게 진행할 수도 있습니다.&lt;/p&gt;
+
+&lt;p&gt;[라이선스] 아래를 보면 [앱] 이라는 항목이 있는데요,&lt;br /&gt;
+제공되는 라이선스에서 사용할 수 있는 서비스들을 골라 할당하거나 회수할 수도 있습니다.&lt;br /&gt;
+이 부분은 추후 별도 포스팅에서 다뤄보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;참고-사항&quot;&gt;참고 사항&lt;/h3&gt;
+
+&lt;p&gt;초기 테넌트 구성에 필요한 기본 사항입니다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;관리자 역할이 할당된 계정은, 디폴트 조건부 액세스 조건에 따라 관리 센터 접속 시 MFA가 요구됩니다.&lt;/li&gt;
+  &lt;li&gt;패스워드 분실, MFA 인증 오류 등의 이슈를 대비하여 전역 관리자는 최소 2개 이상을 구성해주는 것이 좋습니다.&lt;/li&gt;
+&lt;/ol&gt;
+
+</description>
+        <pubDate>Sun, 30 Jun 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/guide/project_m365tenant/2024/06/30/50_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(1)-%ED%85%8C%EB%84%8C%ED%8A%B8-%EC%83%9D%EC%84%B1.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/guide/project_m365tenant/2024/06/30/50_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(1)-%ED%85%8C%EB%84%8C%ED%8A%B8-%EC%83%9D%EC%84%B1.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Guide</category>
+        
+        <category>Project_M365Tenant</category>
+        
+      </item>
+    
+      <item>
+        <title>[Sharepoint] 파일 버전관리를 통한 용량 확보</title>
+        <description>&lt;p&gt;테넌트에서 구매한 라이선스 수량에 따라, 테넌트에서 Sharepoint (Teams 팀) 사이트에 &lt;a href=&quot;https://learn.microsoft.com/en-us/office365/servicedescriptions/sharepoint-online-service-description/sharepoint-online-limits&quot;&gt;할당 가능한 용량&lt;/a&gt;이 주어지게 됩니다.&lt;br /&gt;
+제한된 용량을 각 사이트에 할당해야 하므로, 테넌트 운영 시 사용자가 자체적으로 사이트를 생성하지 못하게끔 설정하는 조직도 있고, 혹은 팀 사이트 별 용량 제한을 설정하는 경우도 있습니다.&lt;/p&gt;
+
+&lt;p&gt;운영을 하다보면, 팀 사이트 용량 증설에 대한 문의가 종종 오곤 하는데요.&lt;br /&gt;
+관리센터에서 확인해봤을 때는 용량 여유가 있으나, 실제로는 용량이 부족한 경우가 있습니다.&lt;br /&gt;
+이는 파일 버전때문에 발생하는 문제입니다.&lt;/p&gt;
+
+&lt;p&gt;본 포스팅에서는, Sharepoint 사이트 내 파일의 버전에 대해 알아보고 이를 관리하여 용량을 확보하는 방법에 대해 소개해보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;파일-버전&quot;&gt;파일 버전&lt;/h3&gt;
+
+&lt;p&gt;파일 버전이란, Sharepoint (Teams) 사이트에서 파일 관련 작업 시, 수정된 파일에 대한 사본이 새로운 버전으로 Sharepoint 사이트에 저장되는 기능입니다.&lt;/p&gt;
+
+&lt;p&gt;버전은 다음과 같은 상황에서 만들어집니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;When a list item or file is first created or when a file is uploaded.&lt;br /&gt;
+Note: If file checkout is required, you must check the file in to create its first version.&lt;/li&gt;
+  &lt;li&gt;When a file is uploaded that has the same name as an existing file.&lt;/li&gt;
+  &lt;li&gt;When the properties of a list item or file are changed.&lt;/li&gt;
+  &lt;li&gt;When an Office document is opened and saved. After a document is opened again, a new version will be created after an edit is saved.&lt;/li&gt;
+  &lt;li&gt;Periodically, when editing and saving Office documents. Not all edits and saves create new versions. When saving edits frequently, for example, each new version captures a point in time rather than each individual edit. This is common when autosave is enabled.&lt;/li&gt;
+  &lt;li&gt;During co-authoring of a document, when a different user begins working on the document or when a user clicks save to upload changes to the library.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;파일-버전-관리&quot;&gt;파일 버전 관리&lt;/h3&gt;
+
+&lt;p&gt;파일 버전에 대한 설정 관리는 사이트(팀) 소유자만 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/49/1.PNG&quot; title=&quot;파일 버전 관리1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;SharePoint 사이트 &amp;gt; [문서] &amp;gt; 오른쪽 상단 [설정] (톱니바퀴 버튼) &amp;gt; [라이브러리 설정] &amp;gt; [더 많은 라이브러리 설정] 을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/49/2.PNG&quot; title=&quot;파일 버전 관리2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[버전 관리 설정] 을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/49/3.PNG&quot; title=&quot;파일 버전 관리3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;설정에서 “다음 주 버전 수 유지” 의 항목을 조절합니다.&lt;br /&gt;
+저장되는 파일 사본 수를 줄이고 싶으면 값을 낮추면 됩니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;실제-파일-버전-확인&quot;&gt;실제 파일 버전 확인&lt;/h3&gt;
+
+&lt;p&gt;실제 파일에 저장된 버전들을 확인해봅시다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/49/4.PNG&quot; title=&quot;실제 파일 버전 확인1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Sharepoint 사이트 &amp;gt; 오른쪽 상단 [설정] (톱니바퀴 아이콘) &amp;gt; [사이트 정보] &amp;gt; [모든 사이트 설정 보기] 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/49/5.PNG&quot; title=&quot;실제 파일 버전 확인2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[사이트 모음 관리] &amp;gt; [저장소 메트릭] 을 클릭합니다.&lt;br /&gt;
+원하는 파일을 선택하고, 맨 오른쪽의 “버전 기록” 을 클릭하면 파일에 대한 버전 확인이 가능합니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 25 Jun 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/operation/sharepoint/2024/06/25/49_Sharepoint-%ED%8C%8C%EC%9D%BC-%EB%B2%84%EC%A0%84%EA%B4%80%EB%A6%AC%EB%A5%BC-%ED%86%B5%ED%95%9C-%EC%9A%A9%EB%9F%89-%ED%99%95%EB%B3%B4.md.html</link>
+        <guid isPermaLink="true">http://localhost:4000/operation/sharepoint/2024/06/25/49_Sharepoint-%ED%8C%8C%EC%9D%BC-%EB%B2%84%EC%A0%84%EA%B4%80%EB%A6%AC%EB%A5%BC-%ED%86%B5%ED%95%9C-%EC%9A%A9%EB%9F%89-%ED%99%95%EB%B3%B4.md.html</guid>
+        
+        
+        <category>Operation</category>
+        
+        <category>Sharepoint</category>
+        
+      </item>
+    
+      <item>
+        <title>[Sharepoint] 사이트 파일 접근권한 설정</title>
+        <description>&lt;p&gt;Sharepoint (Teams 팀) 사이트의 운영 목적은 각 사이트마다 다릅니다.&lt;/p&gt;
+
+&lt;p&gt;구성원이 같이 파일을 수정하며 협업하는 목적으로 생성된 사이트도 있을 것이고,&lt;br /&gt;
+특정 문서나 가이드를 여러 사용자들에게 배포하는 목적으로 생성된 사이트도 있을 것입니다.&lt;br /&gt;
+전자의 경우 모든 사용자가 문서에 대한 편집 권한을 가져야 하지만, 후자의 경우 열람 권한만 있어야 할 것입니다.&lt;/p&gt;
+
+&lt;p&gt;본 포스팅에서는, Sharepoint 사이트 내 파일에 대한 접근권한을 설정하는 방법에 대해 소개해보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;사용-권한-편집&quot;&gt;사용 권한 편집&lt;/h3&gt;
+
+&lt;p&gt;사용 권한 편집은 팀 사이트의 소유자만이 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/48/1.PNG&quot; title=&quot;사용 권한 편집1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;웹 SharePoint 사이트에 접속한 뒤, 팀 사이트를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/48/2.PNG&quot; title=&quot;사용 권한 편집2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;오른쪽 상단 설정(톱니바퀴 버튼) &amp;gt; 사이트 사용 권한 &amp;gt; 고급 사용 권한 설정을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/48/3.PNG&quot; title=&quot;사용 권한 편집3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;팀 내에는 디폴트로 소유자/구성원/방문자 에 대한 사용 권한 수준이 설정되어 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;소유자: 모든 권한&lt;/li&gt;
+  &lt;li&gt;구성원: 편집&lt;/li&gt;
+  &lt;li&gt;방문자: 읽기&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/48/4.PNG&quot; title=&quot;사용 권한 편집4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;상단의 “사용 권한 수준” 을 클릭합니다.
+기본적으로 제공되는 5가지 수준이 존재하며 (모든 권한, 디자인, 편집, 참가, 읽기), 각 수준을 클릭하여 실제 부여된 권한에 대해 확인 및 편집이 가능합니다.
+혹은, “사용 권한 수준 추가” 를 통해 권한을 커스텀하여 생성할 수도 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/48/5.PNG&quot; title=&quot;사용 권한 편집5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/48/6.PNG&quot; title=&quot;사용 권한 편집6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;변경하고자 하는 항목을 선택한 후, 상단의 “사용자의 사용 권한 편집”을 클릭하여 원하는 권한 수준을 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;만약 해당 버튼이 비활성화 되어 있는 경우,&lt;br /&gt;
+Sharepoint 설정 &amp;gt; [라이브러리 설정] &amp;gt; [더 많은 라이브러리 설정] &amp;gt; [이 문서 라이브러리에 대한 사용 권한] &amp;gt; “권한 상속 중지” 를 클릭합니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 24 Jun 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/operation/sharepoint/2024/06/24/48_Sharepoint-%EC%82%AC%EC%9D%B4%ED%8A%B8-%ED%8C%8C%EC%9D%BC-%EC%A0%91%EA%B7%BC%EA%B6%8C%ED%95%9C-%EC%84%A4%EC%A0%95.html</link>
+        <guid isPermaLink="true">http://localhost:4000/operation/sharepoint/2024/06/24/48_Sharepoint-%EC%82%AC%EC%9D%B4%ED%8A%B8-%ED%8C%8C%EC%9D%BC-%EC%A0%91%EA%B7%BC%EA%B6%8C%ED%95%9C-%EC%84%A4%EC%A0%95.html</guid>
+        
+        
+        <category>Operation</category>
+        
+        <category>Sharepoint</category>
+        
+      </item>
     
       <item>
         <title>[Admin] M365 테넌트 구축 - 개요</title>
@@ -38,8 +536,8 @@ Microsoft에서 제공하는 여러가지 SaaS 서비스들에 익숙해져야 �
     &lt;ul&gt;
       &lt;li&gt;Windows Server 2019 Standard&lt;/li&gt;
       &lt;li&gt;CPU: QEMU Virtual CPU Version 2.5+ 1.00GHz (x64)&lt;/li&gt;
-      &lt;li&gt;Memory: 2GB&lt;/li&gt;
-      &lt;li&gt;SSD: 20GB&lt;/li&gt;
+      &lt;li&gt;Memory: 4GB&lt;/li&gt;
+      &lt;li&gt;SSD: 30GB&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
@@ -341,520 +839,6 @@ Connect-IPPSSession -CertificateThumbprint &quot;인증서 지문&quot; -Organiz
         <category>Administration</category>
         
         <category>Entra</category>
-        
-      </item>
-    
-      <item>
-        <title>[Entra] 애플리케이션 등록 - API</title>
-        <description>&lt;p&gt;Microsoft Entra 는 통합 클라우드 ID 및 액세스 솔루션입니다.&lt;br /&gt;
-사용자 및 그룹 관리뿐만 아니라, 애플리케이션에 대한 관리 또한 할 수 있는데요.&lt;/p&gt;
-
-&lt;p&gt;애플리케이션 추가를 통해 우리는 다음과 같은 작업들을 진행할 수 있습니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Microsoft에서 제공하는 API를 사용&lt;/li&gt;
-  &lt;li&gt;테넌트를 IdP로 하여 다른 앱과 연동 (SSO)&lt;/li&gt;
-  &lt;li&gt;매니페스트 수정을 통한 기능 제공&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;본 포스팅에서는, 우선적으로 Microsoft에서 제공하는 API 사용을 위한 애플리케이션을 생성해보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;애플리케이션-생성&quot;&gt;애플리케이션 생성&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/44/1.PNG&quot; title=&quot;애플리케이션 생성1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[Microsoft Entra 관리 센터] &amp;gt; [애플리케이션]&amp;gt; [앱 등록] &amp;gt; [모든 애플리케이션] 으로 이동합니다.&lt;br /&gt;
-“새 등록” 을 눌러 애플리케이션을 생성합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/44/2.PNG&quot; title=&quot;애플리케이션 생성2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;적절한 네이밍 규칙을 기반으로, 애플리케이션 이름을 정해줍니다.&lt;/p&gt;
-
-&lt;p&gt;“지원되는 계정 유형”은 기본 항목으로 선택해주어도 무방합니다.&lt;br /&gt;
-다중 테넌트와 사용이 필요한 경우, 두 번째/세 번째 항목을 선택해줍니다.&lt;/p&gt;
-
-&lt;p&gt;“등록” 버튼을 눌러 애플리케이션을 생성해줍니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;api-사용-권한-추가&quot;&gt;API 사용 권한 추가&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/44/3.PNG&quot; title=&quot;API 사용 권한 추가1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;애플리케이션이 생성되었습니다.&lt;br /&gt;
-왼쪽 항목의 “API 사용 권한” 을 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/44/4.PNG&quot; title=&quot;API 사용 권한 추가2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;화면과 같이, 기본적으로 “Microsoft Graph”의 User.Read 권한이 부여되어 있는 것을 확인할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;저는 본 포스팅에서는 “Microsoft Graph” API의 “ServiceHealth.Read.All”과 “ServiceMessage.Read.All” 사용 권한을 추가해볼건데요,&lt;br /&gt;
-해당 권한은 [Microsoft 관리 센터] 에서 불러오는 [서비스 상태] 에 대한 &lt;a href=&quot;https://learn.microsoft.com/en-us/graph/api/serviceannouncement-list-issues?view=graph-rest-1.0&amp;amp;tabs=http&quot;&gt;API&lt;/a&gt; 입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/44/5.PNG&quot; title=&quot;API 사용 권한 추가3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;“권한 추가” &amp;gt; “Microsoft Graph” &amp;gt; “애플리케이션 사용 권한” 클릭 &amp;gt; “ServiceHealth.Read.All”과 “ServiceMessage.Read.All” 권한을 선택하여 추가합니다.&lt;br /&gt;
-User.Read 권한은 제거해도 무방합니다.&lt;/p&gt;
-
-&lt;p&gt;권한은 &lt;em&gt;위임된 권한&lt;/em&gt; 과 &lt;em&gt;애플리케이션 사용 권한&lt;/em&gt; 으로 나뉩니다.&lt;br /&gt;
-위임된 권한은 사용자의 자격증명에 대한 정보가 필요한 권한이고, 애플리케이션 사용 권한은 별도 사용자 정보 없이 자체적으로 권한을 가지고 작업을 수행합니다.&lt;br /&gt;
-관련 내용은 &lt;a href=&quot;https://learn.microsoft.com/en-us/security/zero-trust/develop/acquire-application-authorization-to-access-resources&quot;&gt;링크&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/44/6.PNG&quot; title=&quot;API 사용 권한 추가4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;“&lt;em&gt;테넌트명&lt;/em&gt; 에 대한 관리자 동의 허용” 을 클릭합니다.&lt;br /&gt;
-해당 버튼을 누르지 않으면, 엔드 유저가 API 이용 시 권한 사용에 대한 동의를 직접 수락해야 합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;클라이언트-시크릿client-secret-생성&quot;&gt;클라이언트 시크릿(Client Secret) 생성&lt;/h3&gt;
-
-&lt;p&gt;“Microsoft Graph” API 를 호출할 수 있는 권한을 가진 애플리케이션을 생성하였습니다.&lt;br /&gt;
-이번에는 토큰 발급을 위한 클라이언트 시크릿을 생성해보겠습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/44/7.PNG&quot; title=&quot;클라이언트 시크릿 생성1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;왼쪽 항목의 [인증서 및 암호] &amp;gt; [클라이언트 비밀] 을 클릭합니다.&lt;br /&gt;
-그리고 “새 클라이언트 암호” 를 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/44/8.PNG&quot; title=&quot;클라이언트 시크릿 생성2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;적절한 설명을 입력하고, 만료 기간을 선택한 뒤 “추가” 를 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/44/9.PNG&quot; title=&quot;클라이언트 시크릿 생성3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 사진과 같이 “값”과 “비밀 ID” 값이 추가되는데요, 토큰 발급에 꼭 필요한 정보이니 기입을 해둡시다.&lt;br /&gt;
-만료 기간이 지나면 사용하지 못하므로, 만료 기간 전에 새 클라이언트 암호를 생성해야 합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;애플리케이션-속성-확인&quot;&gt;애플리케이션 속성 확인&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/44/3.PNG&quot; title=&quot;애플리케이션 속성 확인&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[개요] 로 이동합니다.&lt;/p&gt;
-
-&lt;p&gt;사진과 같이 애플리케이션에 대한 여러가지 정보가 있는데요,&lt;br /&gt;
-인증 및 API 사용을 위한 토큰 발급을 위해서는 애플리케이션(클라이언트) ID 와 디렉터리(테넌트) ID 값 또한 알아두어야 합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;api-테스트&quot;&gt;API 테스트&lt;/h3&gt;
-
-&lt;p&gt;API 사용을 위한 애플리케이션 생성 및 구성은 완료되었습니다.&lt;br /&gt;
-실제로 API 호출을 진행해볼까요?&lt;/p&gt;
-
-&lt;p&gt;대표적인 REST API 툴인 Postman을 이용하거나, MS에서 제공하는 &lt;a href=&quot;https://developer.microsoft.com/en-us/graph/graph-explorer&quot;&gt;Graph Explorer&lt;/a&gt;를 사용하면 됩니다.&lt;br /&gt;
-저는 Postman을 이용해 테스트를 진행해보았습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/44/10.PNG&quot; title=&quot;API 테스트1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;적절한 정보를 기입해주고, 액세스 토큰을 발급해줍니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/44/11.PNG&quot; title=&quot;API 테스트2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;해당 토큰을 헤더에 삽입하여 호출을 진행하니, 정상적으로 결과가 반환되는 것으로 확인됩니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 18 Jun 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/entra/2024/06/18/44_Entra-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%93%B1%EB%A1%9D-API.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/entra/2024/06/18/44_Entra-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%93%B1%EB%A1%9D-API.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Entra</category>
-        
-      </item>
-    
-      <item>
-        <title>[OneDrive] Teams 채팅에서 공유한 OneDrive 파일 링크 접근이 불가한 경우</title>
-        <description>&lt;p&gt;특정 사용자와 Teams 채팅을 하는 도중, 파일 공유를 위해 OneDrive 내 파일 링크를 공유했으나&lt;br /&gt;
-권한을 부여하였음에도 불구하고 접근이 되지 않는 경우가 있습니다.&lt;/p&gt;
-
-&lt;p&gt;이 경우 조치 가능한 방법에 대해 포스팅해보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;액세스가-제한된-사용자-권한-잠금-모드&quot;&gt;액세스가 제한된 사용자 권한 잠금 모드&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/43/1.PNG&quot; title=&quot;OneDrive 기능 비활성화1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;해당 사용자 OneDrive 사이트에 접속한 후, [설정] &amp;gt; [OneDrive 설정]을 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/43/2.PNG&quot; title=&quot;OneDrive 기능 비활성화2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[기타 설정] &amp;gt; [사이트 모음 기능] 을 선택합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/43/3.PNG&quot; title=&quot;OneDrive 기능 비활성화3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;“액세스가 제한된 사용자 권한 잠금 모드” 활성화 상태를 확인하고, 활성화 되어있을 경우 비활성화 합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;사이트-모음에서-사용자-삭제&quot;&gt;사이트 모음에서 사용자 삭제&lt;/h3&gt;
-
-&lt;p&gt;사용자의 OneDrive 사이트에 접속한 뒤, URL의 마지막에 아래 경로를 덧붙입니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;/_layouts/15/people.aspx?MembershipGroupId=0
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;예를 들어, admin@allways365.onmicrosoft.com 사용자의 경우, 아래 경로로 접속합니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;https://allways365-my.sharepoint.com/personal/admin_allways365_onmicrosoft_com/_layouts/15/people.aspx?MembershipGroupId=0&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/43/4.PNG&quot; title=&quot;OneDrive 사이트 모음 삭제1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;상기 사진과 같이, 모든 사용자 페이지 팝업이 뜨는 것을 확인할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/43/5.PNG&quot; title=&quot;OneDrive 사이트 모음 삭제2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;해당 사용자 옆 체크박스를 선택한 후, 상단 “작업” 메뉴 클릭 &amp;gt; “사이트 모음에서 사용자 삭제”를 클릭합니다.&lt;br /&gt;
-이후, 파일을 재공유하여 정상 접근이 가능한지 확인합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;관리자-계정으로-사용자-onedrive-사이트-접근&quot;&gt;관리자 계정으로 사용자 OneDrive 사이트 접근&lt;/h3&gt;
-
-&lt;p&gt;상기 작업은 OneDrive 사이트 소유자 계정으로 가능하나, 관리자 계정을 통해서도 특정 사용자의 OneDrive에 접근이 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;[Microsoft 365 관리 센터] &amp;gt; [사용자] &amp;gt; [활성 사용자] 에서 사용자를 검색 후, OneDrive 탭을 클릭합니다.&lt;br /&gt;
-[파일 액세스 권한 가져오기] 에서 “파일 링크 만들기” 를 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;해당 링크를 통해 접속 시, 일시적으로 사용자의 OneDrive 사이트에 대한 소유자 권한을 부여받게 됩니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 17 Jun 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/teams/onedrive/2024/06/17/43_Teams-%EC%B1%84%ED%8C%85%EC%97%90%EC%84%9C-%EA%B3%B5%EC%9C%A0%ED%95%9C-OneDrive-%ED%8C%8C%EC%9D%BC-%EB%A7%81%ED%81%AC-%EC%A0%91%EA%B7%BC%EC%9D%B4-%EB%B6%88%EA%B0%80%ED%95%9C-%EA%B2%BD%EC%9A%B0.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/teams/onedrive/2024/06/17/43_Teams-%EC%B1%84%ED%8C%85%EC%97%90%EC%84%9C-%EA%B3%B5%EC%9C%A0%ED%95%9C-OneDrive-%ED%8C%8C%EC%9D%BC-%EB%A7%81%ED%81%AC-%EC%A0%91%EA%B7%BC%EC%9D%B4-%EB%B6%88%EA%B0%80%ED%95%9C-%EA%B2%BD%EC%9A%B0.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Teams</category>
-        
-        <category>OneDrive</category>
-        
-      </item>
-    
-      <item>
-        <title>[OneDrive] OneDrive 소유자 권한 설정</title>
-        <description>&lt;p&gt;OneDrive 관련해서 종종 받게되는 문의로는, 특정 사용자의 OneDrive 사이트에 대한 소유자 권한과 관련된 부분일 것 같습니다.&lt;br /&gt;
-(특정 사용자의 OneDrive 사이트에 대한 소유권 권한을 받을 수 있는 방법, 자신의 OneDrive 사이트에 접속되지 않는 증상 등)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/42/2.PNG&quot; title=&quot;OneDrive 사이트 접속 불가&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;본 포스팅에서는, OneDrive 소유자 권한을 설정하는 방법에 대해 소개해보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;onedrive-소유자-권한-변경&quot;&gt;OneDrive 소유자 권한 변경&lt;/h3&gt;
-
-&lt;p&gt;OneDrive 사이트 사용자, 혹은 관리자 계정으로만 해당 작업이 가능합니다.&lt;br /&gt;
-진행하는 작업은 동일하므로, 관리자 권한을 기준으로 설명하도록 하겠습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/42/3.PNG&quot; title=&quot;OneDrive 소유자 추가1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[Microsoft 365 관리 센터] &amp;gt; [사용자] &amp;gt; [활성 사용자] 에서 사용자를 검색 후, OneDrive 탭을 클릭합니다.&lt;br /&gt;
-[파일 액세스 권한 가져오기] 에서 “파일 링크 만들기” 를 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/42/4.PNG&quot; title=&quot;OneDrive 소유자 추가2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 사진과 같이, 만들어진 링크를 클릭하여 바로 접속합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/42/5.PNG&quot; title=&quot;OneDrive 소유자 추가3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;“김하나” 사용자의 OneDrive 사이트에 들어오게 되었습니다.&lt;br /&gt;
-오른쪽 상단의 설정(톱니바퀴 버튼)을 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/42/6.PNG&quot; title=&quot;OneDrive 소유자 추가4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;“OneDrive 설정” 을 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/42/7.PNG&quot; title=&quot;OneDrive 소유자 추가5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[기타 설정] &amp;gt; “사이트 모음 관리자” 를 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/42/8.PNG&quot; title=&quot;OneDrive 소유자 추가6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[사이트 모음 관리자] 에 있는 사용자 목록은 현재 해당 OneDrive 사이트에 접속할 수 있는 권한을 가진 사용자를 의미합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/42/9.PNG&quot; title=&quot;OneDrive 소유자 추가7&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;해당 OneDrive 사이트에 접근하고자 하는 사용자를 추가 후, 저장해줍니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;자신의-onedrive-사이트에-접속-불가&quot;&gt;자신의 OneDrive 사이트에 접속 불가&lt;/h3&gt;
-
-&lt;p&gt;간혹가다, 포스팅 맨 위의 사진과 같이 자신의 OneDrive 사이트에 접속이 불가한 경우가 있습니다.&lt;br /&gt;
-[사이트 모음 관리자] 를 확인해보니, 퇴직자 계정이랑 꼬인건지 사용자가 잘못 등록되어 있어 권한을 변경해줘도, 다시 이전의 퇴직자 계정으로 돌아가게 됩니다.&lt;/p&gt;
-
-&lt;p&gt;이 경우에는 다음 &lt;a href=&quot;https://learn.microsoft.com/en-us/sharepoint/troubleshoot/sharing-and-permissions/fix-site-user-id-mismatch&quot;&gt;링크&lt;/a&gt; 를 참고하여 조치가 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;링크 내 게시물에서, “Run Tests: Site User ID Mismatch” 를 클릭해주세요.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/42/10.PNG&quot; title=&quot;OneDrive 사이트 사용자 ID 매칭&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;사진과 같이 고객 지원 문의 화면이 뜨면서, 사이트를 진단할 수 있게끔 입력받는 폼이 등장합니다.&lt;br /&gt;
-정보를 입력한 후 “테스트 실행” 을 클릭함으로써 조치가 가능합니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Thu, 13 Jun 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/onedrive/2024/06/13/42_OneDrive-%EC%86%8C%EC%9C%A0%EC%9E%90-%EA%B6%8C%ED%95%9C-%EC%84%A4%EC%A0%95.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/onedrive/2024/06/13/42_OneDrive-%EC%86%8C%EC%9C%A0%EC%9E%90-%EA%B6%8C%ED%95%9C-%EC%84%A4%EC%A0%95.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>OneDrive</category>
-        
-      </item>
-    
-      <item>
-        <title>[OneDrive] OneDrive 용량 변경</title>
-        <description>&lt;p&gt;사용하는 라이선스의 종류에 따라 상이하나, M365 사용자가 사용할 수 있는 OneDrive 용량의 최대치는 정해져있습니다.&lt;br /&gt;
-비싼 돈을 주고 구매한 라이선스인 만큼 사용할 수 있는 모든 서비스를 활용하는 것이 좋으나, 보안으로 인해 일부 서비스에 제한적인 사용을 요청주시는 경우도 있습니다.&lt;/p&gt;
-
-&lt;p&gt;본 포스팅에서는 사용자의 OneDrive 용량을 변경하는 방법에 대해 소개해보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;onedrive-용량-변경&quot;&gt;OneDrive 용량 변경&lt;/h3&gt;
-
-&lt;p&gt;OneDrive 용량을 변경하기 전, 사전에 몇 가지 확인이 필요한 내용이 있습니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;onedrive-url&quot;&gt;OneDrive URL&lt;/h4&gt;
-
-&lt;p&gt;Microsoft 365 제품군의 소개를 보면, 다른 서비스인 것처럼 구분되어 표시되어 있습니다만 사실 OneDrive는 Sharepoint 내에 속해있는 서비스입니다.&lt;br /&gt;
-이는 SharePoint와 OneDrive URL을 보면 확인할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;각 서비스의 URL은 다음과 같은 형식을 지니고 있습니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Sharepoint 주소: https://테넌트도메인명.sharepoint.com/sites/그룹아이디&lt;/li&gt;
-  &lt;li&gt;OneDrive 주소: https://테넌트도메인명-my.sharepoint.com/personal/사용자UPN&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;사용자의 OneDrive 주소의 경우, &lt;strong&gt;단순하게&lt;/strong&gt; URL 뒤에 사용자의 UserPrincipalName 을 붙이면 된다고 생각할 수 있습니다.&lt;br /&gt;
-하지만 실제로 사용자의 OneDrive 주소를 확인해보면 그렇지 않으며, 끝에 1 2 와 같이 구분을 위한 숫자가 붙는 것을 확인할 수 있습니다.&lt;br /&gt;
-또한, 메일주소 내 @와 . 같은 특수문자는 _로 치환됩니다.&lt;/p&gt;
-
-&lt;p&gt;기본적으로 테넌트에는 OneDrive 보존정책이 적용되어 있습니다.&lt;br /&gt;
-그 말은 즉슨, 특정 사용자 계정이 퇴직처리되어 테넌트에서 영구삭제 된다고 해도, OneDrive 보존정책이 남아있는 기간 내에 동일 메일주소로 생성되는 계정이 있는 경우 OneDrive 주소가 중복되어 버린다는 의미입니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;onedrive-사전-프로비전&quot;&gt;OneDrive 사전 프로비전&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/41/1.PNG&quot; title=&quot;OneDrive 프로비전&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;특정 사용자 계정에 라이선스를 할당했다고 해서, 해당 사용자의 OneDrive 주소가 활성화되는 것은 아닙니다.&lt;br /&gt;
-즉 프로비전 작업이 필요하며, 이는 사용자가 OneDrive 서비스에 최초 1회 접근함으로써 활성화가 진행됩니다.&lt;br /&gt;
-프로비전 작업이 되지 않은 사용자의 경우, M365 관리센터에서 위와 같이 표시되고 있습니다.&lt;/p&gt;
-
-&lt;p&gt;하지만, 관리자가 일괄적으로 &lt;a href=&quot;https://learn.microsoft.com/en-us/sharepoint/pre-provision-accounts&quot;&gt;OneDrive 사전 프로비전&lt;/a&gt;을 진행해주는 방법도 있습니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-SPOService -Url https://테넌트도메인명-admin.sharepoint.com
-Request-SPOPersonalSite -UserEmails &quot;사용자UPN&quot;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Request-SPOPersonalSite 명령어를 통해, 일괄적으로 프로비저닝이 가능합니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;용량-변경&quot;&gt;용량 변경&lt;/h4&gt;
-
-&lt;p&gt;Powershell 을 이용해, 사용자의 OneDrive 용량 변경이 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;SharePoint Online(SPOService) 모듈 뿐만 아니라, PnP Powershell(PnPOnline) 모듈 설치가 필요합니다.&lt;br /&gt;
-PnP Powershell은 MS에서 공식적으로 제공하는 모듈이 아닌, 오픈소스로 제공되고 있는 모듈입니다.&lt;br /&gt;
-설치 방법은 다음 &lt;a href=&quot;https://pnp.github.io/powershell/articles/installation.html&quot;&gt;링크&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;$cred = Get-Credential
-Connect-PnPOnline -Url &quot;https://테넌트도메인명-admin.sharepoint.com/&quot; -Credentials $cred
-Connect-SPOService -Url &quot;https://테넌트도메인명-admin.sharepoint.com&quot;
-
-$OneDriveUrl = Get-PnPUserProfileProperty -Account &quot;사용자UPN&quot;
-Set-SPOSite -Identity $OneDriveUrl.PersonalUrl.TrimEnd(&apos;/&apos;) -StorageQuota 100000 -StorageQuotaWarningLevel 95000
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;위와 같은 짤막한 스크립트를 통해, 사용자 OneDrive 용량 변경이 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;간단하게 설명을 하자면 다음과 같습니다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;모듈 연결&lt;/li&gt;
-  &lt;li&gt;Get-PnPUserProfileProperty 명령어를 통해, 특정 사용자의 OneDrive 주소를 가져옴&lt;/li&gt;
-  &lt;li&gt;2번에서 반환된 OneDrive URL을 이용해, Set-SPOSite 명령어로 용량을 변경함&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;*PnPOnline의 경우, 인증에 필요한 관리자 계정이 MFA 요구되면 연결 불가&lt;br /&gt;
-*StorageQuota / StorageQuotaWarningLevel 옵션의 매개변수의 단위는 MB&lt;br /&gt;
-*Set-SPOSite는 URL 끝에 ‘/’이 붙어있으면 오류를 반환하므로, TrimEnd 명령어를 통해 해당 문자를 잘라냄&lt;/p&gt;
-
-</description>
-        <pubDate>Fri, 24 May 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/onedrive/2024/05/24/41_OneDrive-%EC%9A%A9%EB%9F%89-%EB%B3%80%EA%B2%BD.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/onedrive/2024/05/24/41_OneDrive-%EC%9A%A9%EB%9F%89-%EB%B3%80%EA%B2%BD.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>OneDrive</category>
-        
-      </item>
-    
-      <item>
-        <title>[Outlook] 외부 사용자에게 발송한 메일의 Display Name 변경</title>
-        <description>&lt;p&gt;조직 내에서 M365 테넌트를 구축해서 사용하는 경우, 사용자 계정은 Display Name으로 각 서비스에 표기됩니다.&lt;br /&gt;
-다만, 업무를 하면서 외부 사용자와 메일로 소통을 하거나 Teams를 통해 협업을 해야 하는 경우가 생기게 됩니다.&lt;/p&gt;
-
-&lt;p&gt;메일을 발송 시 사용자의 메일 주소로 표기되는 경우가 있는데, 본 포스팅에서는 해당 설정에 대해 소개해보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;외부-설정&quot;&gt;외부 설정&lt;/h3&gt;
-
-&lt;p&gt;Powershell 명령어를 통해, 관련 설정이 가능합니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-ExchangeOnline
-Get-RemoteDomain | fl name, SimpleDisplayName
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/exchange/get-remotedomain?view=exchange-ps&quot;&gt;Get-RemoteDomain&lt;/a&gt; 명령어를 통해 외부 도메인에 대한 설정값 확인이 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;UseSimpleDisplayName이 False면, 해당 도메인 사용자가 수신받는 메일 발신자가 Display Name으로 표기되고&lt;br /&gt;
-UseSimpleDisplayName이 True면, 사용자한테 설정된 SimpleDisplayName으로 표기됩니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Set-RemoteDomain -UseSimpleDisplayName $false
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;값이 True 로 설정되어 있으며 Display Name 으로 표기되게끔 설정하고 싶은 경우,&lt;br /&gt;
-&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/exchange/set-remotedomain?view=exchange-ps&quot;&gt;Set-RemoteDomain&lt;/a&gt; 명령어를 통해 설정 변경이 가능합니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Get-user -Identity &quot;사용자UPN&quot; | fl SimpleDisplayName
-Set-user -Identity &quot;사용자UPN&quot; -SimpleDisplayName &quot;표기명&quot;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/exchange/get-user?view=exchange-ps&quot;&gt;Get-user&lt;/a&gt; 명령어를 통해, 사용자의 SimpleDisplayName 값 확인이 가능합니다. 디폴트 값은 공란입니다.&lt;br /&gt;
-만약 테넌트의 UseSimpleDisplayName 이 True인데 사용자의 SimpleDisplayName 이 공란인 경우, 사용자의 SMTP 주소를 보여주게 됩니다.&lt;/p&gt;
-
-&lt;p&gt;필요 시, &lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/exchange/set-user?view=exchange-ps&quot;&gt;Set-User&lt;/a&gt; 명령어를 통해 설정이 가능합니다.&lt;br /&gt;
-다만 아래와 같은 문자만 사용이 가능합니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;a - z&lt;/li&gt;
-  &lt;li&gt;A - Z&lt;/li&gt;
-  &lt;li&gt;0 - 9&lt;/li&gt;
-  &lt;li&gt;space&lt;/li&gt;
-  &lt;li&gt;” ‘ ( ) + , - . / : ?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;(다만 제가 테스트 시에는, 알파벳 외 다른 특수문자 및 한글은 적용되지 않는 것으로 확인했습니다. 지금은 정상 적용 될지는 잘 모르겠네요 🤔)&lt;/p&gt;
-
-</description>
-        <pubDate>Thu, 09 May 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/outlook/2024/05/09/40_%EC%99%B8%EB%B6%80-%EC%82%AC%EC%9A%A9%EC%9E%90%EC%97%90%EA%B2%8C-%EB%B0%9C%EC%86%A1%ED%95%9C-%EB%A9%94%EC%9D%BC%EC%9D%98-Display-Name-%EB%B3%80%EA%B2%BD.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/outlook/2024/05/09/40_%EC%99%B8%EB%B6%80-%EC%82%AC%EC%9A%A9%EC%9E%90%EC%97%90%EA%B2%8C-%EB%B0%9C%EC%86%A1%ED%95%9C-%EB%A9%94%EC%9D%BC%EC%9D%98-Display-Name-%EB%B3%80%EA%B2%BD.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Outlook</category>
-        
-      </item>
-    
-      <item>
-        <title>[Outlook] Exchange Online 메일 자동 전달 설정</title>
-        <description>&lt;p&gt;운영 업무를 진행하다 보면 다양한 사용자들의 니즈를 마주할 수 있는데, 그 중에서도 메일 포워딩 대한 문의를 종종 받게되곤 합니다.&lt;br /&gt;
-본 포스팅은 Exchange Online 사서함 사용자의 메일 자동 포워딩을 설정하는 두 가지 방법에 대해 소개해보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;outlook-규칙-설정&quot;&gt;Outlook 규칙 설정&lt;/h3&gt;
-
-&lt;p&gt;사용자가 Outlook 규칙을 통해 설정이 가능합니다.&lt;br /&gt;
-규칙 설정 방법은 다음 &lt;a href=&quot;https://sixxon.github.io/operation/outlook/2024/04/22/34_Outlook-%EA%B7%9C%EC%B9%99-%EC%84%A4%EC%A0%95.html&quot;&gt;링크&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
-
-&lt;p&gt;[동작 선택] &amp;gt; “사용자 또는 공용 그룹에 전달” 을 통해 설정이 가능합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;사서함-설정&quot;&gt;사서함 설정&lt;/h3&gt;
-
-&lt;p&gt;관리자가 Powershell 을 통해서도 설정이 가능합니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-ExchangeOnline
-Set-Mailbox -Identity &quot;사용자UPN&quot; -DeliverToMailboxAndForward $true -ForwardingSMTPAddress &quot;전달할 메일주소&quot;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;상기 명령어를 통해 &lt;a href=&quot;https://learn.microsoft.com/ko-kr/exchange/recipients/user-mailboxes/email-forwarding?view=exchserver-2019&quot;&gt;메일 포워딩 구성&lt;/a&gt;이 가능합니다.&lt;br /&gt;
-ForwardingSMTPAddress 옵션에 인자로 포워딩할 메일 주소를 넣어주면 됩니다.&lt;/p&gt;
-
-&lt;p&gt;만약 DeliverToMailboxAndForward 값이 “true”인 경우, 사용자의 M365 사서함과 포워딩하고자 하는 계정 모두에 메일이 전달됩니다.&lt;br /&gt;
-그러나 “false”의 경우, 포워딩하고자 하는 계정에만 메일이 전달되며 사용자의 M365 사서함에는 메일이 전달되지 않습니다.&lt;/p&gt;
-
-&lt;p&gt;해당 설정은 사용자가 직접 설정하는 것도 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/39/1.PNG&quot; title=&quot;Outlook 전달 설정&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Outlook 웹 기준으로, [설정] &amp;gt; [메일] &amp;gt; [전달] 에서 설정이 가능합니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Wed, 08 May 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/operation/outlook/2024/05/08/39_Exchange-Online-%EB%A9%94%EC%9D%BC-%EC%9E%90%EB%8F%99-%EC%A0%84%EB%8B%AC-%EC%84%A4%EC%A0%95.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/operation/outlook/2024/05/08/39_Exchange-Online-%EB%A9%94%EC%9D%BC-%EC%9E%90%EB%8F%99-%EC%A0%84%EB%8B%AC-%EC%84%A4%EC%A0%95.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Operation</category>
-        
-        <category>Outlook</category>
-        
-      </item>
-    
-      <item>
-        <title>[Office] Office 업데이트 채널 변경</title>
-        <description>&lt;p&gt;MS에서는 Office 업데이트 배포를 위한 여러가지 옵션을 제공하고 있습니다.&lt;br /&gt;
-본 포스팅에서는 Office 업데이트 채널에 대해 소개하고, 배포 설정을 변경하는 방법에 대해 소개하도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;업데이트-채널&quot;&gt;업데이트 채널&lt;/h3&gt;
-
-&lt;p&gt;업데이트 채널은 크게 세 가지 종류가 있습니다.&lt;br /&gt;
-이는 업데이트 주기가 어떻게 되는지에 따라 구분되고 있습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;현재 채널 (Current Channel)
-    &lt;ul&gt;
-      &lt;li&gt;수정사항 배포될 때마다 업데이트&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;월 단위 엔터프라이즈 채널 (Monthly Enterprise Channel)
-    &lt;ul&gt;
-      &lt;li&gt;매월마다 업데이트&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;반기 엔터프라이즈 채널 (Semi-Annual Enterprise Channel)
-    &lt;ul&gt;
-      &lt;li&gt;반년마다 업데이트&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;관련해서 자세한 사항은 다음 &lt;a href=&quot;https://learn.microsoft.com/ko-kr/deployoffice/updates/overview-update-channels&quot;&gt;링크&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
-
-&lt;h3 id=&quot;업데이트-채널-변경-전역&quot;&gt;업데이트 채널 변경 (전역)&lt;/h3&gt;
-
-&lt;p&gt;전체 사용자에 대한 업데이트 채널 변경은 다음과 같이 설정할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;[Microsoft 365 관리 센터] &amp;gt; [설정] &amp;gt; [조직 설정] &amp;gt; [서비스] &amp;gt; [Microsoft 365 설치 옵션] 을 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/38/1.PNG&quot; title=&quot;Office 업데이트 채널&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[기능 업데이트] 에서 원하는 채널을 선택합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;업데이트-채널-변경-일부&quot;&gt;업데이트 채널 변경 (일부)&lt;/h3&gt;
-
-&lt;p&gt;일부 사용자들의 업데이트 채널을 따로 가져가는 것도 가능합니다.&lt;br /&gt;
-이를 위해선, 사전 작업으로 &lt;a href=&quot;https://learn.microsoft.com/ko-kr/deployoffice/fieldnotes/adopting-cloud-update&quot;&gt;클라우드 사용 활성화&lt;/a&gt;가 필요합니다.&lt;/p&gt;
-
-&lt;p&gt;[&lt;a href=&quot;https://config.office.com/officeSettings&quot;&gt;Microsoft 365 Apps Admin Center&lt;/a&gt;] &amp;gt; [테넌트 기반 추천] &amp;gt; “클라우드 사용” 을 클릭하여, 기능을 활성화 합니다.&lt;/p&gt;
-
-&lt;p&gt;이후, [재고] &amp;gt; [장치] &amp;gt; “모든 장치 표시” &amp;gt; “디바이스 업데이트 채널 전환” 을 클릭합니다.&lt;br /&gt;
-원하는 채널을 선택하고, 이동할 디바이스 혹은 그룹을 선택합니다.&lt;/p&gt;
-
-&lt;p&gt;정상적인 적용을 위해서는, 대상이 장치 목록에 정상적으로 표시되어야 합니다.&lt;br /&gt;
-즉 “디바이스 온보딩”이 진행되어야 하며, 그 조건은 &lt;a href=&quot;https://techcommunity.microsoft.com/t5/microsoft-365-blog/onboarding-devices-in-the-microsoft-365-apps-admin-center/ba-p/3068928&quot;&gt;다음&lt;/a&gt;과 같습니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 07 May 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/office/2024/05/07/38_Office-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8-%EC%B1%84%EB%84%90-%EB%B3%80%EA%B2%BD.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/office/2024/05/07/38_Office-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8-%EC%B1%84%EB%84%90-%EB%B3%80%EA%B2%BD.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Office</category>
         
       </item>
     
