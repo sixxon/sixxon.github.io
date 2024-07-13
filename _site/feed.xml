@@ -5,9 +5,354 @@
     <description>모든 곳에서 365일 사용되는 Microsoft365 서비스의 기술 블로그📘</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 06 Jul 2024 14:48:40 +0900</pubDate>
-    <lastBuildDate>Sat, 06 Jul 2024 14:48:40 +0900</lastBuildDate>
+    <pubDate>Sat, 13 Jul 2024 20:36:35 +0900</pubDate>
+    <lastBuildDate>Sat, 13 Jul 2024 20:36:35 +0900</lastBuildDate>
     <generator>Jekyll v4.3.3</generator>
+    
+      <item>
+        <title>[Admin] M365 테넌트 구축(3) - AD 서버 구성</title>
+        <description>&lt;p&gt;해당 시리즈에서는 &lt;strong&gt;AD 서버를 이용한 하이브리드 구조의 M365 테넌트&lt;/strong&gt; 를 직접 구축해보도록 합니다.&lt;/p&gt;
+
+&lt;p&gt;본 포스팅에서는, 설치한 서버의 설정을 변경하고 AD 서버를 구성해봅니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;타임존-설정&quot;&gt;타임존 설정&lt;/h3&gt;
+
+&lt;p&gt;Windows Server 부팅 시, 시간이 대한민국 표준시와 다르게 설정되어 있을 것입니다.&lt;br /&gt;
+아래와 같은 설정을 통해 타임존을 설정할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/1.png&quot; title=&quot;타임존 설정1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Windows 설정(Settings)] &amp;gt; [시간&amp;amp;언어(Time &amp;amp; Language)] 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/2.png&quot; title=&quot;타임존 설정2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[날짜 및 시간(Date &amp;amp; Time)] &amp;gt; [Timezone] 을 “(UTC+09:00)Seoul” 로 설정해줍니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;한글-다운로드&quot;&gt;한글 다운로드&lt;/h3&gt;
+
+&lt;p&gt;Windows Server 를 영어가 아닌 한글로 관리하고 싶으신 경우, 다음과 같이 언어팩 다운로드가 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/3.png&quot; title=&quot;한글 다운로드1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Windows 설정(Settings)] &amp;gt; [시간&amp;amp;언어(Time &amp;amp; Language)] &amp;gt; [언어(Language)] &amp;gt; “Add a language” 를 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/4.png&quot; title=&quot;한글 다운로드2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;검색창에 “Korean” 을 입력하여 한국어를 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/5.png&quot; title=&quot;한글 다운로드3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;기본 설정 그대로 둔 상태에서 언어팩을 Install 합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/6.png&quot; title=&quot;한글 다운로드4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;한국어를 더 우선순위로 둔 다음,&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/7.png&quot; title=&quot;한글 다운로드5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;한국어 클릭 후 Option 에서 “Download” 를 클릭하여 언어팩을 설치합니다.&lt;br /&gt;
+설치까지 시간이 다소 소요됩니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;pc-이름-설정&quot;&gt;PC 이름 설정&lt;/h3&gt;
+
+&lt;p&gt;편의성을 위해, PC 디바이스 명을 설정해줍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/8.png&quot; title=&quot;PC 이름 설정1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Windows 버튼 우클릭 &amp;gt; [시스템(System)] 을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/9.png&quot; title=&quot;PC 이름 설정2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[이 PC의 이름 바꾸기(Rename this PC)] 를 클릭하여 재설정합니다.&lt;/p&gt;
+
+&lt;p&gt;혹은, &lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/rename-computer?view=powershell-7.2&quot;&gt;Rename-Computer&lt;/a&gt; 라는 Powershell 명령어를 통해서도 디바이스 명 변경이 가능합니다.&lt;br /&gt;
+이때 Powershell 은 관리자 권한으로 실행합니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Rename-Computer -NewName &quot;디바이스명&quot; -DomainCredential ALLWAYS365\Administrator -Restart
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;adds-서비스-설치&quot;&gt;ADDS 서비스 설치&lt;/h3&gt;
+
+&lt;p&gt;설치한 Windows Server 를 AD 서버로 사용하기 위해, ADDS 서비스를 설치해줍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/10.png&quot; title=&quot;ADDS 서비스 설치1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[서버 관리자] &amp;gt; [관리] &amp;gt; “역할 및 기능 추가” 를 클릭합니다.&lt;br /&gt;
+“역할 기반 또는 기능 기반 설치” 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;[서버 역할] 에서 “Active Directory Domain Service” 를 체크합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/11.png&quot; title=&quot;ADDS 서비스 설치2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“기능 추가” 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/12.png&quot; title=&quot;ADDS 서비스 설치3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[기능 선택] 은 기본값으로 둡니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/13.png&quot; title=&quot;ADDS 서비스 설치4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“다음” 을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/14.png&quot; title=&quot;ADDS 서비스 설치5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“필요한 경우 자동으로 대상 서버 다시 시작” 을 체크한 뒤 “설치” 를 클릭합니다.&lt;br /&gt;
+ADDS 설치가 완료되면 PC가 자동으로 재부팅됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/15.png&quot; title=&quot;ADDS 서비스 설치6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[서버 관리자] &amp;gt; “플래그 버튼” &amp;gt; “이 서버를 도메인 컨트롤러로 승격” 을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/16.png&quot; title=&quot;ADDS 서비스 설치7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“새 포리스트를 추가합니다” 를 선택한 다음,&lt;br /&gt;
+준비한 도메인을 입력합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/17.png&quot; title=&quot;ADDS 서비스 설치8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[포리스트/도메인 기능 수준]은 Windows Server 2016 으로 설정합니다.&lt;br /&gt;
+도메인 컨트롤러 기능으로 “DNS” 와 “GC” 를 체크한 다음,&lt;br /&gt;
+DSRM 패스워드는 어드민 계정 패스워드와 동일하게 입력해줍니다.&lt;/p&gt;
+
+&lt;p&gt;DSRM 은 AD DS를 복구하기 위한 부팅 모드입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/18.png&quot; title=&quot;ADDS 서비스 설치9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“다음” 을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/19.png&quot; title=&quot;ADDS 서비스 설치10&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;NETBIOS 명은 자동으로 입력됩니다.&lt;br /&gt;
+“다음” 을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/20.png&quot; title=&quot;ADDS 서비스 설치11&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;기본 경로로 두고 “다음” 을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/21.png&quot; title=&quot;ADDS 서비스 설치12&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“선택 사항 검토” 에서 적절하게 설정되었는지 체크 후, “다음” 을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/22.png&quot; title=&quot;ADDS 서비스 설치13&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“설치” 를 누릅니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/23.png&quot; title=&quot;ADDS 서비스 설치14&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;재부팅이 되면, 다음과 같이 NetBIOS 명이 “도메인\계정명” 형식으로 바뀌는 것을 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이로써 Windows Server 에, 도메인에 대한 포리스트 생성 및 GC 설정이 완료되었습니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 13 Jul 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/guide/project_m365tenant/2024/07/13/59_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(4)-AD-%EC%84%9C%EB%B2%84-%EA%B5%AC%EC%84%B1.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/guide/project_m365tenant/2024/07/13/59_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(4)-AD-%EC%84%9C%EB%B2%84-%EA%B5%AC%EC%84%B1.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Guide</category>
+        
+        <category>Project_M365Tenant</category>
+        
+      </item>
+    
+      <item>
+        <title>[Admin] M365 테넌트 구축(3) - AD 용어 정리</title>
+        <description>&lt;p&gt;해당 시리즈에서는 &lt;strong&gt;AD 서버를 이용한 하이브리드 구조의 M365 테넌트&lt;/strong&gt; 를 직접 구축해보도록 합니다.&lt;/p&gt;
+
+&lt;p&gt;본 포스팅에서는, AD와 관련된 용어를 정리해보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;ad-용어terminology&quot;&gt;AD 용어(Terminology)&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/58/1.png&quot; title=&quot;타임존 설정1&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Directory Service&lt;/li&gt;
+  &lt;li&gt;Active Directory&lt;/li&gt;
+  &lt;li&gt;Active Directory Domain Service&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;LDAP(Lightweight Directory Access Protocol)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Domain Controller&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Global Catalog&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Domain&lt;/li&gt;
+  &lt;li&gt;Tree&lt;/li&gt;
+  &lt;li&gt;Forest&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Site&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Domain &amp;lt;= Tree &amp;lt;= Forest (Site)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Organizational Unit (OU)&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Container&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;AGDLP&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sat, 13 Jul 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/guide/project_m365tenant/2024/07/13/58_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(3)-AD-%EC%9A%A9%EC%96%B4-%EC%A0%95%EB%A6%AC.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/guide/project_m365tenant/2024/07/13/58_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(3)-AD-%EC%9A%A9%EC%96%B4-%EC%A0%95%EB%A6%AC.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Guide</category>
+        
+        <category>Project_M365Tenant</category>
+        
+      </item>
+    
+      <item>
+        <title>[Entra] 관리 단위(Administrative Unit) 설정</title>
+        <description>&lt;p&gt;본 포스팅에서는 Microsoft Entra ID에서 제공하는 기능 중 하나인 “관리 단위” 에 대해 설명하고, 설정하는 방법을 알아보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;관리-단위&quot;&gt;관리 단위&lt;/h3&gt;
+
+&lt;p&gt;M365 테넌트를 관리하기 위한, 다양한 관리자 역할이 존재합니다.&lt;br /&gt;
+그리고 관리자 역할을 부여받게 되면, 테넌트 내 모든 리소스(사용자, 그룹, 디바이스 등)에 대한 접근 권한이 생깁니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/admin-units-assign-roles&quot;&gt;관리 단위&lt;/a&gt;는 일종의 그룹같은 개념입니다.&lt;br /&gt;
+관리 단위를 통해, 관리자가 접근할 수 있는 리소스를 제한할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;예시로, 다음과 같은 경우에 사용할 수 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;하나의 테넌트 내에 여러 계열사가 존재하는 경우, 역할을 부여받은 계열사 담당자는 해당 계열사 사용자들에 대해서만 접근 권한을 지녀야 합니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;그 외에도, 감사 로그 추출 시 필터링 조건으로 사용할 수도 있습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;관리-단위-생성&quot;&gt;관리 단위 생성&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/57/1.PNG&quot; title=&quot;관리 단위1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Microsoft Entra 관리 센터] &amp;gt; 검색창에 “관리 단위” 를 검색하고 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/57/2.PNG&quot; title=&quot;관리 단위2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“추가” 를 눌러 새로운 관리 단위를 생성합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/57/3.PNG&quot; title=&quot;관리 단위3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이름과 설명을 입력합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/admin-units-restricted-management&quot;&gt;제한된 관리 단위&lt;/a&gt; 는 “아니오” 를 체크해줍니다.&lt;br /&gt;
+“예”로 설정하는 경우, 해당 관리 단위에 할당된 관리자 외의 다른 관리자는 관련 리소스에 접근할 수 없게 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/57/4.PNG&quot; title=&quot;관리 단위4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/57/5.PNG&quot; title=&quot;관리 단위5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그 외 설정은 생략해준 뒤, “만들기” 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/57/6.PNG&quot; title=&quot;관리 단위 활용1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;생성된 관리 단위에서 “역할 및 관리자” 를 클릭합니다.&lt;br /&gt;
+목록에 있는 역할에 사용자를 추가하면, 그 사용자는 해당 관리 단위에 대한 관리자가 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/57/7.PNG&quot; title=&quot;관리 단위 활용2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“사용자”, “그룹”, “디바이스” 에는 관리 단위에 포함시킬 리소스를 등록할 수 있습니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 12 Jul 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/entra/2024/07/12/57_%EA%B4%80%EB%A6%AC-%EB%8B%A8%EC%9C%84(Administrative-Unit)-%EC%84%A4%EC%A0%95.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/entra/2024/07/12/57_%EA%B4%80%EB%A6%AC-%EB%8B%A8%EC%9C%84(Administrative-Unit)-%EC%84%A4%EC%A0%95.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Entra</category>
+        
+      </item>
+    
+      <item>
+        <title>[Entra] 테넌트 IP 대역 설정</title>
+        <description>&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview&quot;&gt;조건부 액세스&lt;/a&gt; 정책 구성을 위해, 테넌트에서 사용하는 IP 대역을 정리할 필요가 있습니다.&lt;br /&gt;
+본 포스팅에서는 IP 대역을 정리하는 방법을 소개하도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;명명된-위치&quot;&gt;명명된 위치&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/56/1.PNG&quot; title=&quot;명명된 위치1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Microsoft Entra 관리 센터] &amp;gt; 검색창에 “명명된 위치” 를 검색하고 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/56/2.PNG&quot; title=&quot;명명된 위치2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;“IP 범위 위치” 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;적절한 이름을 입력해주고, IP 를 추가합니다.&lt;br /&gt;
+일반적으로 테넌트 내 사용자들이 접근하는 IP 범위에 대해서는 “신뢰할 수 있는 위치로 표시” 를 체크해줍니다.&lt;/p&gt;
+
+&lt;p&gt;그 외에도, “국가 위치” 를 클릭하면 특정 국가에 대해 IP 범위 지정이 가능합니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 11 Jul 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/entra/2024/07/11/56_%ED%85%8C%EB%84%8C%ED%8A%B8-IP-%EB%8C%80%EC%97%AD-%EC%84%A4%EC%A0%95.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/entra/2024/07/11/56_%ED%85%8C%EB%84%8C%ED%8A%B8-IP-%EB%8C%80%EC%97%AD-%EC%84%A4%EC%A0%95.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Entra</category>
+        
+      </item>
+    
+      <item>
+        <title>[Office] 로그인 세션 타임아웃 설정</title>
+        <description>&lt;p&gt;보안 상, 사용자의 Office 세션 타임아웃 시간(로그인 주기)를 설정해야 하는 경우가 있습니다.&lt;br /&gt;
+본 포스팅에서는 이를 설정하는 방법에 대해 알아보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;세션-타임아웃&quot;&gt;세션 타임아웃&lt;/h3&gt;
+
+&lt;p&gt;세션 타임아웃 시간을 설정하는 방법은 크게 두 가지가 있습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;조직-설정&quot;&gt;조직 설정&lt;/h4&gt;
+
+&lt;p&gt;[Microsoft 365 관리 센터] &amp;gt; [설정] &amp;gt; [조직 설정] 으로 이동합니다.&lt;br /&gt;
+[보안 및 개인 정보] &amp;gt; [유휴 세션 시간 제한] 을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/55/1.PNG&quot; title=&quot;조직 설정1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;해당 화면에서 타임아웃 시간을 설정할 수 있습니다.&lt;br /&gt;
+다만, &lt;a href=&quot;https://learn.microsoft.com/ko-KR/microsoft-365/admin/manage/idle-session-timeout-web-apps?view=o365-worldwide&amp;amp;WT.mc_id=365AdminCSH_inproduct&quot;&gt;해당 설정&lt;/a&gt;은 &lt;strong&gt;모든 사용자에게 적용&lt;/strong&gt; 되며, M365 서비스 및 관리센터를 포함한 &lt;strong&gt;웹앱에만 적용&lt;/strong&gt; 가능합니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;조건부-액세스&quot;&gt;조건부 액세스&lt;/h4&gt;
+
+&lt;p&gt;[Microsoft Intune 관리 센터] &amp;gt; [디바이스] &amp;gt; [조건부 액세스] &amp;gt; [정책] 을 클릭합니다.&lt;br /&gt;
+“새 정책” 을 클릭하여, 새로운 조건부 액세스 정책을 생성합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/55/2.PNG&quot; title=&quot;조건부 액세스1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[사용자] 에 적용할 사용자/그룹을 지정해주고,&lt;br /&gt;
+[대상 리소스] 에 원하는 Office 앱을 추가해줍니다.&lt;/p&gt;
+
+&lt;p&gt;*조건부 액세스의 대상 리소스 지정 시, Office 앱에 대한 종속성을 인지해야 합니다. 관련 문서는 다음 &lt;a href=&quot;https://learn.microsoft.com/ko-kr/entra/identity/conditional-access/concept-conditional-access-cloud-apps#office-365&quot;&gt;링크&lt;/a&gt;를 참고하세요.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/55/3.PNG&quot; title=&quot;조건부 액세스2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[허용] 은 상기 사진과 같이 설정해줍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/55/4.PNG&quot; title=&quot;조건부 액세스3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[세션] 항목에서 “로그인 빈도” 를 체크한 다음, 원하는 시간을 설정해줍니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 10 Jul 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/office/2024/07/10/55_Office-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%84%B8%EC%85%98-%ED%83%80%EC%9E%84%EC%95%84%EC%9B%83-%EC%84%A4%EC%A0%95.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/office/2024/07/10/55_Office-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%84%B8%EC%85%98-%ED%83%80%EC%9E%84%EC%95%84%EC%9B%83-%EC%84%A4%EC%A0%95.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Office</category>
+        
+      </item>
     
       <item>
         <title>[Admin] M365 테넌트 구축(2) - Windows Server 2019 설치</title>
@@ -196,41 +541,53 @@ Get-Mailbox &quot;사용자UPN&quot; | fl *Archive*
       </item>
     
       <item>
-        <title>[Outlook] Outlook 데스크톱 앱에서 일정 생성 불가 오류 (동기화한 폴더에 있는 일부 항목이 일치하지 않습니다)</title>
-        <description>&lt;p&gt;&lt;img src=&quot;/assets/images/52/1.PNG&quot; title=&quot;Outlook 앱 일정 생성 오류&quot; /&gt;&lt;/p&gt;
+        <title>[Office] 로그인 세션 타임아웃 설정</title>
+        <description>&lt;p&gt;보안 상, 사용자의 Office 세션 타임아웃 시간(로그인 주기)를 설정해야 하는 경우가 있습니다.&lt;br /&gt;
+본 포스팅에서는 이를 설정하는 방법에 대해 알아보도록 하겠습니다.&lt;/p&gt;
 
-&lt;p&gt;Outlook 데스크톱 앱에서 모임 일정 생성 시, 다음과 같은 오류가 발생합니다.&lt;br /&gt;
-“동기화한 폴더에 있는 일부 항목이 일치하지 않습니다. 충돌 문제를 해결하려면 해당 항목을 연 다음, 이 작업을 다시 수행해 보십시오. (One or more items in the folder you synchronized do not match. To resolve the conflicts, open the items, and then try this operation again)”&lt;/p&gt;
+&lt;h3 id=&quot;세션-타임아웃&quot;&gt;세션 타임아웃&lt;/h3&gt;
 
-&lt;p&gt;본 포스팅에서는 해당 오류의 해결 방법에 대해 살펴보도록 합니다.&lt;/p&gt;
+&lt;p&gt;세션 타임아웃 시간을 설정하는 방법은 크게 두 가지가 있습니다.&lt;/p&gt;
 
-&lt;h3 id=&quot;오프라인-일정-항목-삭제&quot;&gt;오프라인 일정 항목 삭제&lt;/h3&gt;
+&lt;h4 id=&quot;조직-설정&quot;&gt;조직 설정&lt;/h4&gt;
 
-&lt;p&gt;일정에 대한 캐시를 지웁니다.&lt;/p&gt;
+&lt;p&gt;[Microsoft 365 관리 센터] &amp;gt; [설정] &amp;gt; [조직 설정] 으로 이동합니다.&lt;br /&gt;
+[보안 및 개인 정보] &amp;gt; [유휴 세션 시간 제한] 을 클릭합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/52/2.PNG&quot; title=&quot;오프라인 일정 항목 삭제1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/55/1.png&quot; title=&quot;조직 설정1&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;[Outlook 데스크톱 앱] &amp;gt; [일정] &amp;gt; 내 일정 우클릭 &amp;gt; [속성] 을 클릭합니다.&lt;/p&gt;
+&lt;p&gt;해당 화면에서 타임아웃 시간을 설정할 수 있습니다.&lt;br /&gt;
+다만, &lt;a href=&quot;https://learn.microsoft.com/ko-KR/microsoft-365/admin/manage/idle-session-timeout-web-apps?view=o365-worldwide&amp;amp;WT.mc_id=365AdminCSH_inproduct&quot;&gt;해당 설정&lt;/a&gt;은 &lt;strong&gt;모든 사용자에게 적용&lt;/strong&gt; 되며, M365 서비스 및 관리센터를 포함한 &lt;strong&gt;웹앱에만 적용&lt;/strong&gt; 가능합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/52/3.PNG&quot; title=&quot;오프라인 일정 항목 삭제1&quot; /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;조건부-액세스&quot;&gt;조건부 액세스&lt;/h4&gt;
 
-&lt;p&gt;“오프라인 항목 지우기” 를 클릭합니다.&lt;/p&gt;
+&lt;p&gt;[Microsoft Intune 관리 센터] &amp;gt; [디바이스] &amp;gt; [조건부 액세스] &amp;gt; [정책] 을 클릭합니다.&lt;br /&gt;
+“새 정책” 을 클릭하여, 새로운 조건부 액세스 정책을 생성합니다.&lt;/p&gt;
 
-&lt;h3 id=&quot;프로필-삭제&quot;&gt;프로필 삭제&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/55/2.png&quot; title=&quot;조건부 액세스1&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;이후 증상이 동일한 경우, 메일 프로필을 삭제 후 재생성합니다.&lt;/p&gt;
+&lt;p&gt;[사용자] 에 적용할 사용자/그룹을 지정해주고,&lt;br /&gt;
+[대상 리소스] 에 원하는 Office 앱을 추가해줍니다.&lt;/p&gt;
 
-&lt;p&gt;[제어판] &amp;gt; [자격증명 관리자] &amp;gt; [Windows 자격 증명] &amp;gt; [일반 자격 증명]에 Office 관련 모든 자격증명을 제거합니다.&lt;br /&gt;
-그 후, Outlook 을 실행하여 로그인합니다.&lt;/p&gt;
+&lt;p&gt;*조건부 액세스의 대상 리소스 지정 시, Office 앱에 대한 종속성을 인지해야 합니다. 관련 문서는 다음 &lt;a href=&quot;https://learn.microsoft.com/ko-kr/entra/identity/conditional-access/concept-conditional-access-cloud-apps#office-365&quot;&gt;링크&lt;/a&gt;를 참고하세요.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/55/3.png&quot; title=&quot;조건부 액세스2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[허용] 은 상기 사진과 같이 설정해줍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/55/4.png&quot; title=&quot;조건부 액세스3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[세션] 항목에서 “로그인 빈도” 를 체크한 다음, 원하는 시간을 설정해줍니다.&lt;/p&gt;
+
 </description>
         <pubDate>Thu, 04 Jul 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/operation/outlook/2024/07/04/52_Outlook-%EB%8D%B0%EC%8A%A4%ED%81%AC%ED%86%B1-%EC%95%B1%EC%97%90%EC%84%9C-%EC%9D%BC%EC%A0%95-%EC%83%9D%EC%84%B1-%EB%B6%88%EA%B0%80-%EC%98%A4%EB%A5%98-(%EB%8F%99%EA%B8%B0%ED%99%94%ED%95%9C-%ED%8F%B4%EB%8D%94%EC%97%90-%EC%9E%88%EB%8A%94-%EC%9D%BC%EB%B6%80-%ED%95%AD%EB%AA%A9%EC%9D%B4-%EC%9D%BC%EC%B9%98%ED%95%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4).html</link>
-        <guid isPermaLink="true">http://localhost:4000/operation/outlook/2024/07/04/52_Outlook-%EB%8D%B0%EC%8A%A4%ED%81%AC%ED%86%B1-%EC%95%B1%EC%97%90%EC%84%9C-%EC%9D%BC%EC%A0%95-%EC%83%9D%EC%84%B1-%EB%B6%88%EA%B0%80-%EC%98%A4%EB%A5%98-(%EB%8F%99%EA%B8%B0%ED%99%94%ED%95%9C-%ED%8F%B4%EB%8D%94%EC%97%90-%EC%9E%88%EB%8A%94-%EC%9D%BC%EB%B6%80-%ED%95%AD%EB%AA%A9%EC%9D%B4-%EC%9D%BC%EC%B9%98%ED%95%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4).html</guid>
+        <link>http://localhost:4000/administration/office/2024/07/04/52_Outlook-%EB%8D%B0%EC%8A%A4%ED%81%AC%ED%86%B1-%EC%95%B1%EC%97%90%EC%84%9C-%EC%9D%BC%EC%A0%95-%EC%83%9D%EC%84%B1-%EB%B6%88%EA%B0%80-%EC%98%A4%EB%A5%98-(%EB%8F%99%EA%B8%B0%ED%99%94%ED%95%9C-%ED%8F%B4%EB%8D%94%EC%97%90-%EC%9E%88%EB%8A%94-%EC%9D%BC%EB%B6%80-%ED%95%AD%EB%AA%A9%EC%9D%B4-%EC%9D%BC%EC%B9%98%ED%95%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4).html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/office/2024/07/04/52_Outlook-%EB%8D%B0%EC%8A%A4%ED%81%AC%ED%86%B1-%EC%95%B1%EC%97%90%EC%84%9C-%EC%9D%BC%EC%A0%95-%EC%83%9D%EC%84%B1-%EB%B6%88%EA%B0%80-%EC%98%A4%EB%A5%98-(%EB%8F%99%EA%B8%B0%ED%99%94%ED%95%9C-%ED%8F%B4%EB%8D%94%EC%97%90-%EC%9E%88%EB%8A%94-%EC%9D%BC%EB%B6%80-%ED%95%AD%EB%AA%A9%EC%9D%B4-%EC%9D%BC%EC%B9%98%ED%95%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4).html</guid>
         
         
-        <category>Operation</category>
+        <category>Administration</category>
         
-        <category>Outlook</category>
+        <category>Office</category>
         
       </item>
     
@@ -377,468 +734,6 @@ $user = Get-CsOnlineUser -Filter {TeamsAppPermissionPolicy -eq &apos;정책명&a
         <category>Guide</category>
         
         <category>Project_M365Tenant</category>
-        
-      </item>
-    
-      <item>
-        <title>[Sharepoint] 파일 버전관리를 통한 용량 확보</title>
-        <description>&lt;p&gt;테넌트에서 구매한 라이선스 수량에 따라, 테넌트에서 Sharepoint (Teams 팀) 사이트에 &lt;a href=&quot;https://learn.microsoft.com/en-us/office365/servicedescriptions/sharepoint-online-service-description/sharepoint-online-limits&quot;&gt;할당 가능한 용량&lt;/a&gt;이 주어지게 됩니다.&lt;br /&gt;
-제한된 용량을 각 사이트에 할당해야 하므로, 테넌트 운영 시 사용자가 자체적으로 사이트를 생성하지 못하게끔 설정하는 조직도 있고, 혹은 팀 사이트 별 용량 제한을 설정하는 경우도 있습니다.&lt;/p&gt;
-
-&lt;p&gt;운영을 하다보면, 팀 사이트 용량 증설에 대한 문의가 종종 오곤 하는데요.&lt;br /&gt;
-관리센터에서 확인해봤을 때는 용량 여유가 있으나, 실제로는 용량이 부족한 경우가 있습니다.&lt;br /&gt;
-이는 파일 버전때문에 발생하는 문제입니다.&lt;/p&gt;
-
-&lt;p&gt;본 포스팅에서는, Sharepoint 사이트 내 파일의 버전에 대해 알아보고 이를 관리하여 용량을 확보하는 방법에 대해 소개해보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;파일-버전&quot;&gt;파일 버전&lt;/h3&gt;
-
-&lt;p&gt;파일 버전이란, Sharepoint (Teams) 사이트에서 파일 관련 작업 시, 수정된 파일에 대한 사본이 새로운 버전으로 Sharepoint 사이트에 저장되는 기능입니다.&lt;/p&gt;
-
-&lt;p&gt;버전은 다음과 같은 상황에서 만들어집니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;When a list item or file is first created or when a file is uploaded.&lt;br /&gt;
-Note: If file checkout is required, you must check the file in to create its first version.&lt;/li&gt;
-  &lt;li&gt;When a file is uploaded that has the same name as an existing file.&lt;/li&gt;
-  &lt;li&gt;When the properties of a list item or file are changed.&lt;/li&gt;
-  &lt;li&gt;When an Office document is opened and saved. After a document is opened again, a new version will be created after an edit is saved.&lt;/li&gt;
-  &lt;li&gt;Periodically, when editing and saving Office documents. Not all edits and saves create new versions. When saving edits frequently, for example, each new version captures a point in time rather than each individual edit. This is common when autosave is enabled.&lt;/li&gt;
-  &lt;li&gt;During co-authoring of a document, when a different user begins working on the document or when a user clicks save to upload changes to the library.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;파일-버전-관리&quot;&gt;파일 버전 관리&lt;/h3&gt;
-
-&lt;p&gt;파일 버전에 대한 설정 관리는 사이트(팀) 소유자만 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/49/1.PNG&quot; title=&quot;파일 버전 관리1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;SharePoint 사이트 &amp;gt; [문서] &amp;gt; 오른쪽 상단 [설정] (톱니바퀴 버튼) &amp;gt; [라이브러리 설정] &amp;gt; [더 많은 라이브러리 설정] 을 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/49/2.PNG&quot; title=&quot;파일 버전 관리2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[버전 관리 설정] 을 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/49/3.PNG&quot; title=&quot;파일 버전 관리3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;설정에서 “다음 주 버전 수 유지” 의 항목을 조절합니다.&lt;br /&gt;
-저장되는 파일 사본 수를 줄이고 싶으면 값을 낮추면 됩니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;실제-파일-버전-확인&quot;&gt;실제 파일 버전 확인&lt;/h3&gt;
-
-&lt;p&gt;실제 파일에 저장된 버전들을 확인해봅시다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/49/4.PNG&quot; title=&quot;실제 파일 버전 확인1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Sharepoint 사이트 &amp;gt; 오른쪽 상단 [설정] (톱니바퀴 아이콘) &amp;gt; [사이트 정보] &amp;gt; [모든 사이트 설정 보기] 를 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/49/5.PNG&quot; title=&quot;실제 파일 버전 확인2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[사이트 모음 관리] &amp;gt; [저장소 메트릭] 을 클릭합니다.&lt;br /&gt;
-원하는 파일을 선택하고, 맨 오른쪽의 “버전 기록” 을 클릭하면 파일에 대한 버전 확인이 가능합니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 25 Jun 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/operation/sharepoint/2024/06/25/49_Sharepoint-%ED%8C%8C%EC%9D%BC-%EB%B2%84%EC%A0%84%EA%B4%80%EB%A6%AC%EB%A5%BC-%ED%86%B5%ED%95%9C-%EC%9A%A9%EB%9F%89-%ED%99%95%EB%B3%B4.md.html</link>
-        <guid isPermaLink="true">http://localhost:4000/operation/sharepoint/2024/06/25/49_Sharepoint-%ED%8C%8C%EC%9D%BC-%EB%B2%84%EC%A0%84%EA%B4%80%EB%A6%AC%EB%A5%BC-%ED%86%B5%ED%95%9C-%EC%9A%A9%EB%9F%89-%ED%99%95%EB%B3%B4.md.html</guid>
-        
-        
-        <category>Operation</category>
-        
-        <category>Sharepoint</category>
-        
-      </item>
-    
-      <item>
-        <title>[Sharepoint] 사이트 파일 접근권한 설정</title>
-        <description>&lt;p&gt;Sharepoint (Teams 팀) 사이트의 운영 목적은 각 사이트마다 다릅니다.&lt;/p&gt;
-
-&lt;p&gt;구성원이 같이 파일을 수정하며 협업하는 목적으로 생성된 사이트도 있을 것이고,&lt;br /&gt;
-특정 문서나 가이드를 여러 사용자들에게 배포하는 목적으로 생성된 사이트도 있을 것입니다.&lt;br /&gt;
-전자의 경우 모든 사용자가 문서에 대한 편집 권한을 가져야 하지만, 후자의 경우 열람 권한만 있어야 할 것입니다.&lt;/p&gt;
-
-&lt;p&gt;본 포스팅에서는, Sharepoint 사이트 내 파일에 대한 접근권한을 설정하는 방법에 대해 소개해보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;사용-권한-편집&quot;&gt;사용 권한 편집&lt;/h3&gt;
-
-&lt;p&gt;사용 권한 편집은 팀 사이트의 소유자만이 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/48/1.PNG&quot; title=&quot;사용 권한 편집1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;웹 SharePoint 사이트에 접속한 뒤, 팀 사이트를 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/48/2.PNG&quot; title=&quot;사용 권한 편집2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;오른쪽 상단 설정(톱니바퀴 버튼) &amp;gt; 사이트 사용 권한 &amp;gt; 고급 사용 권한 설정을 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/48/3.PNG&quot; title=&quot;사용 권한 편집3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;팀 내에는 디폴트로 소유자/구성원/방문자 에 대한 사용 권한 수준이 설정되어 있습니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;소유자: 모든 권한&lt;/li&gt;
-  &lt;li&gt;구성원: 편집&lt;/li&gt;
-  &lt;li&gt;방문자: 읽기&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/48/4.PNG&quot; title=&quot;사용 권한 편집4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;상단의 “사용 권한 수준” 을 클릭합니다.
-기본적으로 제공되는 5가지 수준이 존재하며 (모든 권한, 디자인, 편집, 참가, 읽기), 각 수준을 클릭하여 실제 부여된 권한에 대해 확인 및 편집이 가능합니다.
-혹은, “사용 권한 수준 추가” 를 통해 권한을 커스텀하여 생성할 수도 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/48/5.PNG&quot; title=&quot;사용 권한 편집5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/48/6.PNG&quot; title=&quot;사용 권한 편집6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;변경하고자 하는 항목을 선택한 후, 상단의 “사용자의 사용 권한 편집”을 클릭하여 원하는 권한 수준을 선택합니다.&lt;/p&gt;
-
-&lt;p&gt;만약 해당 버튼이 비활성화 되어 있는 경우,&lt;br /&gt;
-Sharepoint 설정 &amp;gt; [라이브러리 설정] &amp;gt; [더 많은 라이브러리 설정] &amp;gt; [이 문서 라이브러리에 대한 사용 권한] &amp;gt; “권한 상속 중지” 를 클릭합니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 24 Jun 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/operation/sharepoint/2024/06/24/48_Sharepoint-%EC%82%AC%EC%9D%B4%ED%8A%B8-%ED%8C%8C%EC%9D%BC-%EC%A0%91%EA%B7%BC%EA%B6%8C%ED%95%9C-%EC%84%A4%EC%A0%95.html</link>
-        <guid isPermaLink="true">http://localhost:4000/operation/sharepoint/2024/06/24/48_Sharepoint-%EC%82%AC%EC%9D%B4%ED%8A%B8-%ED%8C%8C%EC%9D%BC-%EC%A0%91%EA%B7%BC%EA%B6%8C%ED%95%9C-%EC%84%A4%EC%A0%95.html</guid>
-        
-        
-        <category>Operation</category>
-        
-        <category>Sharepoint</category>
-        
-      </item>
-    
-      <item>
-        <title>[Admin] M365 테넌트 구축 - 개요</title>
-        <description>&lt;p&gt;처음 회사에 입사하고, 저는 Microsoft 365 운영이라는 직무를 담당하게 되었습니다.&lt;br /&gt;
-학생 때는 개발을 위주로 하다가 운영 직무를 맡게 되어, 처음에는 꽤나 낯설었던 기억이 있네요😅&lt;/p&gt;
-
-&lt;p&gt;해당 직무는 비즈니스 및 운영하는 서비스에 대한 이해도를 필요로 하는 직무였습니다.&lt;br /&gt;
-Microsoft에서 제공하는 여러가지 SaaS 서비스들에 익숙해져야 했고, 서비스 제공을 위해 조직에 구축된 인프라와 구성을 파악하고 감을 잡기까지 시간이 소요되었던 것 같습니다.&lt;/p&gt;
-
-&lt;p&gt;점점 제가 맡은 직무에 대한 전문성을 높이고 싶다는 생각이 들기 시작하면서,&lt;br /&gt;
-저는 이 블로그를 운영하기 시작하였고 또한 작은 프로젝트를 진행해보기로 결심하게 됩니다.&lt;br /&gt;
-&lt;strong&gt;AD 서버를 이용한 하이브리드 구조의 M365 테넌트&lt;/strong&gt; 를 직접 구축해보기로요😄&lt;/p&gt;
-
-&lt;p&gt;본 시리즈에서는, 테넌트를 구축하고, AD/AADC 서버를 구성하고, 하이브리드 구조를 구성하는 방법에 대해 포스팅하고자 합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;구축-환경&quot;&gt;구축 환경&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;로컬 환경
-    &lt;ul&gt;
-      &lt;li&gt;Macbook Pro 14&lt;/li&gt;
-      &lt;li&gt;CPU: Apple M3 Pro&lt;/li&gt;
-      &lt;li&gt;Memory: 18GB&lt;/li&gt;
-      &lt;li&gt;SSD: 1TB&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;VM 환경 (AD / AADC 서버)
-    &lt;ul&gt;
-      &lt;li&gt;Windows Server 2019 Standard&lt;/li&gt;
-      &lt;li&gt;CPU: QEMU Virtual CPU Version 2.5+ 1.00GHz (x64)&lt;/li&gt;
-      &lt;li&gt;Memory: 4GB&lt;/li&gt;
-      &lt;li&gt;SSD: 30GB&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;사전-준비&quot;&gt;사전 준비&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;도메인 준비
-    &lt;ul&gt;
-      &lt;li&gt;테넌트 구성을 위해 사용할 도메인을 준비합니다.&lt;/li&gt;
-      &lt;li&gt;유명한 최상위 도메인(TLD)을 사용하기 위해서는 도메인 제공업체를 통해 유료로 구매할 수 있습니다.  (저는 겸사겸사 블로그 운영을 위해 별도로 도메인을 구매했습니다)&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://xn--220b31d95hq8o.xn--3e0b707e/&quot;&gt;무료로 도메인을 발급&lt;/a&gt;받는 것도 가능합니다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;가상머신 프로그램 설치
-    &lt;ul&gt;
-      &lt;li&gt;저는 Mac(M3) 환경에서 Windows Server를 올려야했기 때문에, &lt;a href=&quot;https://mac.getutm.app/&quot;&gt;UTM&lt;/a&gt; 가상머신을 설치했습니다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;참고-사항&quot;&gt;참고 사항&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/naming-conventions-for-computer-domain-site-ou&quot;&gt;Windows Server 네이밍 컨벤션&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;프로젝트-목표&quot;&gt;프로젝트 목표&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;M365 테넌트를 구축할 수 있다.&lt;/li&gt;
-  &lt;li&gt;Windows Server에 대한 이해도를 높인다.&lt;/li&gt;
-  &lt;li&gt;하이브리드 구조를 이해하고 구성할 수 있다.&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Sat, 22 Jun 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/guide/project_m365tenant/2024/06/22/47_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95-%EA%B0%9C%EC%9A%94.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/guide/project_m365tenant/2024/06/22/47_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95-%EA%B0%9C%EC%9A%94.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Guide</category>
-        
-        <category>Project_M365Tenant</category>
-        
-      </item>
-    
-      <item>
-        <title>[Entra] 애플리케이션 등록 - 무인 스크립트</title>
-        <description>&lt;p&gt;조직에서 M365 테넌트를 운영하면서, 로그 열람 및 수집 등을 위해 특정 사용자에게 관리자 권한을 일부 제공해야 하는 경우가 있습니다.&lt;br /&gt;
-이 경우 보통 API 권한을 주거나(&lt;a href=&quot;https://allways365.com/administration/entra/2024/06/18/44_Entra-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%93%B1%EB%A1%9D-API.html&quot;&gt;이전 포스팅&lt;/a&gt;), Powershell 명령어를 사용할 수 있는 권한을 주곤 하는데요.&lt;/p&gt;
-
-&lt;p&gt;본 포스팅에서는 이전 포스팅에 이어, 애플리케이션 생성을 통해 무인 스크립트를 구성하는 방법을 소개해보도록 하겠습니다.&lt;br /&gt;
-ExchangeOnline 모듈을 사용하는 것을 가정합니다🙂&lt;/p&gt;
-
-&lt;h3 id=&quot;무인-스크립트&quot;&gt;무인 스크립트&lt;/h3&gt;
-
-&lt;p&gt;관리자 권한으로 Powershell 모듈에 연결하기 위해서는, 관리자 계정에 대한 자격증명 정보가 필요합니다.&lt;br /&gt;
-다만 무인 스크립트를 구성하면, 자격증명 정보가 없이도 관리자 권한으로 명령어 실행이 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;관련 상세 문서는 &lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/exchange/app-only-auth-powershell-v2?view=exchange-ps&quot;&gt;링크&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
-
-&lt;h3 id=&quot;애플리케이션-생성&quot;&gt;애플리케이션 생성&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/46/1.PNG&quot; title=&quot;애플리케이션 생성1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[Microsoft Entra 관리 센터] &amp;gt; [애플리케이션]&amp;gt; [엔터프라이즈 애플리케이션] 으로 이동합니다.&lt;br /&gt;
-“새로운 애플리케이션” 을 눌러 애플리케이션을 생성합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/46/2.PNG&quot; title=&quot;애플리케이션 생성2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;마찬가지로, 적절한 네이밍 규칙을 기반으로 애플리케이션 이름을 정해줍니다.&lt;/p&gt;
-
-&lt;p&gt;“지원되는 계정 유형”은 기본 항목으로 선택해주어도 무방합니다.&lt;br /&gt;
-다중 테넌트와 사용이 필요한 경우, 두 번째/세 번째 항목을 선택해줍니다.&lt;/p&gt;
-
-&lt;p&gt;“등록” 버튼을 눌러 애플리케이션을 생성해줍니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;매니페스트-수정&quot;&gt;매니페스트 수정&lt;/h3&gt;
-
-&lt;p&gt;애플리케이션이 생성되었습니다.&lt;br /&gt;
-왼쪽 항목의 “매니페스트” 를 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/46/3.PNG&quot; title=&quot;매니페스트 수정1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 화면과 같이 JSON 형식의 내용이 확인되는데요.&lt;br /&gt;
-“다운로드” 버튼을 클릭하여 JSON 파일을 다운로드 받아줍니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/46/4.PNG&quot; title=&quot;매니페스트 수정2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;JSON 파일을 열어서 확인합니다.&lt;br /&gt;
-약 42번째 줄에 “requiredResourceAccess” 라는 속성값이 있는데, 해당 속성값을 아래 항목으로 대체시켜 줍니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&quot;requiredResourceAccess&quot;: [
-    {
-        &quot;resourceAppId&quot;: &quot;00000002-0000-0ff1-ce00-000000000000&quot;,
-        &quot;resourceAccess&quot;: [
-            {
-                &quot;id&quot;: &quot;dc50a0fb-09a3-484d-be87-e023b12c6440&quot;,
-                &quot;type&quot;: &quot;Role&quot;
-            }
-        ]
-    },
-    {
-        &quot;resourceAppId&quot;: &quot;00000003-0000-0000-c000-000000000000&quot;,
-        &quot;resourceAccess&quot;: [
-            {
-                &quot;id&quot;: &quot;e1fe6dd8-ba31-4d61-89e7-88639da4683d&quot;,
-                &quot;type&quot;: &quot;Scope&quot;
-            }
-        ]
-    }
-],
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;파일을 저장하고, 다시 업로드합니다.&lt;br /&gt;
-매니페스트의 각 속성에 대한 상세 정보는 다음 &lt;a href=&quot;https://learn.microsoft.com/en-us/entra/identity-platform/reference-app-manifest?WT.mc_id=Portal-Microsoft_AAD_RegisteredApps&quot;&gt;링크&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/46/5.PNG&quot; title=&quot;매니페스트 수정3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[API 사용 권한] 항목을 클릭합니다.&lt;br /&gt;
-상기 사진과 같이, “Office 365 Exchange Online”의 “Exchange.ManageAsApp” 권한이 잘 들어가있는지 확인합니다.&lt;/p&gt;
-
-&lt;p&gt;권한이 잘 부여되었다면, “&lt;em&gt;테넌트명&lt;/em&gt; 에 대한 관리자 동의 허용” 을 클릭합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;인증서-생성-및-연결&quot;&gt;인증서 생성 및 연결&lt;/h3&gt;
-
-&lt;p&gt;Powershell 모듈 연결 시, 자격증명 대신 사용할 수 있는 인증서를 생성해보겠습니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;# 인증서 패스워드
-$mypwd = ConvertTo-SecureString -String &apos;패스워드&apos; -Force -AsPlainText
-
-# 인증서 생성 (2년)
-$mycert = New-SelfSignedCertificate -DnsName &quot;DNS명&quot; -CertStoreLocation &quot;cert:\CurrentUser\My&quot; -NotAfter (Get-Date).AddYears(2) -KeySpec KeyExchange
-
-# 인증서 pfx 파일 추출
-$mycert | Export-PfxCertificate -FilePath mycert.pfx -Password $mypwd
-
-# 인증서 cer 파일 추출
-$mycert | Export-Certificate -FilePath mycert.cer
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;상기 명령어를 통해, 자체 서명된 인증서 파일을 생성합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/46/6.PNG&quot; title=&quot;인증서 연결1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[인증서 및 암호] &amp;gt; [인증서] 를 클릭합니다.&lt;br /&gt;
-“인증서 업로드” 를 클릭하여, 생성된 cer 파일을 업로드합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;앱-역할-부여&quot;&gt;앱 역할 부여&lt;/h3&gt;
-
-&lt;p&gt;마지막으로, 앱에 역할 할당을 진행해주면 설정은 마무리됩니다.&lt;/p&gt;
-
-&lt;p&gt;ExchangeOnline 모듈은 “Connect-ExhangeOnline” 및 “Connect-IPPSSession” 연결에 사용되는데요,&lt;br /&gt;
-연결하고자 하는 서비스에 따라 아래와 같이 앱 역할을 부여하면 됩니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/46/7.PNG&quot; title=&quot;앱 역할 부여1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/46/8.PNG&quot; title=&quot;앱 역할 부여2&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Connect-ExchangeOnline: [Microsoft Entra 역할 및 관리자] &amp;gt; “Exchange 관리자” &amp;gt; 앱 이름을 검색하여 추가합니다.&lt;/li&gt;
-  &lt;li&gt;Connect-IPPSSession: [Microsoft Entra 역할 및 관리자] &amp;gt; “준수 관리자” &amp;gt; 앱 이름을 검색하여 추가합니다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;모듈-연결&quot;&gt;모듈 연결&lt;/h3&gt;
-
-&lt;p&gt;권한이 필요한 사용자의 PC에, 인증서를 통해 모듈에 연결하는 작업을 진행해봅시다.&lt;/p&gt;
-
-&lt;p&gt;사용자에게 제공해야 하는 정보는 다음과 같습니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;인증서 파일&lt;/li&gt;
-  &lt;li&gt;인증서 패스워드&lt;/li&gt;
-  &lt;li&gt;인증서 지문(Thumbprint)&lt;/li&gt;
-  &lt;li&gt;애플리케이션 ID&lt;/li&gt;
-  &lt;li&gt;테넌트명&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;먼저, 사용자 PC에 인증서 파일을 설치합니다.&lt;br /&gt;
-이때 인증서의 패스워드를 입력합니다.&lt;/p&gt;
-
-&lt;p&gt;그 후, 아래와 같은 Powershell 명령어를 통해 모듈에 연결하면 됩니다.&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-ExchangeOnline -CertificateThumbprint &quot;인증서 지문&quot; -Organization &quot;테넌트명.onmicrosoft.com&quot; -AppId &quot;애플리케이션 ID&quot;
-Connect-IPPSSession -CertificateThumbprint &quot;인증서 지문&quot; -Organization &quot;테넌트명.onmicrosoft.com&quot; -AppId &quot;애플리케이션 ID&quot;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-</description>
-        <pubDate>Fri, 21 Jun 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/entra/2024/06/21/46_Entra-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%93%B1%EB%A1%9D-%EB%AC%B4%EC%9D%B8-%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/entra/2024/06/21/46_Entra-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%93%B1%EB%A1%9D-%EB%AC%B4%EC%9D%B8-%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Entra</category>
-        
-      </item>
-    
-      <item>
-        <title>[Entra] 애플리케이션 등록 - 앱 연동</title>
-        <description>&lt;p&gt;&lt;a href=&quot;https://allways365.com/administration/entra/2024/06/18/44_Entra-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%93%B1%EB%A1%9D-API.html&quot;&gt;이전 포스팅&lt;/a&gt;에 이어, 본 포스팅에서는 애플리케이션을 생성하여&lt;br /&gt;
-테넌트의 Microsoft Entra를 IdP로 하여 타 서비스와 연동하는 방법에 대해 소개해보도록 하겠습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://docs.microsoft.com/en-us/azure/active-directory/saas-apps/slack-tutorial&quot;&gt;Slack을 연동&lt;/a&gt;하는 것을 가정하고 실습을 진행해보도록 하겠습니다 🙂&lt;/p&gt;
-
-&lt;p&gt;*Entra 애플리케이션과 타 서비스를 연동하는 방법은 서비스 별로 상이할 수 있습니다.&lt;br /&gt;
-실제 연동 작업은 해당 서비스 담당자와 함께 진행이 필요합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;애플리케이션-생성&quot;&gt;애플리케이션 생성&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/45/1.PNG&quot; title=&quot;애플리케이션 생성1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[Microsoft Entra 관리 센터] &amp;gt; [애플리케이션]&amp;gt; [엔터프라이즈 애플리케이션] 으로 이동합니다.&lt;br /&gt;
-“새로운 애플리케이션” 을 눌러 애플리케이션을 생성합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/45/2.PNG&quot; title=&quot;애플리케이션 생성2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Microsoft Entra 갤러리에서는 다양한 종류의 앱 목록을 제공하고 있습니다.&lt;br /&gt;
-연동하고자 하는 앱을 검색하여 선택하고, 적절한 이름을 생성하여 앱을 만듭니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;사용자-및-그룹-추가&quot;&gt;사용자 및 그룹 추가&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/45/3.PNG&quot; title=&quot;API 사용 권한 추가1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[사용자 및 그룹] 을 클릭합니다.&lt;br /&gt;
-목록에 포함된 사용자/그룹이 해당 서비스에 실제 연동될 계정 목록에 해당됩니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;single-sign-on-설정&quot;&gt;Single Sign-On 설정&lt;/h3&gt;
-
-&lt;p&gt;테넌트에 등록된 사용자 정보를 연동하기 위해, SSO를 설정해줍니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/45/4.PNG&quot; title=&quot;Single Sign-On 설정1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/45/5.PNG&quot; title=&quot;Single Sign-On 설정1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[Singne Sign-On] 항목을 클릭해줍니다.&lt;br /&gt;
-서비스 담당자가 제공해주는 메타데이터 파일을 업로드하여 간편하게 설정을 구성할 수도 있습니다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;SAML 구성 정보: 전달받은 정보를 기반으로 SAML 구성을 진행합니다.&lt;/li&gt;
-  &lt;li&gt;특정 및 클레임: Slack에 동기화 할 사용자의 속성 값을 설정합니다.&lt;/li&gt;
-  &lt;li&gt;SAML 인증서: 생성된 인증서 파일 및 지문 정보는 필요 시 서비스 측에 전달합니다.&lt;/li&gt;
-  &lt;li&gt;설정: 인증을 위해 필요한 로그인/로그아웃 URL 등을 설정합니다.&lt;/li&gt;
-  &lt;li&gt;Test Single Sign-On 사용: SSO 연동이 정상적으로 진행되었는지 테스트합니다.
-    &lt;ul&gt;
-      &lt;li&gt;테스트를 위해선, 사전에 사용자 및 그룹 추가가 필요&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;프로비전-진행&quot;&gt;프로비전 진행&lt;/h3&gt;
-
-&lt;p&gt;왼쪽의 [프로비전 중] 항목을 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/45/6.PNG&quot; title=&quot;프로비전 진행1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[프로비전 시작] 을 클릭하면, [사용자 및 그룹] 에서 추가한 계정 목록이 실제 Slack 으로 프로비저닝 됩니다.&lt;br /&gt;
-프로비저닝이 완료되면, Slack 서비스에서 M365 테넌트 내 계정을 통해 접속이 가능하게 됩니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Thu, 20 Jun 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/entra/2024/06/20/45_Entra-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%93%B1%EB%A1%9D-%EC%95%B1-%EC%97%B0%EB%8F%99.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/entra/2024/06/20/45_Entra-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%93%B1%EB%A1%9D-%EC%95%B1-%EC%97%B0%EB%8F%99.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Entra</category>
         
       </item>
     
