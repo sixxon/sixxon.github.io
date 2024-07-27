@@ -5,12 +5,470 @@
     <description>모든 곳에서 365일 사용되는 Microsoft365 서비스의 기술 블로그📘</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 13 Jul 2024 20:36:35 +0900</pubDate>
-    <lastBuildDate>Sat, 13 Jul 2024 20:36:35 +0900</lastBuildDate>
+    <pubDate>Sat, 27 Jul 2024 16:36:47 +0900</pubDate>
+    <lastBuildDate>Sat, 27 Jul 2024 16:36:47 +0900</lastBuildDate>
     <generator>Jekyll v4.3.3</generator>
     
       <item>
-        <title>[Admin] M365 테넌트 구축(3) - AD 서버 구성</title>
+        <title>[Entra] 계정 유형 - 구성원과 게스트</title>
+        <description>&lt;p&gt;테넌트 내 사용자 계정은 UserType 에 따라 그 유형을 구분할 수 있으며, 종류로는 “구성원” 과 “게스트” 가 있습니다.&lt;br /&gt;
+본 포스팅에서는 사용자 계정의 유형에 대해 알아보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;구성원&quot;&gt;구성원&lt;/h3&gt;
+
+&lt;p&gt;구성원은 테넌트에 생성된 일반적인 사용자 권한을 가진 유형에 해당됩니다.&lt;/p&gt;
+
+&lt;p&gt;구성원 계정은 테넌트에 직접 생성되어, 테넌트에서 계정 정보를 직접 가지고 있게 됩니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;게스트&quot;&gt;게스트&lt;/h3&gt;
+
+&lt;p&gt;게스트는 테넌트에 생성된 제한적인 권한을 가진 유형입니다.&lt;br /&gt;
+테넌트 내 리소스에 접근하고, 해당 사용자들과 협업을 위해 추가하는 계정 유형이라고 볼 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;테넌트에 게스트 권한으로 추가된 계정은 본래 다른 외부 테넌트 및 기타 외부 공급자에 소속된 계정으로,&lt;br /&gt;
+실제 계정 정보는 소속된 공급자에 존재하고 있습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;계정-유형&quot;&gt;계정 유형&lt;/h3&gt;
+
+&lt;p&gt;큰 범주에서는 계정 유형을 두 종류(“구성원” 과 “게스트”) 로 구분지을 수 있지만,&lt;br /&gt;
+보다 상세하게 설명하자면 위와 같이 네 종류의 계정 유형으로 나뉠 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;운영을 하다 보면 자연스럽게 알 수 있는 내용으로,&lt;br /&gt;
+네 종류의 유형에 대해서는 아래와 같이 설명을 언급하는 정도로만 하겠습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/63/1.PNG&quot; title=&quot;계정 유형&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;내부 구성원(Internal Member)
+    &lt;ul&gt;
+      &lt;li&gt;테넌트 내 일반적인 구성원 계정에 해당&lt;/li&gt;
+      &lt;li&gt;내부 인증&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;del&gt;내부 게스트(Internal Guest)&lt;/del&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;del&gt;미사용&lt;/del&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;외부 구성원(External Member)
+    &lt;ul&gt;
+      &lt;li&gt;B2B 협업 설정을 통해, 테넌트에 접근 권한이 있는 외부 계정&lt;/li&gt;
+      &lt;li&gt;테넌트에 외부 구성원 계정은 추가되지 않음&lt;/li&gt;
+      &lt;li&gt;외부 인증&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;외부 게스트(External Guest)
+    &lt;ul&gt;
+      &lt;li&gt;테넌트에 추가된 일반적인 게스트 계정에 해당&lt;/li&gt;
+      &lt;li&gt;외부 인증&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;*내부 인증: 테넌트 내 Entra ID에 계정을 가지고 있는 사용자가 Entra ID에 인증&lt;br /&gt;
+*외부 인증: 기타 외부 공급자 ID에 있는 계정을 통해 인증&lt;/p&gt;
+
+&lt;h3 id=&quot;계정-유형-권한&quot;&gt;계정 유형 권한&lt;/h3&gt;
+
+&lt;p&gt;각 계정 유형이 테넌트 내에서 어떤 권한을 가질 수 있는지에 대해서는 &lt;a href=&quot;https://learn.microsoft.com/en-us/entra/fundamentals/users-default-permissions#compare-member-and-guest-default-permissions&quot;&gt;링크&lt;/a&gt; 를 참고해주세요.&lt;/p&gt;
+
+&lt;p&gt;추가로, “게스트” 및 “외부 구성원” 유형이 가질 수 있는 권한은 다음 메뉴에서 설정이 가능합니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;[Microsoft Entra 관리 센터] &amp;gt; [사용자] &amp;gt; [사용자 설정] &amp;gt; [외부 협업 설정 관리]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;그 외 아래와 같이, 각 서비스별로 게스트 계정에 대한 세부적인 권한을 설정할 수도 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;[SharePoint 관리 센터] &amp;gt; [정책] &amp;gt; [공유]&lt;/li&gt;
+  &lt;li&gt;[Microsoft Teams 관리 센터] &amp;gt; [사용자] &amp;gt; [게스트 액세스] / [외부 액세스]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;계정-유형-생성&quot;&gt;계정 유형 생성&lt;/h3&gt;
+
+&lt;p&gt;각 유형의 계정을 생성하는 방법에 대해 알아보도록 하겠습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;내부 구성원(Internal Member)
+    &lt;ul&gt;
+      &lt;li&gt;Microsoft 365 Only: [Microsoft 365 관리센터] / [Microsoft Entra 관리 센터] &amp;gt; [사용자] &amp;gt; “사용자 추가”&lt;/li&gt;
+      &lt;li&gt;Hybrid: Active Directory에 사용자 생성 -&amp;gt; AADC 동기화 -&amp;gt; M365 테넌트에 사용자 생성&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;외부 구성원(External Member)
+    &lt;ul&gt;
+      &lt;li&gt;B2B 협업 (B2B Collaboration)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;외부 게스트(External Guest)
+    &lt;ul&gt;
+      &lt;li&gt;[Microsoft Entra 관리 센터] &amp;gt; [사용자] &amp;gt; [모든 사용자] &amp;gt; [새 사용자] &amp;gt; “외부 사용자 초대”&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Fri, 26 Jul 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/entra/2024/07/26/63_%EA%B3%84%EC%A0%95-%EC%9C%A0%ED%98%95-%EA%B5%AC%EC%84%B1%EC%9B%90%EA%B3%BC-%EA%B2%8C%EC%8A%A4%ED%8A%B8.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/entra/2024/07/26/63_%EA%B3%84%EC%A0%95-%EC%9C%A0%ED%98%95-%EA%B5%AC%EC%84%B1%EC%9B%90%EA%B3%BC-%EA%B2%8C%EC%8A%A4%ED%8A%B8.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Entra</category>
+        
+      </item>
+    
+      <item>
+        <title>[Entra] 개체 - 사용자</title>
+        <description>&lt;p&gt;본 포스팅에서는 Entra ID의 사용자 개체에 대해 알아보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;id-프로비저닝-토폴로지&quot;&gt;ID 프로비저닝 토폴로지&lt;/h3&gt;
+
+&lt;p&gt;테넌트에는 여러 종류의 개체(사용자, 그룹, 디바이스, 애플리케이션 등)가 있으며, 각 개체를 구분하기 위한 ID가 할당됩니다.&lt;br /&gt;
+본 포스팅에서는 편의 상 개체와 ID 라는 용어를 같이 사용합니다.&lt;/p&gt;
+
+&lt;p&gt;우선, ID 프로비저닝에 대한 토폴로지를 알아봅시다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Microsoft 365 Cloud Only&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/62/1.PNG&quot; title=&quot;ID 프로비저닝 토폴로지1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;M365 테넌트에서 직접 개체를 생성하는 방식입니다.&lt;br /&gt;
+관리 센터 / Powershell 을 통해 새로운 사용자 계정을 생성하여 사용합니다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Hybrid&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/62/2.PNG&quot; title=&quot;ID 프로비저닝 토폴로지2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;On-premise 에 있는 개체 정보를 M365 테넌트로 동기화하는 방식입니다.&lt;br /&gt;
+Microsoft Entra Connect (구 AADC(Azure Active Directory Connector)) 를 통해, Active Directory 내 개체 정보를 M365 테넌트에 동기화합니다.&lt;/p&gt;
+
+&lt;p&gt;위와 같은 두 가지 방법을 통해, M365 테넌트에 개체를 생성할 수 있습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;사용자&quot;&gt;사용자&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/62/3.PNG&quot; title=&quot;사용자1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Microsoft Entra 관리 센터] &amp;gt; [사용자] &amp;gt; [모든 사용자] 에서 사용자 개체에 대한 확인이 가능합니다.&lt;br /&gt;
+사용자를 클릭하면 상세 정보를 볼 수 있습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;개요&quot;&gt;개요&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/62/4.PNG&quot; title=&quot;사용자2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;사용자에 대한 간단한 정보 확인이 가능합니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;사용자 계정 이름: 사용자의 UPN(User Principal Name)&lt;/li&gt;
+  &lt;li&gt;개체 ID: 사용자의 고유한 GUID&lt;/li&gt;
+  &lt;li&gt;만든 날짜 시간: 사용자가 테넌트에 추가된 시간&lt;/li&gt;
+  &lt;li&gt;사용자 유형: 계정 유형
+    &lt;ul&gt;
+      &lt;li&gt;구성원: 일반적인 테넌트 사용자입니다.&lt;/li&gt;
+      &lt;li&gt;게스트: 외부 ID를 통해 인증하며, 테넌트에서 협업하기 위해 최소한의 접근 권한을 가지고 생성된 계정입니다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;속성&quot;&gt;속성&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/62/5.PNG&quot; title=&quot;사용자3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/62/6.PNG&quot; title=&quot;사용자4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;계정의 세부 속성 확인이 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;M365 Only 로 직접 생성한 계정은 속성 편집이 가능하며,
+Hybrid 구조에서 동기화 된 계정은 속성 편집이 불가합니다.&lt;br /&gt;
+(On-premise 에 있는 사용자 계정 정보를 가져오는 구조이므로)&lt;/p&gt;
+
+&lt;h4 id=&quot;역할&quot;&gt;역할&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/62/7.PNG&quot; title=&quot;사용자5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;사용자 계정에 할당된 역할을 볼 수 있습니다.&lt;br /&gt;
+역할은 보통 “관리자” 권한에 해당하므로, 일반 구성원 계정에는 역할을 할당할 필요는 없습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;그룹&quot;&gt;그룹&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/62/8.PNG&quot; title=&quot;사용자6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;사용자 계정이 속한 그룹 리스트입니다.&lt;br /&gt;
+Microsoft 365 그룹, 보안 그룹 등 모든 종류의 그룹을 보여줍니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;디바이스&quot;&gt;디바이스&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/62/9.PNG&quot; title=&quot;사용자7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;테넌트에 조인된 디바이스 목록을 보여줍니다.&lt;/p&gt;
+
+&lt;p&gt;디바이스 분실 시 사용자가 디바이스 비활성화를 할 수 있으며,&lt;br /&gt;
+디바이스 활성화는 해당 페이지에서 관리자만이 수행 가능합니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;인증-방법&quot;&gt;인증 방법&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/62/10.PNG&quot; title=&quot;사용자8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;MFA 인증을 위한 사용자의 인증 수단 정보를 보여줍니다.&lt;br /&gt;
+해당 화면에서 인증 오류로 인한 디바이스 초기화도 가능합니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;로그&quot;&gt;로그&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/62/11.PNG&quot; title=&quot;사용자9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/62/12.PNG&quot; title=&quot;사용자10&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;로그인 로그/감사 로그 에 대한 조회가 가능합니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 24 Jul 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/entra/2024/07/24/62_%EA%B0%9C%EC%B2%B4-%EC%82%AC%EC%9A%A9%EC%9E%90.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/entra/2024/07/24/62_%EA%B0%9C%EC%B2%B4-%EC%82%AC%EC%9A%A9%EC%9E%90.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Entra</category>
+        
+      </item>
+    
+      <item>
+        <title>[Admin] 앱 보호 정책</title>
+        <description>&lt;p&gt;본 포스팅에서는 앱 보호 정책(MAM)에 대해 알아보고, 설정하는 방법을 설명합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;앱-보호-정책mobile-application-management&quot;&gt;앱 보호 정책(Mobile Application Management)&lt;/h3&gt;
+
+&lt;p&gt;테넌트에서는 디바이스를 제어할 수 있는 두 가지 정책을 제공하고 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;MDM(Mobile Device Management)&lt;/li&gt;
+  &lt;li&gt;MAM(Mobile Application Management)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;MDM은 모바일 디바이스 자체를 제어하는 정책이고,&lt;br /&gt;
+MAM은 모바일 디바이스에서 실행하는 앱을 제어하는 정책입니다.&lt;/p&gt;
+
+&lt;p&gt;*모바일 디바이스에서 웹에 대한 제어는 불가합니다.&lt;br /&gt;
+*조건부 액세스를 통해 모바일 디바이스로 웹에 대한 접근은 막되, MAM 으로 앱에 대한 기능을 통제할 수 있습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;앱-보호-정책-생성&quot;&gt;앱 보호 정책 생성&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/61/1.PNG&quot; title=&quot;앱 보호 정책 생성1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Microsoft Intune 관리 센터(끝점 관리자)] &amp;gt; [앱] &amp;gt; [앱 보호 정책] &amp;gt; “정책 만들기” 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;다음과 같은 플랫폼에 대해 생성이 가능합니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/mem/intune/apps/app-protection-policy-settings-android&quot;&gt;Android&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/mem/intune/apps/app-protection-policy-settings-ios&quot;&gt;iOS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/mem/intune/apps/app-protection-policy-settings-windows&quot;&gt;Windows&lt;/a&gt; (Edge 전용)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;android&quot;&gt;Android&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;앱&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/61/2.PNG&quot; title=&quot;앱 보호 정책 생성2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;정책을 적용할 앱을 선택합니다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;데이터 보호&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/61/3.PNG&quot; title=&quot;앱 보호 정책 생성3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/61/4.PNG&quot; title=&quot;앱 보호 정책 생성4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;데이터 전송, 암호화, 기능에 대한 정책을 설정합니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;데이터 전송: 다른 앱으로 보내기, 복사/붙여넣기 등&lt;/li&gt;
+  &lt;li&gt;암호화: 조직 데이터 암호화&lt;/li&gt;
+  &lt;li&gt;기능: 앱 데이터를 기본 앱에 동기화, 인쇄 등&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;액세스 요구 사항&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/61/5.PNG&quot; title=&quot;앱 보호 정책 생성5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;액세스를 위한 PIN, 자격 증명에 대한 정책을 설정합니다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;조건부 시작&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/61/6.PNG&quot; title=&quot;앱 보호 정책 생성6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;앱에 대한 접근과 관련된 정책을 설정합니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;앱 조건: 앱 접근에 대한 조건&lt;/li&gt;
+  &lt;li&gt;디바이스 조건: 디바이스에 대한 조건&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;ios&quot;&gt;iOS&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;앱&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/61/7.PNG&quot; title=&quot;앱 보호 정책 생성7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;정책을 적용할 앱을 선택합니다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;데이터 보호&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/61/8.PNG&quot; title=&quot;앱 보호 정책 생성8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/61/9.PNG&quot; title=&quot;앱 보호 정책 생성9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;데이터 전송, 암호화, 기능에 대한 정책을 설정합니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;데이터 전송: 다른 앱으로 보내기, 복사/붙여넣기 등&lt;/li&gt;
+  &lt;li&gt;암호화: 조직 데이터 암호화&lt;/li&gt;
+  &lt;li&gt;기능: 앱 데이터를 기본 앱에 동기화, 인쇄 등&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;액세스 요구 사항&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/61/10.PNG&quot; title=&quot;앱 보호 정책 생성10&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;액세스를 위한 PIN, 자격 증명에 대한 정책을 설정합니다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;조건부 시작&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/61/11.PNG&quot; title=&quot;앱 보호 정책 생성11&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;앱에 대한 접근과 관련된 정책을 설정합니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;앱 조건: 앱 접근에 대한 조건&lt;/li&gt;
+  &lt;li&gt;디바이스 조건: 디바이스에 대한 조건&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;참고-사항&quot;&gt;참고 사항&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;MAM 정책 할당은 “보안 그룹” 만 가능합니다.&lt;/li&gt;
+  &lt;li&gt;Android와 iOS 정책의 항목은 일부 다릅니다.
+    &lt;ul&gt;
+      &lt;li&gt;가령, iOS는 화면 캡처에 대한 제어가 불가합니다. (디바이스 기능 상 화면 캡처 항상 가능)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Tue, 23 Jul 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/policy/2024/07/23/61_%EC%95%B1-%EB%B3%B4%ED%98%B8-%EC%A0%95%EC%B1%85.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/policy/2024/07/23/61_%EC%95%B1-%EB%B3%B4%ED%98%B8-%EC%A0%95%EC%B1%85.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Policy</category>
+        
+      </item>
+    
+      <item>
+        <title>[Entra] 게스트 설정 및 추가</title>
+        <description>&lt;p&gt;본 포스팅에서는 테넌트에 게스트 관련 설정을 진행하고, 게스트를 초대하는 방법에 대해 확인해보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;게스트&quot;&gt;게스트&lt;/h3&gt;
+
+&lt;p&gt;Entra 관리 센터를 통해, 테넌트에 등록된 사용자 계정 목록을 확인할 수 있습니다.&lt;br /&gt;
+테넌트 내에서 직접 생성되거나, AD를 통해 동기화 된 계정은 테넌트 내 “구성원” 권한을 갖게 됩니다.&lt;/p&gt;
+
+&lt;p&gt;테넌트 내에서 외부 사용자와 소통 및 공동 작업이 필요한 경우, “게스트” 권한으로 테넌트에 초대가 가능합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;게스트-설정&quot;&gt;게스트 설정&lt;/h3&gt;
+
+&lt;p&gt;테넌트에서 게스트 관련 설정하는 방법을 확인해보겠습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/60/1.PNG&quot; title=&quot;게스트 설정1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Microsoft Entra 관리 센터] &amp;gt; [사용자] &amp;gt; [사용자 설정] &amp;gt; [외부 협업 설정 관리] 을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/60/2.PNG&quot; title=&quot;게스트 설정2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;상기 사진과 같이 관련 설정이 가능합니다.&lt;br /&gt;
+볼드 텍스트가 디폴트 값에 해당됩니다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/entra/fundamentals/users-default-permissions&quot;&gt;게스트 사용자 액세스&lt;/a&gt;: 게스트 사용자의 권한을 설정할 수 있습니다.
+    &lt;ul&gt;
+      &lt;li&gt;가장 포괄적: 기본 “구성원” 과 동일한 권한을 가지게 됩니다.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;멤버 자격으로 제한&lt;/strong&gt;: 일부 기능만 사용이 가능한, 제한적인 권한을 가지게 됩니다.&lt;/li&gt;
+      &lt;li&gt;가장 제한적: 가장 제한적인 권한을 가지게 됩니다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/entra/external-id/external-collaboration-settings-configure&quot;&gt;게스트 초대 설정&lt;/a&gt;: 누가 게스트를 초대할 수 있는지 설정할 수 있습니다.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;조직 내 모든 사용자&lt;/strong&gt;: 모든 사용자가 초대 가능합니다.&lt;/li&gt;
+      &lt;li&gt;특정 관리자 &amp;amp; 멤버 사용자: 구성원이고 특정 관리자 역할이 있는 사용자가 게스트를 초대할 수 있도록 허용합니다.&lt;/li&gt;
+      &lt;li&gt;특정 관리자: “사용자 관리자”, “게스트 초대자” 역할이 포함된 관리자만 초대 가능합니다.&lt;/li&gt;
+      &lt;li&gt;초대 불가: 게스트 추가가 불가합니다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;외부 사용자 나가기 설정: 외부 사용자가 직접 협업중인 테넌트로부터 나갈 수 있는지 설정할 수 있습니다.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;예&lt;/strong&gt;&lt;/li&gt;
+      &lt;li&gt;아니오&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;협업 제한 사항: 초대를 보낼 수 있는 도메인 목록을 설정할 수 있습니다.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;모든 도메인 초대 가능&lt;/strong&gt;&lt;/li&gt;
+      &lt;li&gt;지정된 도메인 초대 거부&lt;/li&gt;
+      &lt;li&gt;지정된 도메인 초대만 허용&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;상세 내용은 다음 &lt;a href=&quot;https://learn.microsoft.com/en-us/entra/identity/users/users-restrict-guest-permissions&quot;&gt;링크&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
+
+&lt;h3 id=&quot;게스트-초대&quot;&gt;게스트 초대&lt;/h3&gt;
+
+&lt;p&gt;디폴트 설정을 기준으로, 게스트를 초대하는 방법에 대해 확인해보겠습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/60/3.PNG&quot; title=&quot;게스트 초대1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Microsoft Entra 관리 센터] &amp;gt; [사용자] &amp;gt; [모든 사용자] &amp;gt; [새 사용자] &amp;gt; “외부 사용자 초대” 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/60/4.PNG&quot; title=&quot;게스트 초대2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;메일 주소, 표시 이름 등을 설정하여 게스트 계정을 초대합니다.&lt;/p&gt;
+
+&lt;p&gt;이후, 협업할 사이트/팀에 초대하여 게스트 계정과 함께 협업을 진행합니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 19 Jul 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/entra/2024/07/19/60_%EA%B2%8C%EC%8A%A4%ED%8A%B8-%EC%84%A4%EC%A0%95-%EB%B0%8F-%EC%B6%94%EA%B0%80.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/entra/2024/07/19/60_%EA%B2%8C%EC%8A%A4%ED%8A%B8-%EC%84%A4%EC%A0%95-%EB%B0%8F-%EC%B6%94%EA%B0%80.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Entra</category>
+        
+      </item>
+    
+      <item>
+        <title>[Admin] M365 테넌트 구축(4) - AD 서버 구성</title>
         <description>&lt;p&gt;해당 시리즈에서는 &lt;strong&gt;AD 서버를 이용한 하이브리드 구조의 M365 테넌트&lt;/strong&gt; 를 직접 구축해보도록 합니다.&lt;/p&gt;
 
 &lt;p&gt;본 포스팅에서는, 설치한 서버의 설정을 변경하고 AD 서버를 구성해봅니다.&lt;/p&gt;
@@ -162,37 +620,144 @@ DSRM 패스워드는 어드민 계정 패스워드와 동일하게 입력해줍�
         <title>[Admin] M365 테넌트 구축(3) - AD 용어 정리</title>
         <description>&lt;p&gt;해당 시리즈에서는 &lt;strong&gt;AD 서버를 이용한 하이브리드 구조의 M365 테넌트&lt;/strong&gt; 를 직접 구축해보도록 합니다.&lt;/p&gt;
 
-&lt;p&gt;본 포스팅에서는, AD와 관련된 용어를 정리해보도록 하겠습니다.&lt;/p&gt;
+&lt;p&gt;본 포스팅에서는, 본격적으로 서버를 구축하기 전 관련 용어를 정리해보도록 하겠습니다.&lt;/p&gt;
 
 &lt;h3 id=&quot;ad-용어terminology&quot;&gt;AD 용어(Terminology)&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/58/1.png&quot; title=&quot;타임존 설정1&quot; /&gt;&lt;/p&gt;
-
 &lt;ul&gt;
-  &lt;li&gt;Directory Service&lt;/li&gt;
-  &lt;li&gt;Active Directory&lt;/li&gt;
-  &lt;li&gt;Active Directory Domain Service&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;LDAP(Lightweight Directory Access Protocol)&lt;/p&gt;
+  &lt;li&gt;Directory Service
+    &lt;ul&gt;
+      &lt;li&gt;분산된 네트워크 자원을 중앙 저장소에 통합시켜 놓음으로써 사용자 네트워크 상의 정보를 찾는 것을 도와주는 서비스&lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Domain Controller&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Global Catalog&lt;/p&gt;
+  &lt;li&gt;Active Directory
+    &lt;ul&gt;
+      &lt;li&gt;네트워크 상으로 나뉘어져 있는 여러가지 자원을 중앙 관리자가 통합해 관리할 수 있는 환경&lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Domain&lt;/li&gt;
-  &lt;li&gt;Tree&lt;/li&gt;
-  &lt;li&gt;Forest&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Site&lt;/p&gt;
+  &lt;li&gt;Active Directory Domain Service(ADDS)
+    &lt;ul&gt;
+      &lt;li&gt;컴퓨터 사용자, 기타 주변장치에 대한 정보를 네트워크 상에 저장하고 저장한 정보를 관리자가 통합하여 사용하는 서비스&lt;/li&gt;
+      &lt;li&gt;사용을 위해서는 DNS 서버 설치 필요&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Domain Controller(DC)
+    &lt;ul&gt;
+      &lt;li&gt;Active Directory 가 설치된 서버 컴퓨터&lt;/li&gt;
+      &lt;li&gt;첫 번째 도메인 컨트롤러는 무조건 Global Catalog 서버여야 함&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Global Catalog(GC)
+    &lt;ul&gt;
+      &lt;li&gt;포리스트 내의 모든 Active Directory 개체의 복제를 저장하고 있는 DC&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Domain
+    &lt;ul&gt;
+      &lt;li&gt;Active Directory의 가장 기본이 되는 단위&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Tree
+    &lt;ul&gt;
+      &lt;li&gt;Domain의 집합으로, 계층적 구조로 구성되어 있어 트리로 불림&lt;/li&gt;
+      &lt;li&gt;개념적 단위&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Forest
+    &lt;ul&gt;
+      &lt;li&gt;다른 트리 간의 관계가 맺어져 있는 경우를 지칭하는 단위&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Site
+    &lt;ul&gt;
+      &lt;li&gt;지리적으로 떨어져있으며 IP 주소 대가 다른 묶음&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Domain, Tree와 Forest
+    &lt;ul&gt;
+      &lt;li&gt;Domain &amp;lt;= Tree &amp;lt;= Forest (Site)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Trust
+    &lt;ul&gt;
+      &lt;li&gt;도메인 또는 포리스트 사이의 신뢰 여부에 대한 관계를 나타내는 의미&lt;/li&gt;
+      &lt;li&gt;같은 포리스트 내 도메인과 트리는 “양방향 전이 트러스트” 관계를 맺음&lt;/li&gt;
+      &lt;li&gt;“단방향 전이 트러스트”나 “바로가기 트러스트”의 개념도 있음&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Organizational Unit (OU)
+    &lt;ul&gt;
+      &lt;li&gt;도메인 안에서 세부적으로 나뉘는 단위&lt;/li&gt;
+      &lt;li&gt;Active Directory 내 최소 단위&lt;/li&gt;
+      &lt;li&gt;OU 하위에는 다음과 같은 개체가 소속될 수 있음
+        &lt;ul&gt;
+          &lt;li&gt;사용자&lt;/li&gt;
+          &lt;li&gt;그룹&lt;/li&gt;
+          &lt;li&gt;디바이스&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;User
+    &lt;ul&gt;
+      &lt;li&gt;로컬 사용자 계정
+        &lt;ul&gt;
+          &lt;li&gt;PC에 생성하는 사용자 계정&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;도메인 사용자 계정
+        &lt;ul&gt;
+          &lt;li&gt;도메인에 생성하는 사용자 계정&lt;/li&gt;
+          &lt;li&gt;디바이스에 도메인 조인 후 해당 계정으로 로그인이 가능&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Group
+    &lt;ul&gt;
+      &lt;li&gt;Security Group(보안 그룹)
+        &lt;ul&gt;
+          &lt;li&gt;Domain 내 개체를 그룹핑하는 데 사용&lt;/li&gt;
+          &lt;li&gt;Domain Local Group(도메인 로컬 그룹)
+            &lt;ul&gt;
+              &lt;li&gt;가장 큰 규모의 그룹&lt;/li&gt;
+              &lt;li&gt;멤버: 트러스트로 맺어진 포리스트 내 모든 개체&lt;/li&gt;
+              &lt;li&gt;정책: 동일 도메인 내 자원에 대해 할당 가능&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;Global Group(글로벌 그룹)
+            &lt;ul&gt;
+              &lt;li&gt;가장 작은 규모의 그룹&lt;/li&gt;
+              &lt;li&gt;멤버: 동일 도메인 내 개체&lt;/li&gt;
+              &lt;li&gt;정책: 트러스트로 맺어진 포리스트 내 모든 자원에 대해 할당 가능&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;Universal Group(유니버설 그룹)
+            &lt;ul&gt;
+              &lt;li&gt;해당 그룹은 GC에 추가되므로, 효율 상 좋지 않아 거의 사용하지 않음&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Distribution Group(배포 그룹)
+        &lt;ul&gt;
+          &lt;li&gt;Exchange Server에서 주로 사용&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Domain &amp;lt;= Tree &amp;lt;= Forest (Site)&lt;/p&gt;
+    &lt;p&gt;Device&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;Organizational Unit (OU)&lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Container&lt;/p&gt;
+    &lt;p&gt;Policy&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;AGDLP&lt;/li&gt;
+  &lt;li&gt;AGDLP
+    &lt;ul&gt;
+      &lt;li&gt;Active Directory 에서 그룹을 이용해 역할 기반 액세스 제어를 구현하기 위한 Microsoft의 권장 사항&lt;/li&gt;
+      &lt;li&gt;A(Account) -&amp;gt; G(Global Group) -&amp;gt; DL(Domain Local Group) &amp;lt;- P(Policy)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 </description>
         <pubDate>Sat, 13 Jul 2024 00:00:00 +0900</pubDate>
@@ -451,282 +1016,6 @@ Desktop Experience 버전을 선택해야 GUI 환경을 사용할 수 있으며,
         <pubDate>Sat, 06 Jul 2024 00:00:00 +0900</pubDate>
         <link>http://localhost:4000/administration/guide/project_m365tenant/2024/07/06/54_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(2)-Windows-Server-2019-%EC%84%A4%EC%B9%98.html</link>
         <guid isPermaLink="true">http://localhost:4000/administration/guide/project_m365tenant/2024/07/06/54_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(2)-Windows-Server-2019-%EC%84%A4%EC%B9%98.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Guide</category>
-        
-        <category>Project_M365Tenant</category>
-        
-      </item>
-    
-      <item>
-        <title>[Outlook] Outlook 보관(아카이빙) 기능</title>
-        <description>&lt;p&gt;본 포스팅에서는, Exchange Online에서 Outlook 아카이빙 기능을 활성화 하는 방법에 대해서 알아보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;기능-사용-요건&quot;&gt;기능 사용 요건&lt;/h3&gt;
-
-&lt;p&gt;아카이빙 기능 사용을 위해서는 “Exchange Online Archiving” 라이선스가 필요합니다.&lt;br /&gt;
-다만, 아래 라이선스에는 이미 아카이빙 기능이 포함되어 있으므로 별도로 라이선스 구매를 진행하지 않아도 됩니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Exchange Online Plan 2&lt;/li&gt;
-  &lt;li&gt;Microsoft 365 Business Premium&lt;/li&gt;
-  &lt;li&gt;Microsoft 365 E3&lt;/li&gt;
-  &lt;li&gt;Microsoft 365 E5&lt;/li&gt;
-  &lt;li&gt;Microsoft 365 F5 규정 준수&lt;/li&gt;
-  &lt;li&gt;Office 365 A3&lt;/li&gt;
-  &lt;li&gt;Office 365 A5&lt;/li&gt;
-  &lt;li&gt;Office 365 E3&lt;/li&gt;
-  &lt;li&gt;Office 365 E5&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;관련 상세 정보는 다음 &lt;a href=&quot;https://learn.microsoft.com/en-us/office365/servicedescriptions/exchange-online-archiving-service-description/exchange-online-archiving-service-description&quot;&gt;링크&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
-
-&lt;h3 id=&quot;아카이빙-활성화비활성화&quot;&gt;아카이빙 활성화/비활성화&lt;/h3&gt;
-
-&lt;p&gt;아카이빙 활성화/비활성화는 관리 센터 및 Powershell 을 통해 가능합니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;관리-센터&quot;&gt;관리 센터&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/53/1.PNG&quot; title=&quot;아카이빙 활성화/비활성화&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[Exchange 관리 센터] &amp;gt; [받는 사람] &amp;gt; [사서함] &amp;gt; 사용자 검색 &amp;gt; [기타] &amp;gt; [사서함 보관함] &amp;gt; “사서함 보관함 관리” 를 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;“사서함 보관 상태” 토글 버튼을 활성화하면 기능이 켜지며, 이름은 공란으로 두어도 무방합니다.&lt;br /&gt;
-토글 버튼을 비활성화하면 기능이 꺼집니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;powershell&quot;&gt;Powershell&lt;/h4&gt;
-
-&lt;p&gt;Powershell을 통해 다음과 같이 메일 아카이빙 설정이 가능합니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-8
-9
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-ExchangeOnline
-
-#Archive 활성화
-Enable-Mailbox &quot;사용자UPN&quot; -Archive
-#Archive 비활성화
-Disable-Mailbox &quot;사용자UPN&quot; -Archive
-
-#Archive 활성화 여부 검색
-Get-Mailbox &quot;사용자UPN&quot; | fl *Archive*
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;아카이브-용량&quot;&gt;아카이브 용량&lt;/h3&gt;
-
-&lt;p&gt;아카이브 사서함의 디폴트 용량은 100GB로 할당되어 있으며,&lt;br /&gt;
-사용자가 많은 용량을 사용함에 따라 최대 1.5TB 까지 자동으로 용량이 증설됩니다.&lt;/p&gt;
-
-&lt;p&gt;용량 증설은 시스템에서 동작하므로 관리자가 별도로 아카이브 사서함의 용량을 지정할 수는 없습니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Fri, 05 Jul 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/outlook/2024/07/05/53_Outlook-%EB%B3%B4%EA%B4%80(%EC%95%84%EC%B9%B4%EC%9D%B4%EB%B9%99)-%EA%B8%B0%EB%8A%A5.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/outlook/2024/07/05/53_Outlook-%EB%B3%B4%EA%B4%80(%EC%95%84%EC%B9%B4%EC%9D%B4%EB%B9%99)-%EA%B8%B0%EB%8A%A5.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Outlook</category>
-        
-      </item>
-    
-      <item>
-        <title>[Office] 로그인 세션 타임아웃 설정</title>
-        <description>&lt;p&gt;보안 상, 사용자의 Office 세션 타임아웃 시간(로그인 주기)를 설정해야 하는 경우가 있습니다.&lt;br /&gt;
-본 포스팅에서는 이를 설정하는 방법에 대해 알아보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;세션-타임아웃&quot;&gt;세션 타임아웃&lt;/h3&gt;
-
-&lt;p&gt;세션 타임아웃 시간을 설정하는 방법은 크게 두 가지가 있습니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;조직-설정&quot;&gt;조직 설정&lt;/h4&gt;
-
-&lt;p&gt;[Microsoft 365 관리 센터] &amp;gt; [설정] &amp;gt; [조직 설정] 으로 이동합니다.&lt;br /&gt;
-[보안 및 개인 정보] &amp;gt; [유휴 세션 시간 제한] 을 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/55/1.png&quot; title=&quot;조직 설정1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;해당 화면에서 타임아웃 시간을 설정할 수 있습니다.&lt;br /&gt;
-다만, &lt;a href=&quot;https://learn.microsoft.com/ko-KR/microsoft-365/admin/manage/idle-session-timeout-web-apps?view=o365-worldwide&amp;amp;WT.mc_id=365AdminCSH_inproduct&quot;&gt;해당 설정&lt;/a&gt;은 &lt;strong&gt;모든 사용자에게 적용&lt;/strong&gt; 되며, M365 서비스 및 관리센터를 포함한 &lt;strong&gt;웹앱에만 적용&lt;/strong&gt; 가능합니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;조건부-액세스&quot;&gt;조건부 액세스&lt;/h4&gt;
-
-&lt;p&gt;[Microsoft Intune 관리 센터] &amp;gt; [디바이스] &amp;gt; [조건부 액세스] &amp;gt; [정책] 을 클릭합니다.&lt;br /&gt;
-“새 정책” 을 클릭하여, 새로운 조건부 액세스 정책을 생성합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/55/2.png&quot; title=&quot;조건부 액세스1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[사용자] 에 적용할 사용자/그룹을 지정해주고,&lt;br /&gt;
-[대상 리소스] 에 원하는 Office 앱을 추가해줍니다.&lt;/p&gt;
-
-&lt;p&gt;*조건부 액세스의 대상 리소스 지정 시, Office 앱에 대한 종속성을 인지해야 합니다. 관련 문서는 다음 &lt;a href=&quot;https://learn.microsoft.com/ko-kr/entra/identity/conditional-access/concept-conditional-access-cloud-apps#office-365&quot;&gt;링크&lt;/a&gt;를 참고하세요.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/55/3.png&quot; title=&quot;조건부 액세스2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[허용] 은 상기 사진과 같이 설정해줍니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/55/4.png&quot; title=&quot;조건부 액세스3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[세션] 항목에서 “로그인 빈도” 를 체크한 다음, 원하는 시간을 설정해줍니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Thu, 04 Jul 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/office/2024/07/04/52_Outlook-%EB%8D%B0%EC%8A%A4%ED%81%AC%ED%86%B1-%EC%95%B1%EC%97%90%EC%84%9C-%EC%9D%BC%EC%A0%95-%EC%83%9D%EC%84%B1-%EB%B6%88%EA%B0%80-%EC%98%A4%EB%A5%98-(%EB%8F%99%EA%B8%B0%ED%99%94%ED%95%9C-%ED%8F%B4%EB%8D%94%EC%97%90-%EC%9E%88%EB%8A%94-%EC%9D%BC%EB%B6%80-%ED%95%AD%EB%AA%A9%EC%9D%B4-%EC%9D%BC%EC%B9%98%ED%95%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4).html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/office/2024/07/04/52_Outlook-%EB%8D%B0%EC%8A%A4%ED%81%AC%ED%86%B1-%EC%95%B1%EC%97%90%EC%84%9C-%EC%9D%BC%EC%A0%95-%EC%83%9D%EC%84%B1-%EB%B6%88%EA%B0%80-%EC%98%A4%EB%A5%98-(%EB%8F%99%EA%B8%B0%ED%99%94%ED%95%9C-%ED%8F%B4%EB%8D%94%EC%97%90-%EC%9E%88%EB%8A%94-%EC%9D%BC%EB%B6%80-%ED%95%AD%EB%AA%A9%EC%9D%B4-%EC%9D%BC%EC%B9%98%ED%95%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4).html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Office</category>
-        
-      </item>
-    
-      <item>
-        <title>[Teams] 특정 정책에 속해있는 사용자 검색</title>
-        <description>&lt;p&gt;Teams 관리센터에서는 팀/앱/모임 등에 대한 정책을 설정할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;다만, 그룹 단위로 할당할 수 있는 정책이 있는 반면, 일일히 사용자를 추가해야 하는 정책도 있는데요.&lt;br /&gt;
-이 경우에는 어떤 사용자에게 어떤 정책이 할당되어있는지 관리하기가 어렵습니다.&lt;/p&gt;
-
-&lt;p&gt;본 포스팅에서는, Teams 관리센터에서 특정 정책에 속해있는 사용자를 일괄적으로 검색하는 방법에 대해 소개합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;사용자-검색&quot;&gt;사용자 검색&lt;/h3&gt;
-
-&lt;p&gt;Powershell 명령어를 이용해 특정 정책에 속하는 사용자를 검색해 보도록 하겠습니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-MicrosoftTeams
-$user = Get-CsOnlineUser -Filter {TeamsAppPermissionPolicy -eq &apos;정책명&apos;}
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;MicrosoftTeams 모듈을 통해, 특정 필터링 조건에 만족하는 사용자를 일괄적으로 검색합니다.&lt;br /&gt;
-저는 [Teams apps] &amp;gt; [Permission policies] 내 정책명을 조건으로 부여해봤습니다.&lt;/p&gt;
-
-&lt;p&gt;Filter에서 사용할 수 있는 [조건]은, &lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/teams/get-csonlineuser?view=teams-ps&quot;&gt;Get-CsOnlineUser&lt;/a&gt; 에서 Filter 인자에 대한 항목을 확인해주세요.&lt;/p&gt;
-
-</description>
-        <pubDate>Wed, 03 Jul 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/teams/2024/07/03/51_Teams-%ED%8A%B9%EC%A0%95-%EC%A0%95%EC%B1%85%EC%97%90-%EC%86%8D%ED%95%B4%EC%9E%88%EB%8A%94-%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B2%80%EC%83%89.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/teams/2024/07/03/51_Teams-%ED%8A%B9%EC%A0%95-%EC%A0%95%EC%B1%85%EC%97%90-%EC%86%8D%ED%95%B4%EC%9E%88%EB%8A%94-%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B2%80%EC%83%89.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Teams</category>
-        
-      </item>
-    
-      <item>
-        <title>[Admin] M365 테넌트 구축(1) - 테넌트 생성</title>
-        <description>&lt;p&gt;해당 시리즈에서는 &lt;strong&gt;AD 서버를 이용한 하이브리드 구조의 M365 테넌트&lt;/strong&gt; 를 직접 구축해보도록 합니다.&lt;/p&gt;
-
-&lt;p&gt;본 포스팅에서는, 우선 체험판 테넌트를 생성하는 방법에 대해 소개해보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;사전-준비&quot;&gt;사전 준비&lt;/h3&gt;
-
-&lt;p&gt;작업을 진행하기 전, M365 테넌트 및 Active Directory 서버에서 사용할 도메인을 준비해주세요.&lt;br /&gt;
-도메인은 보통 도메인 제공업체를 통해 구매가 필요하지만, &lt;a href=&quot;https://xn--220b31d95hq8o.xn--3e0b707e/&quot;&gt;무료&lt;/a&gt;로도 발급이 가능합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;테넌트-생성&quot;&gt;테넌트 생성&lt;/h3&gt;
-
-&lt;p&gt;저는 규모가 큰 조직의 E3 기반 테넌트를 구성하고자 합니다.&lt;br /&gt;
-다음 &lt;a href=&quot;https://signup.microsoft.com/get-started/signup?offerid=B07A1127-DE83-4a6d-9F85-2C104BDAE8B4&amp;amp;dl=ENTERPRISEPACK&amp;amp;ispolaris=1&amp;amp;culture=ko-kr&amp;amp;country=KR&amp;amp;ali=1&amp;amp;products=cfq7ttc0k59j%3a0009&amp;amp;brandingId=28b276fb-d2a0-4379-a7c0-57dce33da0f9&quot;&gt;링크&lt;/a&gt;를 클릭하면, Microsoft에서 무료로 제공해주는 체험판 테넌트를 생성할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/50/1.png&quot; title=&quot;테넌트 생성1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;맨 처음 사용하는 개인 메일주소를 입력한 뒤,&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/50/2.png&quot; title=&quot;테넌트 생성2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;상기 화면과 같이 계정 설정을 진행해줍니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/50/3.png&quot; title=&quot;테넌트 생성3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;핸드폰 번호로 보안 검사를 진행해준 뒤, 테넌트의 전역 관리자가 될 계정을 설정해줍니다.&lt;br /&gt;
-준비해 준 도메인을 여기에서 입력해주세요.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/50/4.png&quot; title=&quot;테넌트 생성4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이후 라이선스 구매에 대한 결제 수단을 등록해주면&lt;br /&gt;
-상기 사진과 같이 Microsoft 365 관리 센터에 접속하게 되면서 테넌트 생성이 완료됩니다.&lt;/p&gt;
-
-&lt;p&gt;E3 라이선스 25개가 포함된 테넌트를 한 달 동안 무료로 사용할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;*기존에는 E3 라이선스에는 Teams가 포함되어 있었으나, 최근 라이선스 정책이 변경되었습니다&lt;br /&gt;
-*2024년 4월 1일부로 E3 라이선스 구매 시 Teams 서비스가 제외되며, 필요 시 별도 라이선스를 함께 구매하여 사용하셔야 합니다&lt;/p&gt;
-
-&lt;h3 id=&quot;체험판-기간-늘리기&quot;&gt;체험판 기간 늘리기&lt;/h3&gt;
-
-&lt;p&gt;[청구] &amp;gt; [사용자 제품] 으로 이동한 후, E3 라이선스를 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/50/5.png&quot; title=&quot;체험판 기간 늘리기1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[평가판 구독] &amp;gt; [만료 날짜] 에 있는 “평가판 종료 날짜 연장” 을 클릭해줍니다.&lt;br /&gt;
-최대 30일 더 연장이 가능하며, 총 &lt;strong&gt;60일&lt;/strong&gt; 동안 테넌트를 무료로 사용할 수 있게 됩니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;사용자-추가&quot;&gt;사용자 추가&lt;/h3&gt;
-
-&lt;p&gt;테넌트 내에 사용자를 추가해봅시다.&lt;/p&gt;
-
-&lt;p&gt;[사용자] &amp;gt; [활성 사용자] &amp;gt; “사용자 추가” 를 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/50/6.png&quot; title=&quot;사용자 추가1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;사용자의 성과 이름, 표시 이름(Display Name) 을 입력해줍니다.&lt;br /&gt;
-표시 이름은 실제 서비스 이용 시 사용자 계정에 보여질 이름입니다.&lt;/p&gt;
-
-&lt;p&gt;사용자 이름, 즉 메일 주소를 입력해줍니다.&lt;/p&gt;
-
-&lt;p&gt;원하는 방식으로 암호도 설정해줍니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/50/7.png&quot; title=&quot;사용자 추가2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;사용자 생성과 동시에, 계정에 라이선스 할당이 가능합니다.&lt;br /&gt;
-저는 “제품 라이선스 없이 사용자 만들기” 를 선택해주도록 하겠습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/50/8.png&quot; title=&quot;사용자 추가3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;역할을 부여하거나, 프로필 정보를 추가로 설정할 수도 있는데요.&lt;/p&gt;
-
-&lt;p&gt;역할의 경우, 보통 관리자 권한이 필요한 계정에 부여하므로 본 포스팅에서 따로 설명하지는 않겠습니다.&lt;br /&gt;
-프로필 정보도 마찬가지로, 사용자의 여러가지 정보 (사무실, 부서, 전화번호, 위치 등)를 설정할 수 있는 항목이나&lt;br /&gt;
-추후 AADC 를 통해 계정을 동기화 하는 과정에서 자연스럽게 살펴보게 될 것이므로 마찬가지로 패스하도록 합시다🙃&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/50/9.png&quot; title=&quot;사용자 추가4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이렇게 사용자 생성은 간단하게 완료되었습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/50/10.png&quot; title=&quot;사용자 추가5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;사용자를 클릭하고, [라이선스 및 앱] 을 확인하면 아까 진행하지 못했던 라이선스 할당을 이렇게 진행할 수도 있습니다.&lt;/p&gt;
-
-&lt;p&gt;[라이선스] 아래를 보면 [앱] 이라는 항목이 있는데요,&lt;br /&gt;
-제공되는 라이선스에서 사용할 수 있는 서비스들을 골라 할당하거나 회수할 수도 있습니다.&lt;br /&gt;
-이 부분은 추후 별도 포스팅에서 다뤄보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;참고-사항&quot;&gt;참고 사항&lt;/h3&gt;
-
-&lt;p&gt;초기 테넌트 구성에 필요한 기본 사항입니다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;관리자 역할이 할당된 계정은, 디폴트 조건부 액세스 조건에 따라 관리 센터 접속 시 MFA가 요구됩니다.&lt;/li&gt;
-  &lt;li&gt;패스워드 분실, MFA 인증 오류 등의 이슈를 대비하여 전역 관리자는 최소 2개 이상을 구성해주는 것이 좋습니다.&lt;/li&gt;
-&lt;/ol&gt;
-
-</description>
-        <pubDate>Sun, 30 Jun 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/guide/project_m365tenant/2024/06/30/50_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(1)-%ED%85%8C%EB%84%8C%ED%8A%B8-%EC%83%9D%EC%84%B1.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/guide/project_m365tenant/2024/06/30/50_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(1)-%ED%85%8C%EB%84%8C%ED%8A%B8-%EC%83%9D%EC%84%B1.html</guid>
         
         
         <category>Administration</category>
