@@ -5,14 +5,23 @@
   {% else %}
     <span>&laquo; Prev</span>
   {% endif %}
+ 
+  {% assign start=paginator.page | minus: 1 | divided_by: 10 | times: 10 | plus: 1 %}
+  {% assign end=start | plus: 9 %}
+  
+  {% if paginator.total_pages < end %}
+    {% assign end=paginator.total_pages %}
+  {% endif %}
 
-  {% for page in (1..paginator.total_pages) %}
+  {% for page in (start..end) %}
     {% if page == paginator.page %}
-      <span class="ml-1 mr-1">{{ page }}</span>
-    {% elsif page == 1 %}
-      <a class="ml-1 mr-1" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: '/page:num', '' }}">{{ page }}</a>
+      <span class="ml-1 mr-1">{{ page }}</span>        
     {% else %}
-      <a class="ml-1 mr-1" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
+      {% if page == 1 %}
+        <a class="ml-1 mr-1" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: '/page:num', '' }}">{{ page }}</a>
+      {% else %}
+        <a class="ml-1 mr-1" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
+      {% endif %}
     {% endif %}
   {% endfor %}
 

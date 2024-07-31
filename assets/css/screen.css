@@ -27,7 +27,7 @@ pre {
     border: #E3EDF3 1px solid;
     width: 100%;
     padding: 7px;
-    font-family: -apple-system, "Pretendard Variable", Pretendard, Roboto;
+    font-family: -apple-system, "Pretendard Variable", Pretendard, Roboto, system-ui, "Helvetica Neue", Arial, sans-serif;
     font-size: .9rem;
     white-space: pre;
     overflow: auto;
@@ -305,7 +305,7 @@ span.post-read-more a:hover {
 }
 
 .mainheading h1.sitetitle {
-    font-family: -apple-system, "Pretendard Variable", Pretendard, Roboto;
+    font-family: -apple-system, "Pretendard Variable", Pretendard, Roboto, system-ui, "Helvetica Neue", Arial, sans-serif;
 }
 
 .mainheading h1.posttitle {
@@ -330,11 +330,19 @@ span.post-read-more a:hover {
 }
 
 .article-post {
-    font-family: -apple-system, "Pretendard Variable", Pretendard, Roboto;
+    font-family: -apple-system, "Pretendard Variable", Pretendard, Roboto, system-ui, "Helvetica Neue", Arial, sans-serif;
     font-size: 1.1rem;
     line-height: 1.84;
     color: rgba(0, 0, 0, .8);
 }
+
+.article-post table, th, td {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, .8);
+    margin-bottom: 1.5rem;
+}
+
 
 blockquote {
     border-left: 4px solid #00ab6b;
@@ -685,7 +693,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: -apple-system, "Pretendard Variable", Pretendard, Roboto, system-ui, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-family: -apple-system, "Pretendard Variable", Pretendard, Roboto, system-ui, "Helvetica Neue", Arial, sans-serif;
 }
 
 .article-post .h1,
@@ -711,7 +719,7 @@ h6 {
 }
 
 .layout-page .article-post {
-    font-family: -apple-system, "Pretendard Variable", Pretendard, Roboto, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: -apple-system, "Pretendard Variable", Pretendard, Roboto, system-ui, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-size: 1rem;
 }
 
@@ -874,7 +882,7 @@ iframe {
     line-height: 1;
     padding: 2px 3px;
     width: 150px;
-    font-family: -apple-system, "Pretendard Variable", Pretendard, Roboto;
+    font-family: -apple-system, "Pretendard Variable", Pretendard, Roboto, system-ui, "Helvetica Neue", Arial, sans-serif;
     text-align: center;
     border-radius: 3px;
     transition: all .4s;
