@@ -5,9 +5,416 @@
     <description>모든 곳에서 365일 사용되는 Microsoft365 서비스의 기술 블로그📘</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 31 Jul 2024 21:32:18 +0900</pubDate>
-    <lastBuildDate>Wed, 31 Jul 2024 21:32:18 +0900</lastBuildDate>
+    <pubDate>Wed, 11 Sep 2024 19:52:00 +0900</pubDate>
+    <lastBuildDate>Wed, 11 Sep 2024 19:52:00 +0900</lastBuildDate>
     <generator>Jekyll v4.3.3</generator>
+    
+      <item>
+        <title>[Admin] M365 테넌트 구축(5) - OU/사용자/그룹 구성방법</title>
+        <description>&lt;p&gt;해당 시리즈에서는 &lt;strong&gt;AD 서버를 이용한 하이브리드 구조의 M365 테넌트&lt;/strong&gt; 를 직접 구축해보도록 합니다.&lt;/p&gt;
+
+&lt;p&gt;본 포스팅에서는, allways365.com 도메인의 AD에 OU / 사용자 / 그룹을 구성해봅니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;개요&quot;&gt;개요&lt;/h3&gt;
+
+&lt;p&gt;Active Directory 는 네트워크 자원을 통합하여 중앙 관리자가 관리할 수 있는 시스템입니다.&lt;br /&gt;
+사용자 계정, 디바이스 등의 자원을 추가하고, 정책 등을 통해 자원을 제어 및 관리할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;OU, 사용자, 그룹 모두 다음 방법을 통해 생성 및 관리가 가능합니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Active Directory 사용자 및 컴퓨터 도구&lt;/li&gt;
+  &lt;li&gt;Powershell&lt;/li&gt;
+  &lt;li&gt;cmd&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;ou&quot;&gt;OU&lt;/h3&gt;
+
+&lt;p&gt;OU(Organizational Unit, 조직 구성 단위)란 Active Directory 도메인 내 최소 단위에 해당됩니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;active-directory-사용자-및-컴퓨터-도구&quot;&gt;Active Directory 사용자 및 컴퓨터 도구&lt;/h4&gt;
+
+&lt;p&gt;ADDS 설치 시, 함께 설치되는 “Active Directory 사용자 및 컴퓨터 도구” 툴을 통해 GUI 환경으로 OU 관리가 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/68/1.png&quot; title=&quot;OU 관리 - GUI1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/68/2.png&quot; title=&quot;OU 관리 - GUI2&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;powershell&quot;&gt;Powershell&lt;/h4&gt;
+
+&lt;p&gt;Powershell 명령어를 이용해, OU의 생성/삭제/수정 등의 작업을 일괄적으로 진행할 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Get-ADOrganizationalUnit -Identity &quot;OU=00000,DC=ALLWAYS,DC=COM&quot; | fl
+Get-ADOrganizationalUnit -Filter &quot;name -notlike &apos;Domain Controllers&apos;&quot;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adorganizationalunit?view=windowsserver2022-ps&quot;&gt;Get-ADOrganizationalUnit&lt;/a&gt; 명령어를 통해, 도메인 내 OU 리스트를 가져올 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;New-ADOrganizationalUnit -Name &quot;00000&quot; -Path &quot;DC=allways365,DC=com&quot;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/new-adorganizationalunit?view=windowsserver2022-ps&quot;&gt;New-ADOrganizationalUnit&lt;/a&gt; 명령어를 통해, 새로운 OU를 생성할 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Set-ADOrganizationalUnit -Identity &quot;OU=00000,DC=allways365,DC=com&quot; -ProtectedFromAccidentalDeletion $false
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/set-adorganizationalunit?view=windowsserver2022-ps&quot;&gt;Set-ADOrganizationalUnit&lt;/a&gt; 명령어를 통해, 기존에 생성한 OU를 수정할 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Remove-ADOrganizationalUnit -Identity &quot;OU=00000,DC=allways365,DC=com&quot;
+Get-ADOrganizationalUnit -Filter &quot;name -eq &apos;00000&apos;&quot; | Remove-ADOrganizationalUnit
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/remove-adorganizationalunit?view=windowsserver2022-ps&quot;&gt;Remove-ADOrganizationalUnit&lt;/a&gt; 명령어를 통해, 특정 OU를 삭제할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;간혹가다 OU가 삭제되지 않고 오류를 반환하는 경우가 있습니다.&lt;br /&gt;
+이는 해당 OU가 삭제되지 않게끔 설정되어 있기 때문으로, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Set-ADOrganizationalUnit -ProtectedFromAccidentalDeletion $false&lt;/code&gt; 를 통해 설정 변경 후 삭제가 가능합니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;cmd&quot;&gt;cmd&lt;/h4&gt;
+
+&lt;p&gt;Powershell과 유사하게, cmd 명령어를 통해서도 OU 관련 작업이 가능합니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;dsadd ou OU=00000,DC=ALLWAYS,DC=COM
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc770883(v=ws.11)&quot;&gt;dsadd ou&lt;/a&gt; 명령어를 통해, OU 생성이 가능합니다.&lt;br /&gt;
+그 외에도 &lt;a href=&quot;https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc754786(v=ws.11)&quot;&gt;dsmod ou&lt;/a&gt;, &lt;a href=&quot;https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc731865(v=ws.11)&quot;&gt;dsrm&lt;/a&gt; 와 같은 명령어를 통해 OU 관리가 가능합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;사용자&quot;&gt;사용자&lt;/h3&gt;
+
+&lt;p&gt;도메인의 특정 OU 안에 사용자 계정을 추가 및 관리할 수 있습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;active-directory-사용자-및-컴퓨터-도구-1&quot;&gt;Active Directory 사용자 및 컴퓨터 도구&lt;/h4&gt;
+
+&lt;p&gt;“Active Directory 사용자 및 컴퓨터 도구” 툴을 통해 GUI 환경으로 사용자 관리가 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/68/3.png&quot; title=&quot;사용자 관리 - GUI2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/68/4.png&quot; title=&quot;사용자 관리 - GUI2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/68/5.png&quot; title=&quot;사용자 관리 - GUI2&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;powershell-1&quot;&gt;Powershell&lt;/h4&gt;
+
+&lt;p&gt;Powershell 명령어를 이용해, 사용자의 생성/삭제/수정 등의 작업을 일괄적으로 진행할 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Get-ADUser -Filter &quot;UserPrincipalName -like &apos;*@allways365.com&apos;&quot;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-aduser?view=windowsserver2022-ps&quot;&gt;Get-ADUser&lt;/a&gt; 명령어를 통해, 원하는 사용자 정보를 조회할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;조회 시, 기본적으로 계정의 모든 AD 속성이 나오지 않으므로&lt;br /&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-ADUser -Properties *&lt;/code&gt; 와 같이 옵션을 주어야 합니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;New-ADUser
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/new-aduser?view=windowsserver2022-ps&quot;&gt;New-ADUser&lt;/a&gt; 명령어를 통해 새로운 사용자 계정을 생성할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;별도 옵션을 주지 않는 경우, 계정이 비활성화 된 상태로 생성되므로&lt;br /&gt;
+활성화 된 계정 생성 필요 시 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;New-ADUser -Enabled $true&lt;/code&gt; 의 옵션을 지정해야 합니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Set-ADUser -Identity &quot;tech.kim&quot; -Replace @{mail=&quot;tech.kim@allways365.com&quot;}
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/set-aduser?view=windowsserver2022-ps&quot;&gt;Set-ADUser&lt;/a&gt; 명령어를 통해, 사용자 속성 정보를 변경할 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Remove-ADUser -Identity &quot;tech.kim&quot;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/remove-aduser?view=windowsserver2022-ps&quot;&gt;Remove-ADUser&lt;/a&gt; 명령어를 통해, 사용자 계정을 삭제할 수 있습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;cmd-1&quot;&gt;cmd&lt;/h4&gt;
+
+&lt;p&gt;cmd 명령어를 통해서도 사용자 관련 작업이 가능합니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;dsadd user CN=test,OU=Users,OU=00000,DC=allways365,DC=com -disabled no
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc731279(v=ws.11)&quot;&gt;dsadd user&lt;/a&gt; 명령어를 통해, OU 생성이 가능합니다.&lt;br /&gt;
+그 외에도 &lt;a href=&quot;https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc732954(v=ws.11)&quot;&gt;dsmod ou&lt;/a&gt;, &lt;a href=&quot;https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc731865(v=ws.11)&quot;&gt;dsrm&lt;/a&gt; 와 같은 명령어를 통해 OU 관리가 가능합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;그룹&quot;&gt;그룹&lt;/h3&gt;
+
+&lt;p&gt;도메인의 특정 OU 안에 그룹을 추가 및 관리할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;그룹은 크게 두 가지 카테고리로 나뉩니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;보안(Security)
+    &lt;ul&gt;
+      &lt;li&gt;AD 에서 그룹핑을 위해 일반적으로 사용되는 그룹&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;배포(Distribution)
+    &lt;ul&gt;
+      &lt;li&gt;Exchange 서비스를 위해 사용되는 그룹&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;각 카테고리 내에서, 그룹은 다음과 같은 범주로 구분됩니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;글로벌 그룹(Global)&lt;/li&gt;
+  &lt;li&gt;도메인 로컬 그룹(Domain Local Group)&lt;/li&gt;
+  &lt;li&gt;유니버셜 그룹(Universal Group)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;active-directory-사용자-및-컴퓨터-도구-2&quot;&gt;Active Directory 사용자 및 컴퓨터 도구&lt;/h4&gt;
+
+&lt;p&gt;“Active Directory 사용자 및 컴퓨터 도구” 툴을 통해 GUI 환경으로 그룹 관리가 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/68/6.png&quot; title=&quot;그룹 관리 - GUI1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/68/7.png&quot; title=&quot;그룹 관리 - GUI2&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;powershell-2&quot;&gt;Powershell&lt;/h4&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Get-ADGroup -Identity &quot;all&quot;
+Get-ADGroup -Filter &quot;GroupCategory -eq &apos;Security&apos; -and GroupScope -eq &apos;Global&apos;&quot;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adgroup?view=windowsserver2022-ps&quot;&gt;Get-ADGroup&lt;/a&gt; 명령어를 통해, 그룹을 검색 및 조회할 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;New-ADGroup -Name &quot;all&quot; -Path &quot;OU=Groups,OU=00000,DC=allways365,DC=com&quot; -GroupCategory Security -GroupScope Global -DisplayName &quot;AllWays365-전체&quot; -Description &quot;AllWays365-전체&quot; -SamAccountName &quot;all&quot;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/new-adgroup?view=windowsserver2022-ps&quot;&gt;New-ADGroup&lt;/a&gt; 명령어를 통해, 새 그룹을 생성할 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Get-ADGroup -Filter &quot;name -like &apos;all&apos; | Set-ADGroup -Description &quot;All Group&quot;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/set-adgroup?view=windowsserver2022-ps&quot;&gt;Set-ADGroup&lt;/a&gt; 명령어를 통해, 기존 그룹을 수정할 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Remove-ADGroup -Identity &quot;all&quot;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/remove-adgroup?view=windowsserver2022-ps&quot;&gt;Remove-ADGroup&lt;/a&gt; 명령어를 통해, 원하는 그룹을 삭제할 수 있습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;cmd-2&quot;&gt;cmd&lt;/h4&gt;
+
+&lt;p&gt;cmd 명령어를 통해서도 그룹 관련 작업이 가능합니다.&lt;br /&gt;
+&lt;a href=&quot;https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc754037(v=ws.11)&quot;&gt;dsadd group&lt;/a&gt;, &lt;a href=&quot;https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc732423(v=ws.11)&quot;&gt;dsmod group&lt;/a&gt;, &lt;a href=&quot;https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc731865(v=ws.11)&quot;&gt;dsrm&lt;/a&gt; 과 같은 명령어를 통해 그룹 관리가 가능합니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 24 Aug 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/guide/project_m365tenant/2024/08/24/68_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(5)-OU,%EC%82%AC%EC%9A%A9%EC%9E%90,%EA%B7%B8%EB%A3%B9-%EA%B5%AC%EC%84%B1%EB%B0%A9%EB%B2%95.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/guide/project_m365tenant/2024/08/24/68_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(5)-OU,%EC%82%AC%EC%9A%A9%EC%9E%90,%EA%B7%B8%EB%A3%B9-%EA%B5%AC%EC%84%B1%EB%B0%A9%EB%B2%95.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Guide</category>
+        
+        <category>Project_M365Tenant</category>
+        
+      </item>
+    
+      <item>
+        <title>[Teams] 앱 패키지를 열 수 없음 오류</title>
+        <description>&lt;p&gt;&lt;img src=&quot;/assets/images/67/1.PNG&quot; title=&quot;앱 패키지를 열 수 없음 오류&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Teams 설치파일(.msix 등)을 실행할 때, 상기 사진과 같이 “앱 패키지를 열 수 없음” 오류가 발생하는 경우가 있습니다.&lt;br /&gt;
+본 포스팅에서는 해당 오류에 대한 조치 방법을 설명하도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;앱설치-관리자&quot;&gt;앱설치 관리자&lt;/h3&gt;
+
+&lt;p&gt;다음 &lt;a href=&quot;https://learn.microsoft.com/en-us/windows/msix/app-installer/install-update-app-installer&quot;&gt;URL&lt;/a&gt; 을 통해, 앱설치 관리자를 재설치합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;오프라인-설치&quot;&gt;오프라인 설치&lt;/h3&gt;
+
+&lt;p&gt;Windows 검색 &amp;gt; “Windows Powershell ISE” 를 관리자 권한으로 실행합니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;\teamsbootstrapper.exe -p -o &quot;c:\path\to\teams.msix&quot;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;위 명령어를 실행합니다.&lt;br /&gt;
+단, Teams 설치파일을 다운로드 한 경로 및 파일명에 따라 C:~ 하위의 값을 변경해줍니다.&lt;/p&gt;
+
+&lt;p&gt;관련 상세 내용은 다음 &lt;a href=&quot;https://learn.microsoft.com/en-us/microsoftteams/new-teams-bulk-install-client#option-1b-download-and-install-new-teams-using-an-offline-installer&quot;&gt;문서&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
+
+&lt;h3 id=&quot;windows-업데이트&quot;&gt;Windows 업데이트&lt;/h3&gt;
+
+&lt;p&gt;이후에도 증상이 발생하는 경우, Windows 를 최신 버전으로 업데이트합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/microsoftteams/new-teams-bulk-install-client#prerequisites-for-target-computers&quot;&gt;문서&lt;/a&gt;에 명시된 내용과 같이, MSIX Installer 는 Windows 10 10.0.19041 이상 버전부터 지원되고 있습니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 14 Aug 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/operation/teams/2024/08/14/67_Teams-%EC%95%B1-%ED%8C%A8%ED%82%A4%EC%A7%80%EB%A5%BC-%EC%97%B4-%EC%88%98-%EC%97%86%EC%9D%8C-%EC%98%A4%EB%A5%98.html</link>
+        <guid isPermaLink="true">http://localhost:4000/operation/teams/2024/08/14/67_Teams-%EC%95%B1-%ED%8C%A8%ED%82%A4%EC%A7%80%EB%A5%BC-%EC%97%B4-%EC%88%98-%EC%97%86%EC%9D%8C-%EC%98%A4%EB%A5%98.html</guid>
+        
+        
+        <category>Operation</category>
+        
+        <category>Teams</category>
+        
+      </item>
+    
+      <item>
+        <title>[Office] 하이퍼링크 클릭 시 오류</title>
+        <description>&lt;p&gt;&lt;img src=&quot;/assets/images/66/1.PNG&quot; title=&quot;하이퍼링크 클릭 오류&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Outlook, Excel 등 Office 제품에서 하이퍼링크 클릭 시,&lt;br /&gt;
+“소속 조직의 정책으로 인해 이 동작을 완료할 수 없습니다. 자세한 내용은 지원 센터에 문의하세요.” 오류가 발생합니다.&lt;/p&gt;
+
+&lt;p&gt;이 경우 다음 방법을 통해 조치가 가능합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;레지스트리-변경&quot;&gt;레지스트리 변경&lt;/h3&gt;
+
+&lt;p&gt;Windows 검색 &amp;gt; “레지스트리 편집기 (regedit)” 을 실행합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/66/2.PNG&quot; title=&quot;레지스트리 변경1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;HKEY_CLASSES_ROOT.html 경로로 이동합니다.&lt;br /&gt;
+“(기본값)” 을 더블클릭 한 후, 값 데이터를 htmlfile 로 설정합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/66/3.PNG&quot; title=&quot;레지스트리 변경2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;PC 재부팅 후에도 동일한 경우, HKEY_LOCAL_MACHINE\SOFTWARE\Classes\htmlfile\shell 경로로 이동합니다.&lt;br /&gt;
+shell 하위에 open 키가 존재하는지 확인합니다.&lt;/p&gt;
+
+&lt;p&gt;open 키값이 없는 경우, shell 폴더 우클릭 &amp;gt; 새로 만들기 &amp;gt; 키 &amp;gt; open 을 생성하고&lt;br /&gt;
+open 하위에도 동일한 방법으로 command 를 생성합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/66/4.PNG&quot; title=&quot;레지스트리 변경3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Windows 검색 &amp;gt; Internet Explorer &amp;gt; 우클릭 후 파일 위치 열기 &amp;gt; Internet Explorer 우클릭 &amp;gt; 속성 &amp;gt; 바로가기 &amp;gt; 대상 내 경로를 복사합니다.&lt;br /&gt;
+(경로: “C:\Program Files\Internet Explorer\iexplore.exe”)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/66/5.PNG&quot; title=&quot;레지스트리 변경4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;command 키 내의 “(기본값)” 을 더블클릭 한 후, 앞서 복사한 경로 끝에 %1 을 붙여 입력해줍니다.&lt;br /&gt;
+(값: “C:\Program Files\Internet Explorer\iexplore.exe” %1)&lt;/p&gt;
+
+&lt;h3 id=&quot;internet-explorer-설치&quot;&gt;Internet Explorer 설치&lt;/h3&gt;
+
+&lt;p&gt;PC에서 Internet Explorer를 제거한 경우에도 해당 증상이 발생할 수 있습니다.&lt;br /&gt;
+다음 방법을 통해 재설치가 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;Windows 설정 &amp;gt; [앱] &amp;gt; [선택적 기능] &amp;gt; [기능 추가] &amp;gt; “Internet Explorer” 를 설치합니다.&lt;/p&gt;
+
+&lt;p&gt;[&lt;a href=&quot;https://learn.microsoft.com/ko-kr/windows/client-management/client-tools/add-remove-hide-features?pivots=windows-11&quot;&gt;선택적 기능&lt;/a&gt;] 이 보이지 않는 경우, Win 키 + R &amp;gt; ms-settings:optionalfeatures 을 입력합니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 06 Aug 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/operation/office/2024/08/06/66_%ED%95%98%EC%9D%B4%ED%8D%BC%EB%A7%81%ED%81%AC-%ED%81%B4%EB%A6%AD-%EC%8B%9C-%EC%98%A4%EB%A5%98.html</link>
+        <guid isPermaLink="true">http://localhost:4000/operation/office/2024/08/06/66_%ED%95%98%EC%9D%B4%ED%8D%BC%EB%A7%81%ED%81%AC-%ED%81%B4%EB%A6%AD-%EC%8B%9C-%EC%98%A4%EB%A5%98.html</guid>
+        
+        
+        <category>Operation</category>
+        
+        <category>Office</category>
+        
+      </item>
+    
+      <item>
+        <title>[Entra] 개체 - 디바이스</title>
+        <description>&lt;p&gt;본 포스팅에서는 Entra ID의 디바이스 개체에 대해 알아보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;id-프로비저닝-토폴로지&quot;&gt;ID 프로비저닝 토폴로지&lt;/h3&gt;
+
+&lt;p&gt;테넌트에는 여러 종류의 개체(사용자, 그룹, 디바이스, 애플리케이션 등)가 있으며, 각 개체를 구분하기 위한 ID가 할당됩니다.&lt;br /&gt;
+본 포스팅에서는 편의 상 개체와 ID 라는 용어를 같이 사용합니다.&lt;/p&gt;
+
+&lt;p&gt;우선, ID 프로비저닝에 대한 토폴로지를 알아봅시다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Microsoft 365 Cloud Only&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/62/1.PNG&quot; title=&quot;ID 프로비저닝 토폴로지1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;M365 테넌트에서 직접 개체를 생성하는 방식입니다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Hybrid&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/62/2.PNG&quot; title=&quot;ID 프로비저닝 토폴로지2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;On-premise 에 있는 개체 정보를 M365 테넌트로 동기화하는 방식입니다.&lt;br /&gt;
+Microsoft Entra Connect (구 AADC(Azure Active Directory Connector)) 를 통해, Active Directory 내 개체 정보를 M365 테넌트에 동기화합니다.&lt;/p&gt;
+
+&lt;p&gt;위와 같은 두 가지 방법을 통해, M365 테넌트에 개체를 생성할 수 있습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;디바이스&quot;&gt;디바이스&lt;/h3&gt;
+
+&lt;p&gt;Microsoft 365 테넌트에는 MDM, MAM과 같은 디바이스를 관리할 수 있는 기능이 제공되고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이를 위해서는 테넌트에 디바이스를 등록해야 하는데, 그 방법으로는 다음과 같은 세 가지가 있습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Microsoft Entra register&lt;/li&gt;
+  &lt;li&gt;Microsoft Entra joined&lt;/li&gt;
+  &lt;li&gt;Microsoft Entra hybrid joined&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[Microsoft Entra 관리 센터] &amp;gt; [디바이스] &amp;gt; [모든 장치] &amp;gt; “조인 유형” 에서, 디바이스가 조인된 유형을 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;microsoft-entra-register&quot;&gt;Microsoft Entra register&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/entra/identity/devices/concept-device-registration&quot;&gt;Microsoft Entra register&lt;/a&gt;은 테넌트에 디바이스를 등록하는 방법입니다.&lt;/p&gt;
+
+&lt;p&gt;등록 방법은 다음과 같습니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Windows
+    &lt;ul&gt;
+      &lt;li&gt;[설정] &amp;gt; [계정] &amp;gt; [회사 또는 학교 액세스] 에 직접 계정 추가 (회사 또는 학교 계정)&lt;/li&gt;
+      &lt;li&gt;Office 서비스에 조직 계정으로 로그인&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;iOS/Android
+    &lt;ul&gt;
+      &lt;li&gt;“Microsoft 회사 포털” 혹은 “Microsoft Authenticator” 앱에 조직 계정으로 로그인&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;microsoft-entra-joined&quot;&gt;Microsoft Entra joined&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/entra/identity/devices/concept-directory-join&quot;&gt;Microsoft Entra joined&lt;/a&gt;은 테넌트와 디바이스를 조인하는 방법입니다.&lt;/p&gt;
+
+&lt;p&gt;등록 방법은 다음과 같습니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/azure/active-directory/devices/azuread-joined-devices-frx&quot;&gt;Self-service experience&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Windows [설정] &amp;gt; [계정] &amp;gt; [회사 또는 학교 액세스] 에 직접 계정 추가 (조직의 Azure AD에 연결함)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/mem/intune/enrollment/windows-bulk-enroll&quot;&gt;Bulk Enrollment&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/autopilot/overview&quot;&gt;Windows Autopilot&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;microsoft-entra-hybrid-joined&quot;&gt;Microsoft Entra hybrid joined&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/entra/identity/devices/concept-hybrid-join&quot;&gt;Microsoft Entra hybrid joined&lt;/a&gt;은 On-premise(Active Directory) 서버에 등록된 디바이스를 테넌트에 동기화하여 조인하는 방식입니다.&lt;/p&gt;
+
+&lt;p&gt;등록 방법은 다음과 같습니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;디바이스에 AD join 후, AADC나 ADFS로 동기화&lt;/li&gt;
+  &lt;li&gt;Windows Autopilot을 통해 join 후, AADC나 ADFS로 동기화&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;*Active Directory 및 Microsoft Entra Connect(구 AADC) 서버 필요&lt;br /&gt;
+*Microsoft Entra Connect에서 &lt;a href=&quot;https://leemcse.tistory.com/entry/Azure-AD-Joined-Registered-Hybrid&quot;&gt;디바이스 구성&lt;/a&gt; 필요 (하이브리드 Azure AD 조인 구성 &amp;gt; Windows 10 이상의 도메인 조인된 디바이스입니다)&lt;/p&gt;
+
+&lt;h4 id=&quot;비교&quot;&gt;비교&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/65/1.PNG&quot; title=&quot;디바이스 개체 비교&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 02 Aug 2024 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/entra/2024/08/02/65_%EA%B0%9C%EC%B2%B4-%EB%94%94%EB%B0%94%EC%9D%B4%EC%8A%A4.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/entra/2024/08/02/65_%EA%B0%9C%EC%B2%B4-%EB%94%94%EB%B0%94%EC%9D%B4%EC%8A%A4.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Entra</category>
+        
+      </item>
     
       <item>
         <title>[Entra] 개체 - 그룹</title>
@@ -798,7 +1205,7 @@ MAM은 모바일 디바이스에서 실행하는 앱을 제어하는 정책입�
       </item>
     
       <item>
-        <title>[Admin] M365 테넌트 구축(4) - AD 서버 구성</title>
+        <title>[Admin] M365 테넌트 구축(4) - AD 서버 구성(부모 도메인)</title>
         <description>&lt;p&gt;해당 시리즈에서는 &lt;strong&gt;AD 서버를 이용한 하이브리드 구조의 M365 테넌트&lt;/strong&gt; 를 직접 구축해보도록 합니다.&lt;/p&gt;
 
 &lt;p&gt;본 포스팅에서는, 설치한 서버의 설정을 변경하고 AD 서버를 구성해봅니다.&lt;/p&gt;
@@ -860,6 +1267,31 @@ MAM은 모바일 디바이스에서 실행하는 앱을 제어하는 정책입�
 &lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Rename-Computer -NewName &quot;디바이스명&quot; -DomainCredential ALLWAYS365\Administrator -Restart
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;h3 id=&quot;고정-ip-설정&quot;&gt;고정 IP 설정&lt;/h3&gt;
+
+&lt;p&gt;Windows Server에 고정 IP를 할당해줍니다.&lt;br /&gt;
+앞으로 추가될 서버들은 마찬가지로 VM을 통해 생성되며, 로컬 환경에서 각 서버 간 통신을 할 것이므로 로컬 IP 대역 내에서 중복되지 않게 할당을 진행해줍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/24.png&quot; title=&quot;고정 IP 설정1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Windows 검색 &amp;gt; “명령 프롬프트(cmd)” &amp;gt; ipconfig 명령어를 실행하여 현재 서버가 사용중인 IP를 확인합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/25.png&quot; title=&quot;고정 IP 설정2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Windows 설정(Settings)] &amp;gt; [네트워크 &amp;amp; 인터넷(Network &amp;amp; Internet)] &amp;gt; [상태(Status)] &amp;gt; [어댑터 옵션 변경(Change Adapter Options)] &amp;gt; “이더넷(Ethernet)” &amp;gt; [속성(Properties)] &amp;gt; “Internet Protocol Version 4(TCP/IP v4)” 을 더블클릭 합니다.&lt;br /&gt;
+저는 명령어를 실행한 결과를 바탕으로, 192.168.64.1 을 첫 번째 Windows Server 에 할당해줄건데요.&lt;br /&gt;
+상기 사진과 같이 설정한 후 적용해줍니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;windows-업데이트-진행&quot;&gt;Windows 업데이트 진행&lt;/h3&gt;
+
+&lt;p&gt;Windows 업데이트를 진행해줍니다.&lt;br /&gt;
+자잘한 오류가 발생할 수 있으므로.. (&lt;del&gt;저도 알고싶지 않았습니다..&lt;/del&gt;) 꼭꼭 사전에 진행해줍시다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/26.png&quot; title=&quot;Windows 업데이트 진행&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Windows 설정(Settings)] &amp;gt; [업데이트 &amp;amp; 보안(Update &amp;amp; Security)] &amp;gt; [Windows 업데이트(Windows Update)] &amp;gt; “지금 설치(Install now)” 를 클릭하여 설치해줍니다.&lt;br /&gt;
+시간이 상당히 소요되며, 재부팅이 필요하므로 인내심을 가지고 기다려줍시다.&lt;/p&gt;
+
 &lt;h3 id=&quot;adds-서비스-설치&quot;&gt;ADDS 서비스 설치&lt;/h3&gt;
 
 &lt;p&gt;설치한 Windows Server 를 AD 서버로 사용하기 위해, ADDS 서비스를 설치해줍니다.&lt;/p&gt;
@@ -892,12 +1324,12 @@ ADDS 설치가 완료되면 PC가 자동으로 재부팅됩니다.&lt;/p&gt;
 
 &lt;p&gt;[서버 관리자] &amp;gt; “플래그 버튼” &amp;gt; “이 서버를 도메인 컨트롤러로 승격” 을 클릭합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/59/16.png&quot; title=&quot;ADDS 서비스 설치7&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/27.png&quot; title=&quot;ADDS 서비스 설치7&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;“새 포리스트를 추가합니다” 를 선택한 다음,&lt;br /&gt;
 준비한 도메인을 입력합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/59/17.png&quot; title=&quot;ADDS 서비스 설치8&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/59/28.png&quot; title=&quot;ADDS 서비스 설치8&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;[포리스트/도메인 기능 수준]은 Windows Server 2016 으로 설정합니다.&lt;br /&gt;
 도메인 컨트롤러 기능으로 “DNS” 와 “GC” 를 체크한 다음,&lt;br /&gt;
@@ -918,10 +1350,6 @@ DSRM 패스워드는 어드민 계정 패스워드와 동일하게 입력해줍�
 
 &lt;p&gt;기본 경로로 두고 “다음” 을 클릭합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/59/21.png&quot; title=&quot;ADDS 서비스 설치12&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;“선택 사항 검토” 에서 적절하게 설정되었는지 체크 후, “다음” 을 클릭합니다.&lt;/p&gt;
-
 &lt;p&gt;&lt;img src=&quot;/assets/images/59/22.png&quot; title=&quot;ADDS 서비스 설치13&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;“설치” 를 누릅니다.&lt;/p&gt;
@@ -934,8 +1362,8 @@ DSRM 패스워드는 어드민 계정 패스워드와 동일하게 입력해줍�
 
 </description>
         <pubDate>Sat, 13 Jul 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/guide/project_m365tenant/2024/07/13/59_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(4)-AD-%EC%84%9C%EB%B2%84-%EA%B5%AC%EC%84%B1.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/guide/project_m365tenant/2024/07/13/59_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(4)-AD-%EC%84%9C%EB%B2%84-%EA%B5%AC%EC%84%B1.html</guid>
+        <link>http://localhost:4000/administration/guide/project_m365tenant/2024/07/13/59_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(4)-AD-%EC%84%9C%EB%B2%84-%EA%B5%AC%EC%84%B1(%EB%B6%80%EB%AA%A8-%EB%8F%84%EB%A9%94%EC%9D%B8).html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/guide/project_m365tenant/2024/07/13/59_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(4)-AD-%EC%84%9C%EB%B2%84-%EA%B5%AC%EC%84%B1(%EB%B6%80%EB%AA%A8-%EB%8F%84%EB%A9%94%EC%9D%B8).html</guid>
         
         
         <category>Administration</category>
@@ -943,309 +1371,6 @@ DSRM 패스워드는 어드민 계정 패스워드와 동일하게 입력해줍�
         <category>Guide</category>
         
         <category>Project_M365Tenant</category>
-        
-      </item>
-    
-      <item>
-        <title>[Admin] M365 테넌트 구축(3) - AD 용어 정리</title>
-        <description>&lt;p&gt;해당 시리즈에서는 &lt;strong&gt;AD 서버를 이용한 하이브리드 구조의 M365 테넌트&lt;/strong&gt; 를 직접 구축해보도록 합니다.&lt;/p&gt;
-
-&lt;p&gt;본 포스팅에서는, 본격적으로 서버를 구축하기 전 관련 용어를 정리해보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;ad-용어terminology&quot;&gt;AD 용어(Terminology)&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Directory Service
-    &lt;ul&gt;
-      &lt;li&gt;분산된 네트워크 자원을 중앙 저장소에 통합시켜 놓음으로써 사용자 네트워크 상의 정보를 찾는 것을 도와주는 서비스&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Active Directory
-    &lt;ul&gt;
-      &lt;li&gt;네트워크 상으로 나뉘어져 있는 여러가지 자원을 중앙 관리자가 통합해 관리할 수 있는 환경&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Active Directory Domain Service(ADDS)
-    &lt;ul&gt;
-      &lt;li&gt;컴퓨터 사용자, 기타 주변장치에 대한 정보를 네트워크 상에 저장하고 저장한 정보를 관리자가 통합하여 사용하는 서비스&lt;/li&gt;
-      &lt;li&gt;사용을 위해서는 DNS 서버 설치 필요&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Domain Controller(DC)
-    &lt;ul&gt;
-      &lt;li&gt;Active Directory 가 설치된 서버 컴퓨터&lt;/li&gt;
-      &lt;li&gt;첫 번째 도메인 컨트롤러는 무조건 Global Catalog 서버여야 함&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Global Catalog(GC)
-    &lt;ul&gt;
-      &lt;li&gt;포리스트 내의 모든 Active Directory 개체의 복제를 저장하고 있는 DC&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Domain
-    &lt;ul&gt;
-      &lt;li&gt;Active Directory의 가장 기본이 되는 단위&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Tree
-    &lt;ul&gt;
-      &lt;li&gt;Domain의 집합으로, 계층적 구조로 구성되어 있어 트리로 불림&lt;/li&gt;
-      &lt;li&gt;개념적 단위&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Forest
-    &lt;ul&gt;
-      &lt;li&gt;다른 트리 간의 관계가 맺어져 있는 경우를 지칭하는 단위&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Site
-    &lt;ul&gt;
-      &lt;li&gt;지리적으로 떨어져있으며 IP 주소 대가 다른 묶음&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Domain, Tree와 Forest
-    &lt;ul&gt;
-      &lt;li&gt;Domain &amp;lt;= Tree &amp;lt;= Forest (Site)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Trust
-    &lt;ul&gt;
-      &lt;li&gt;도메인 또는 포리스트 사이의 신뢰 여부에 대한 관계를 나타내는 의미&lt;/li&gt;
-      &lt;li&gt;같은 포리스트 내 도메인과 트리는 “양방향 전이 트러스트” 관계를 맺음&lt;/li&gt;
-      &lt;li&gt;“단방향 전이 트러스트”나 “바로가기 트러스트”의 개념도 있음&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Organizational Unit (OU)
-    &lt;ul&gt;
-      &lt;li&gt;도메인 안에서 세부적으로 나뉘는 단위&lt;/li&gt;
-      &lt;li&gt;Active Directory 내 최소 단위&lt;/li&gt;
-      &lt;li&gt;OU 하위에는 다음과 같은 개체가 소속될 수 있음
-        &lt;ul&gt;
-          &lt;li&gt;사용자&lt;/li&gt;
-          &lt;li&gt;그룹&lt;/li&gt;
-          &lt;li&gt;디바이스&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;User
-    &lt;ul&gt;
-      &lt;li&gt;로컬 사용자 계정
-        &lt;ul&gt;
-          &lt;li&gt;PC에 생성하는 사용자 계정&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;도메인 사용자 계정
-        &lt;ul&gt;
-          &lt;li&gt;도메인에 생성하는 사용자 계정&lt;/li&gt;
-          &lt;li&gt;디바이스에 도메인 조인 후 해당 계정으로 로그인이 가능&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Group
-    &lt;ul&gt;
-      &lt;li&gt;Security Group(보안 그룹)
-        &lt;ul&gt;
-          &lt;li&gt;Domain 내 개체를 그룹핑하는 데 사용&lt;/li&gt;
-          &lt;li&gt;Domain Local Group(도메인 로컬 그룹)
-            &lt;ul&gt;
-              &lt;li&gt;가장 큰 규모의 그룹&lt;/li&gt;
-              &lt;li&gt;멤버: 트러스트로 맺어진 포리스트 내 모든 개체&lt;/li&gt;
-              &lt;li&gt;정책: 동일 도메인 내 자원에 대해 할당 가능&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-          &lt;li&gt;Global Group(글로벌 그룹)
-            &lt;ul&gt;
-              &lt;li&gt;가장 작은 규모의 그룹&lt;/li&gt;
-              &lt;li&gt;멤버: 동일 도메인 내 개체&lt;/li&gt;
-              &lt;li&gt;정책: 트러스트로 맺어진 포리스트 내 모든 자원에 대해 할당 가능&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-          &lt;li&gt;Universal Group(유니버설 그룹)
-            &lt;ul&gt;
-              &lt;li&gt;해당 그룹은 GC에 추가되므로, 효율 상 좋지 않아 거의 사용하지 않음&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;Distribution Group(배포 그룹)
-        &lt;ul&gt;
-          &lt;li&gt;Exchange Server에서 주로 사용&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Device&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Policy&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;AGDLP
-    &lt;ul&gt;
-      &lt;li&gt;Active Directory 에서 그룹을 이용해 역할 기반 액세스 제어를 구현하기 위한 Microsoft의 권장 사항&lt;/li&gt;
-      &lt;li&gt;A(Account) -&amp;gt; G(Global Group) -&amp;gt; DL(Domain Local Group) &amp;lt;- P(Policy)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Sat, 13 Jul 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/guide/project_m365tenant/2024/07/13/58_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(3)-AD-%EC%9A%A9%EC%96%B4-%EC%A0%95%EB%A6%AC.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/guide/project_m365tenant/2024/07/13/58_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(3)-AD-%EC%9A%A9%EC%96%B4-%EC%A0%95%EB%A6%AC.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Guide</category>
-        
-        <category>Project_M365Tenant</category>
-        
-      </item>
-    
-      <item>
-        <title>[Entra] 관리 단위(Administrative Unit) 설정</title>
-        <description>&lt;p&gt;본 포스팅에서는 Microsoft Entra ID에서 제공하는 기능 중 하나인 “관리 단위” 에 대해 설명하고, 설정하는 방법을 알아보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;관리-단위&quot;&gt;관리 단위&lt;/h3&gt;
-
-&lt;p&gt;M365 테넌트를 관리하기 위한, 다양한 관리자 역할이 존재합니다.&lt;br /&gt;
-그리고 관리자 역할을 부여받게 되면, 테넌트 내 모든 리소스(사용자, 그룹, 디바이스 등)에 대한 접근 권한이 생깁니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/admin-units-assign-roles&quot;&gt;관리 단위&lt;/a&gt;는 일종의 그룹같은 개념입니다.&lt;br /&gt;
-관리 단위를 통해, 관리자가 접근할 수 있는 리소스를 제한할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;예시로, 다음과 같은 경우에 사용할 수 있습니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;하나의 테넌트 내에 여러 계열사가 존재하는 경우, 역할을 부여받은 계열사 담당자는 해당 계열사 사용자들에 대해서만 접근 권한을 지녀야 합니다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;그 외에도, 감사 로그 추출 시 필터링 조건으로 사용할 수도 있습니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;관리-단위-생성&quot;&gt;관리 단위 생성&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/57/1.PNG&quot; title=&quot;관리 단위1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[Microsoft Entra 관리 센터] &amp;gt; 검색창에 “관리 단위” 를 검색하고 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/57/2.PNG&quot; title=&quot;관리 단위2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;“추가” 를 눌러 새로운 관리 단위를 생성합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/57/3.PNG&quot; title=&quot;관리 단위3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이름과 설명을 입력합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/admin-units-restricted-management&quot;&gt;제한된 관리 단위&lt;/a&gt; 는 “아니오” 를 체크해줍니다.&lt;br /&gt;
-“예”로 설정하는 경우, 해당 관리 단위에 할당된 관리자 외의 다른 관리자는 관련 리소스에 접근할 수 없게 됩니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/57/4.PNG&quot; title=&quot;관리 단위4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/57/5.PNG&quot; title=&quot;관리 단위5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;그 외 설정은 생략해준 뒤, “만들기” 를 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/57/6.PNG&quot; title=&quot;관리 단위 활용1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;생성된 관리 단위에서 “역할 및 관리자” 를 클릭합니다.&lt;br /&gt;
-목록에 있는 역할에 사용자를 추가하면, 그 사용자는 해당 관리 단위에 대한 관리자가 됩니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/57/7.PNG&quot; title=&quot;관리 단위 활용2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;“사용자”, “그룹”, “디바이스” 에는 관리 단위에 포함시킬 리소스를 등록할 수 있습니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Fri, 12 Jul 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/entra/2024/07/12/57_%EA%B4%80%EB%A6%AC-%EB%8B%A8%EC%9C%84(Administrative-Unit)-%EC%84%A4%EC%A0%95.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/entra/2024/07/12/57_%EA%B4%80%EB%A6%AC-%EB%8B%A8%EC%9C%84(Administrative-Unit)-%EC%84%A4%EC%A0%95.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Entra</category>
-        
-      </item>
-    
-      <item>
-        <title>[Entra] 테넌트 IP 대역 설정</title>
-        <description>&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview&quot;&gt;조건부 액세스&lt;/a&gt; 정책 구성을 위해, 테넌트에서 사용하는 IP 대역을 정리할 필요가 있습니다.&lt;br /&gt;
-본 포스팅에서는 IP 대역을 정리하는 방법을 소개하도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;명명된-위치&quot;&gt;명명된 위치&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/56/1.PNG&quot; title=&quot;명명된 위치1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[Microsoft Entra 관리 센터] &amp;gt; 검색창에 “명명된 위치” 를 검색하고 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/56/2.PNG&quot; title=&quot;명명된 위치2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;“IP 범위 위치” 를 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;적절한 이름을 입력해주고, IP 를 추가합니다.&lt;br /&gt;
-일반적으로 테넌트 내 사용자들이 접근하는 IP 범위에 대해서는 “신뢰할 수 있는 위치로 표시” 를 체크해줍니다.&lt;/p&gt;
-
-&lt;p&gt;그 외에도, “국가 위치” 를 클릭하면 특정 국가에 대해 IP 범위 지정이 가능합니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Thu, 11 Jul 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/entra/2024/07/11/56_%ED%85%8C%EB%84%8C%ED%8A%B8-IP-%EB%8C%80%EC%97%AD-%EC%84%A4%EC%A0%95.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/entra/2024/07/11/56_%ED%85%8C%EB%84%8C%ED%8A%B8-IP-%EB%8C%80%EC%97%AD-%EC%84%A4%EC%A0%95.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Entra</category>
-        
-      </item>
-    
-      <item>
-        <title>[Office] 로그인 세션 타임아웃 설정</title>
-        <description>&lt;p&gt;보안 상, 사용자의 Office 세션 타임아웃 시간(로그인 주기)를 설정해야 하는 경우가 있습니다.&lt;br /&gt;
-본 포스팅에서는 이를 설정하는 방법에 대해 알아보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;세션-타임아웃&quot;&gt;세션 타임아웃&lt;/h3&gt;
-
-&lt;p&gt;세션 타임아웃 시간을 설정하는 방법은 크게 두 가지가 있습니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;조직-설정&quot;&gt;조직 설정&lt;/h4&gt;
-
-&lt;p&gt;[Microsoft 365 관리 센터] &amp;gt; [설정] &amp;gt; [조직 설정] 으로 이동합니다.&lt;br /&gt;
-[보안 및 개인 정보] &amp;gt; [유휴 세션 시간 제한] 을 클릭합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/55/1.PNG&quot; title=&quot;조직 설정1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;해당 화면에서 타임아웃 시간을 설정할 수 있습니다.&lt;br /&gt;
-다만, &lt;a href=&quot;https://learn.microsoft.com/ko-KR/microsoft-365/admin/manage/idle-session-timeout-web-apps?view=o365-worldwide&amp;amp;WT.mc_id=365AdminCSH_inproduct&quot;&gt;해당 설정&lt;/a&gt;은 &lt;strong&gt;모든 사용자에게 적용&lt;/strong&gt; 되며, M365 서비스 및 관리센터를 포함한 &lt;strong&gt;웹앱에만 적용&lt;/strong&gt; 가능합니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;조건부-액세스&quot;&gt;조건부 액세스&lt;/h4&gt;
-
-&lt;p&gt;[Microsoft Intune 관리 센터] &amp;gt; [디바이스] &amp;gt; [조건부 액세스] &amp;gt; [정책] 을 클릭합니다.&lt;br /&gt;
-“새 정책” 을 클릭하여, 새로운 조건부 액세스 정책을 생성합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/55/2.PNG&quot; title=&quot;조건부 액세스1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[사용자] 에 적용할 사용자/그룹을 지정해주고,&lt;br /&gt;
-[대상 리소스] 에 원하는 Office 앱을 추가해줍니다.&lt;/p&gt;
-
-&lt;p&gt;*조건부 액세스의 대상 리소스 지정 시, Office 앱에 대한 종속성을 인지해야 합니다. 관련 문서는 다음 &lt;a href=&quot;https://learn.microsoft.com/ko-kr/entra/identity/conditional-access/concept-conditional-access-cloud-apps#office-365&quot;&gt;링크&lt;/a&gt;를 참고하세요.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/55/3.PNG&quot; title=&quot;조건부 액세스2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[허용] 은 상기 사진과 같이 설정해줍니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/55/4.PNG&quot; title=&quot;조건부 액세스3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;[세션] 항목에서 “로그인 빈도” 를 체크한 다음, 원하는 시간을 설정해줍니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Wed, 10 Jul 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/office/2024/07/10/55_Office-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%84%B8%EC%85%98-%ED%83%80%EC%9E%84%EC%95%84%EC%9B%83-%EC%84%A4%EC%A0%95.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/office/2024/07/10/55_Office-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%84%B8%EC%85%98-%ED%83%80%EC%9E%84%EC%95%84%EC%9B%83-%EC%84%A4%EC%A0%95.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Office</category>
         
       </item>
     
