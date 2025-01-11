@@ -147,6 +147,12 @@ Exchange Server 설치 시 여러가지 오류가 발생할 수 있습니다.
 이 오류 때문에 메일 서버를 설치하는데 많은 시간을 들이고 애를 먹었는데요,  
 포스팅을 보시는 분들은 부디 원만하게 설치하시길 빌며 관련 내용을 공유드립니다🥹  
 
+#### 사전 작업
+설치 전, Powershell을 관리자 권한으로 실행 후, 아래 명령어를 실행하여 스크립트 실행권한 조정이 필요합니다.  
+```
+Set-ExecutionPolicy Unrestricted 
+```
+
 #### Domain 조인 시 오류 발생
 
 "an active directory domain controller (ad dc) for the domain could not be contacted, 0x0000232B RCODE_NAME_ERROR"  
@@ -165,10 +171,10 @@ HostController 내 모든 파일 삭제 후, 다시 Setup.exe를 실행합니다
 
 
 #### 그 외 
-설치 전, Powershell을 관리자 권한으로 실행 후, 아래 명령어를 실행하여 스크립트 실행권한 조정이 필요합니다.  
-```
-Set-ExecutionPolicy Unrestricted 
-```
+
+오류 발생 시, C:\ExchangeServerSetup 폴더 하위의 로그 텍스트 파일을 통해 오류에 대한 상세 내용 확인이 가능합니다.  
+
+오류 원인 확인을 위해, MS에서 제공하는 파워쉘을 다운로드 받고 실행하여 조치하는 것도 도움이 됩니다.  
 
 [1]: https://www.microsoft.com/en-us/download/details.aspx?id=105878
 [2]: https://go.microsoft.com/fwlink/?linkid=2088631
