@@ -263,154 +263,14 @@
 
 <p>AD에 이를 구현하고, AGDLP를 기반으로 정책을 할당해봅시다.</p>
 
-<p><strong>OU</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>OU</th>
-      <th>설명</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>00000</td>
-      <td>retirement</td>
-    </tr>
-    <tr>
-      <td>11000</td>
-      <td>AllWaysTech</td>
-    </tr>
-    <tr>
-      <td>12000</td>
-      <td>AllWaysComm</td>
-    </tr>
-    <tr>
-      <td>20000</td>
-      <td>AllWaysFinance</td>
-    </tr>
-    <tr>
-      <td>30000</td>
-      <td>AllWaysHealth</td>
-    </tr>
-    <tr>
-      <td>41000</td>
-      <td>AllWaysMart</td>
-    </tr>
-    <tr>
-      <td>42000</td>
-      <td>AllWaysBrand</td>
-    </tr>
-    <tr>
-      <td>50000</td>
-      <td>AllWaysIndustry</td>
-    </tr>
-    <tr>
-      <td>60000</td>
-      <td>AllWaysEnergy</td>
-    </tr>
-    <tr>
-      <td>70000</td>
-      <td>AllWaysEstate</td>
-    </tr>
-    <tr>
-      <td>80000</td>
-      <td>AllWaysMaterial</td>
-    </tr>
-    <tr>
-      <td>90000</td>
-      <td>AllWaysUtility</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>사용자/그룹</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>OU</th>
-      <th>이름</th>
-      <th>메일주소</th>
-      <th>부서</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>11000</td>
-      <td>김 정보</td>
-      <td>tech.kim@allways365.life</td>
-      <td>대표이사</td>
-    </tr>
-    <tr>
-      <td>12000</td>
-      <td>한 통신</td>
-      <td>comm.han@allways365.life</td>
-      <td>대표이사</td>
-    </tr>
-    <tr>
-      <td>20000</td>
-      <td>박 자산</td>
-      <td>finan.park@allways365.life</td>
-      <td>대표이사</td>
-    </tr>
-    <tr>
-      <td>30000</td>
-      <td>최 튼튼</td>
-      <td>health.choi@allways365.life</td>
-      <td>대표이사</td>
-    </tr>
-    <tr>
-      <td>41000</td>
-      <td>이 마트</td>
-      <td>mart.lee@allways365.life</td>
-      <td>대표이사</td>
-    </tr>
-    <tr>
-      <td>42000</td>
-      <td>유 명품</td>
-      <td>brand.yoo@allways365.life</td>
-      <td>대표이사</td>
-    </tr>
-    <tr>
-      <td>50000</td>
-      <td>김 산업</td>
-      <td>indust.kim@allways365.life</td>
-      <td>대표이사</td>
-    </tr>
-    <tr>
-      <td>60000</td>
-      <td>남 에너지</td>
-      <td>energy.nam@allways365.life</td>
-      <td>대표이사</td>
-    </tr>
-    <tr>
-      <td>70000</td>
-      <td>당 부자</td>
-      <td>rich.dang@allways365.life</td>
-      <td>대표이사</td>
-    </tr>
-    <tr>
-      <td>80000</td>
-      <td>소 재섭</td>
-      <td>material.so@allways365.life</td>
-      <td>대표이사</td>
-    </tr>
-    <tr>
-      <td>90000</td>
-      <td>유 티리티</td>
-      <td>tility.u@allways365.life</td>
-      <td>대표이사</td>
-    </tr>
-  </tbody>
-</table>
-
 <h3 id="ou-사용자-그룹-생성">OU, 사용자, 그룹 생성</h3>
 
 <p><a href="https://allways365.com/administration/guide/project_m365tenant/2024/08/24/68_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(5)-OU,%EC%82%AC%EC%9A%A9%EC%9E%90,%EA%B7%B8%EB%A3%B9-%EA%B5%AC%EC%84%B1%EB%B0%A9%EB%B2%95.html">이전 포스팅</a>에서, AD에 OU/사용자/그룹을 생성하고 관리하는 방법에 대해 알아보았습니다.</p>
 
 <p>일반적인 운영 환경의 경우, 인사 시스템으로부터 계정 정보를 AD에 프로비저닝 시켜줍니다.<br />
 테스트 환경의 경우 위와 같은 자동화 된 솔루션이 없으므로, 빠른 작업을 위해 Powershell 을 이용해 OU/사용자/그룹을 생성해줍시다.</p>
+
+<p>OU/사용자/그룹 구성에 대한 정보는 <a href="https://allways365.com/administration/guide/project_m365tenant/2024/06/22/47_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95-%EA%B0%9C%EC%9A%94.html">다음 포스팅</a>을 참고해주세요.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
@@ -680,6 +540,8 @@ Domain Local Group 의 멤버로, 방금 자식 도메인에서 생성한 Global
             <a class="prev d-block col-md-6" href="https://sixxon.github.io/operation/outlook/exchange/newsletter/2024/08/27/69_%EB%A0%88%EA%B1%B0%EC%8B%9C-Exchange-%ED%86%A0%ED%81%B0-%EC%A2%85%EB%A3%8C.html"> &laquo; [Outlook] 레거시 Exchange 토큰 종료</a>
             
             
+            <a class="next d-block col-md-6 text-lg-right" href="https://sixxon.github.io/administration/guide/project_m365tenant/2024/11/11/71_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(7)-Exchange-Server-%EC%84%A4%EC%B9%98.html">[Admin] M365 테넌트 구축(7) - Exchange Server 설치 &raquo; </a>
+            
             <div class="clearfix"></div>
             </div>
             <!-- End Categories -->
@@ -764,27 +626,27 @@ https://search.google.com/structured-data/testing-tool/u/0/
             
             
                 
-                    <a class="mt-1 mb-1" href="/categories#Administration">Administration (51)</a>
+                    <a class="mt-1 mb-1" href="/categories#Administration">Administration (52)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Guide">Guide (11)</a>
+                    <a class="mt-1 mb-1" href="/categories#Guide">Guide (12)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#etc">etc (3)</a>
+                    <a class="mt-1 mb-1" href="/categories#etc">etc (6)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Operation">Operation (21)</a>
+                    <a class="mt-1 mb-1" href="/categories#Operation">Operation (23)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Teams">Teams (7)</a>
+                    <a class="mt-1 mb-1" href="/categories#Teams">Teams (8)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Office">Office (8)</a>
+                    <a class="mt-1 mb-1" href="/categories#Office">Office (9)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Outlook">Outlook (26)</a>
+                    <a class="mt-1 mb-1" href="/categories#Outlook">Outlook (27)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Windows">Windows (1)</a>
+                    <a class="mt-1 mb-1" href="/categories#Windows">Windows (2)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#OneDrive">OneDrive (3)</a>
+                    <a class="mt-1 mb-1" href="/categories#OneDrive">OneDrive (4)</a>
                 
                     <a class="mt-1 mb-1" href="/categories#Entra">Entra (10)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Project_M365Tenant">Project_M365Tenant (7)</a>
+                    <a class="mt-1 mb-1" href="/categories#Project_M365Tenant">Project_M365Tenant (8)</a>
                 
                     <a class="mt-1 mb-1" href="/categories#Sharepoint">Sharepoint (2)</a>
                 
@@ -792,7 +654,13 @@ https://search.google.com/structured-data/testing-tool/u/0/
                 
                     <a class="mt-1 mb-1" href="/categories#Exchange">Exchange (1)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Newsletter">Newsletter (1)</a>
+                    <a class="mt-1 mb-1" href="/categories#Newsletter">Newsletter (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#ShrePoint">ShrePoint (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Powershell">Powershell (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Server">Server (1)</a>
                 
             
             
@@ -806,7 +674,7 @@ https://search.google.com/structured-data/testing-tool/u/0/
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-sm-6 text-center text-lg-left">
-                Copyright © 2024 Allways365 
+                Copyright © 2025 Allways365 
             </div>
 
             <!--

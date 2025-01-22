@@ -338,8 +338,8 @@ span.post-read-more a:hover {
 
 .article-post table, th, td {
     border-style: solid;
-    border-width: 1px;
-    border-color: rgba(0, 0, 0, .8);
+    border-width: 1.0px;
+    border-color: rgba(200, 200, 200, 0.787);
     margin-bottom: 1.5rem;
 }
 

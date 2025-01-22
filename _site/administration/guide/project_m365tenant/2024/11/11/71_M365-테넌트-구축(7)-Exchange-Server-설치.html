@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>[Admin] M365 테넌트 구축(7) - Exchange Server 설치 | Allways365</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[Admin] M365 테넌트 구축(7) - Exchange Server 설치 | Allways365</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="[Admin] M365 테넌트 구축(7) - Exchange Server 설치" />
+<meta name="author" content="sion" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="71" />
+<meta property="og:description" content="71" />
+<link rel="canonical" href="http://localhost:4000/administration/guide/project_m365tenant/2024/11/11/71_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(7)-Exchange-Server-%EC%84%A4%EC%B9%98.html" />
+<meta property="og:url" content="http://localhost:4000/administration/guide/project_m365tenant/2024/11/11/71_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(7)-Exchange-Server-%EC%84%A4%EC%B9%98.html" />
+<meta property="og:site_name" content="Allways365" />
+<meta property="og:image" content="http://localhost:4000/assets/images/thumbnail/admin.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-11-11T00:00:00+09:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/assets/images/thumbnail/admin.png" />
+<meta property="twitter:title" content="[Admin] M365 테넌트 구축(7) - Exchange Server 설치" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"sion"},"dateModified":"2024-11-11T00:00:00+09:00","datePublished":"2024-11-11T00:00:00+09:00","description":"71","headline":"[Admin] M365 테넌트 구축(7) - Exchange Server 설치","image":"http://localhost:4000/assets/images/thumbnail/admin.png","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/administration/guide/project_m365tenant/2024/11/11/71_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(7)-Exchange-Server-%EC%84%A4%EC%B9%98.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"sion"},"url":"http://localhost:4000/administration/guide/project_m365tenant/2024/11/11/71_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(7)-Exchange-Server-%EC%84%A4%EC%B9%98.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Allways365">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Home</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+                </li>
+
+                <!--
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li>
+                -->
+
+                <script src="/assets/js/lunr.js" charset="utf-8"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #000000;}
+    .lunrsearchresult .url {display: none; color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+    .lunrsearchresult a {font-family: -apple-system, "Pretendard Variable", Pretendard, Roboto, system-ui, "Helvetica Neue", Arial, sans-serif}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and Enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js" charset="utf-8"></script>
+                
+                <!--
+                <a href="https://hits.seeyoufarm.com">
+                    <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fsixxon%2F&count_bg=%2340AAC6&title_bg=%23BABABA&icon=&icon_color=%23E7E7E7&title=Today&edge_flat=false"/>
+                </a>
+                -->
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Allways365</h1>
+    <p class="lead">
+        모든 곳에서 365일 사용되는 Microsoft365 서비스의 기술 블로그📘
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <!--
+<div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=[Admin] M365 테넌트 구축(7) - Exchange Server 설치&url=http://localhost:4000/administration/guide/project_m365tenant/2024/11/11/71_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(7)-Exchange-Server-%EC%84%A4%EC%B9%98.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/administration/guide/project_m365tenant/2024/11/11/71_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(7)-Exchange-Server-%EC%84%A4%EC%B9%98.html" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/administration/guide/project_m365tenant/2024/11/11/71_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(7)-Exchange-Server-%EC%84%A4%EC%B9%98.html" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+-->
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-10 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="/assets/images/avatar_sion.png" alt="Sion">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark">Sion</a>
+                        <div>
+                            <span class="author-description">M365 운영 업무를 담당하고 있습니다. 배우고 경험한 것들을 조금씩 기록해나갑니다.</span>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">[Admin] M365 테넌트 구축(7) - Exchange Server 설치</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="/assets/images/thumbnail/admin.png" alt="[Admin] M365 테넌트 구축(7) - Exchange Server 설치">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                <!-- End Toc -->
+                <p>해당 시리즈에서는 <strong>AD 서버를 이용한 하이브리드 구조의 M365 테넌트</strong> 를 직접 구축해보도록 합니다.</p>
+
+<p>본 포스팅부터는 본격적으로 M365 환경을 구성합니다.<br />
+하이브리드 구성을 위해, Exchange Server 를 설치해봅시다.</p>
+
+<h3 id="개요">개요</h3>
+
+<p>하이브리드 구성이란, 조직에서 Exchange Server(On-premise)와 Exchange Online의 메일 사서함을 모두 사용할 수 있는 환경입니다.</p>
+
+<p>본 포스팅에서는 서버에 Exchange Server를 설치하여, On-premise 사서함을 사용할 수 있는 환경을 만들어보겠습니다.</p>
+
+<h3 id="사전-작업-dc-서버">사전 작업 (DC 서버)</h3>
+
+<p>DC 서버(WIN-ADAADC)에 접속합니다.</p>
+
+<p>아래 링크를 통해 설치파일들을 설치하고, 구성을 진행합니다.</p>
+
+<ul>
+  <li><a href="https://go.microsoft.com/fwlink/?linkid=2088631">.Net Framework 4.8</a></li>
+  <li><a href="https://support.microsoft.com/ko-kr/topic/update-for-visual-c-2013-redistributable-package-d8ccd6a5-4e26-c290-517b-8da6cfdf4f10">Visual C++ Redistributable Package for Visual Studio 2013</a></li>
+  <li>Powershell 명령어 실행
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>Install-WindowsFeature RSAT-ADDS
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><a href="https://www.microsoft.com/en-us/download/details.aspx?id=105878">Exchange Server CU 14</a> 를 다운로드 받습니다.<br />
+파일 다운로드가 완료되면, iso 파일을 더블클릭하여 드라이브에 마운트 시킵니다.</p>
+
+<p>Powershell 을 실행한 후, 아래 명령어를 차례대로 한 줄씩 실행하여 스키마를 구성합니다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>E:\Setup.exe /IAcceptExchangeServerLicenseTerms_DiagnosticDataOFF /PrepareSchema
+E:\Setup.exe /IAcceptExchangeServerLicenseTerms_DiagnosticDataOFF /PrepareAD /OrganizationName:"AllWays365"
+E:\Setup.exe /IAcceptExchangeServerLicenseTerms_DiagnosticDataOFF /PrepareAllDomains
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><img src="/assets/images/71/1.png" title="사전 작업(DC) 1" /></p>
+
+<p>[Active Directory 사용자 및 컴퓨터(Active Directory Users and Computers)]에 들어갑니다.<br />
+“Microsoft Exchange Security Groups” 라는 OU가 새로 생긴 것을 확인할 수 있습니다.</p>
+
+<p><img src="/assets/images/71/2.png" title="사전 작업(DC) 2" /></p>
+
+<p>“Users” OU 하위에 메일 서버용 계정(EXAdmin@allways365.life)을 만들어줍니다.</p>
+
+<p><img src="/assets/images/71/3.png" title="사전 작업(DC) 3" /></p>
+
+<p>“Domain Admins”, “Enterprise Admins”, “Organization Management”, “Schema Admins” 그룹의 구성원으로 추가합니다.</p>
+
+<h3 id="사전-작업-메일-서버">사전 작업 (메일 서버)</h3>
+
+<p>Exchange Server 2019 설치를 위한 <a href="https://learn.microsoft.com/ko-kr/exchange/plan-and-deploy/system-requirements?view=exchserver-2019">최소 권장사양</a>은 다음과 같습니다.</p>
+<ul>
+  <li>RAM 10GB, SSD 64GB, CPU 4 Core</li>
+</ul>
+
+<p>메일 서버를 위한 Windows Server(WIN-EX)를 올리고, 구성을 진행합니다.</p>
+
+<p><img src="/assets/images/71/4.png" title="사전 작업(메일) 1" /></p>
+
+<p>우선, PC의 어드민 계정으로 로그인합니다.</p>
+
+<p><img src="/assets/images/71/5.png" title="사전 작업(메일) 2" /></p>
+
+<p>PC의 IP와 DNS 설정을 진행합니다.<br />
+DNS 주소는 DC 서버의 IP 주소로 설정해줍니다.</p>
+
+<p><img src="/assets/images/71/6.png" title="사전 작업(메일) 3" /></p>
+
+<p><img src="/assets/images/71/7.png" title="사전 작업(메일) 4" /></p>
+
+<p><img src="/assets/images/71/8.png" title="사전 작업(메일) 5" /></p>
+
+<p>PC 이름을 변경하고, 도메인 조인을 진행합니다.</p>
+
+<p><img src="/assets/images/71/9.png" title="사전 작업(메일) 6" /></p>
+
+<p>[컴퓨터 구성(Computer Management)] 을 클릭합니다.</p>
+
+<p><img src="/assets/images/71/10.png" title="사전 작업(메일) 7" /></p>
+
+<p>[로컬 사용자 및 그룹(Local Users and Groups)] &gt; [그룹(Groups)] &gt; “Administrators” 우클릭 &gt; “Properties” 를 클릭합니다.</p>
+
+<p><img src="/assets/images/71/11.png" title="사전 작업(메일) 8" /></p>
+
+<p>“추가(Add)”를 누른 후, 메일 계정(EXAdmin)을 추가합니다.</p>
+
+<p>아래 링크를 통해 설치파일들을 설치하고, 구성을 진행합니다.</p>
+<ul>
+  <li><a href="https://go.microsoft.com/fwlink/?linkid=2088631">.Net Framework 4.8</a></li>
+  <li><a href="https://support.microsoft.com/ko-kr/topic/update-for-visual-c-2013-redistributable-package-d8ccd6a5-4e26-c290-517b-8da6cfdf4f10">Visual C++ Redistributable Package for Visual Studio 2013</a></li>
+  <li><a href="https://www.microsoft.com/en-us/download/details.aspx?id=34992">UCMA 4.0</a></li>
+  <li><a href="https://www.iis.net/downloads/microsoft/url-rewrite">IIS Rewrite Module</a></li>
+  <li>Powershell 명령어 실행 (관리자 권한)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>Install-WindowsFeature Server-Media-Foundation, NET-Framework-45-Features, RPC-over-HTTP-proxy, RSAT-Clustering, RSAT-Clustering-CmdInterface, RSAT-Clustering-Mgmt, RSAT-Clustering-PowerShell, WAS-Process-Model, Web-Asp-Net45, Web-Basic-Auth, Web-Client-Auth, Web-Digest-Auth, Web-Dir-Browsing, Web-Dyn-Compression, Web-Http-Errors, Web-Http-Logging, Web-Http-Redirect, Web-Http-Tracing, Web-ISAPI-Ext, Web-ISAPI-Filter, Web-Lgcy-Mgmt-Console, Web-Metabase, Web-Mgmt-Console, Web-Mgmt-Service, Web-Net-Ext45, Web-Request-Monitor, Web-Server, Web-Stat-Compression, Web-Static-Content, Web-Windows-Auth, Web-WMI, Windows-Identity-Foundation, RSAT-ADDS, Failover-Clustering 
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><a href="https://www.microsoft.com/en-us/download/details.aspx?id=105878">Exchange Server CU 14</a> 를 다운로드 받습니다.<br />
+파일 다운로드가 완료되면, iso 파일을 더블클릭하여 드라이브에 마운트 시킵니다.</p>
+
+<h3 id="exchange-server-설치">Exchange Server 설치</h3>
+
+<p>마운트 된 드라이브 내 “Setup.exe” 파일을 관리자 권한으로 실행합니다.</p>
+
+<p><img src="/assets/images/71/12.png" title="사전 작업(메일) 8" />
+“Don’t check for updates right now” 선택,</p>
+
+<p><img src="/assets/images/71/13.png" title="사전 작업(메일) 9" /></p>
+
+<p>다음 선택,</p>
+
+<p><img src="/assets/images/71/14.png" title="사전 작업(메일) 10" /></p>
+
+<p>진단 데이터(Diagnostic data) 는 공유하지 않는 것으로 선택합니다.</p>
+
+<p><img src="/assets/images/71/15.png" title="사전 작업(메일) 11" /></p>
+
+<p>“Don’t use recommended settings” 선택,</p>
+
+<p><img src="/assets/images/71/16.png" title="사전 작업(메일) 12" /></p>
+
+<p>“Mailbox role” 선택,</p>
+
+<p><img src="/assets/images/71/17.png" title="사전 작업(메일) 13" /></p>
+
+<p>다음 선택,</p>
+
+<p><img src="/assets/images/71/18.png" title="사전 작업(메일) 14" /></p>
+
+<p>조직 명 입력 후, “Disable malware scanning”은 No 로 선택합니다.</p>
+
+<p>이후 사전 요구사항 체크와 함께 설치가 진행됩니다.</p>
+
+<h3 id="exchange-server-설치-오류">Exchange Server 설치 오류</h3>
+
+<p>Exchange Server 설치 시 여러가지 오류가 발생할 수 있습니다.</p>
+
+<p>이 오류 때문에 메일 서버를 설치하는데 많은 시간을 들이고 애를 먹었는데요,<br />
+포스팅을 보시는 분들은 부디 원만하게 설치하시길 빌며 관련 내용을 공유드립니다🥹</p>
+
+<h4 id="사전-작업">사전 작업</h4>
+<p>설치 전, Powershell을 관리자 권한으로 실행 후, 아래 명령어를 실행하여 스크립트 실행권한 조정이 필요합니다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>Set-ExecutionPolicy Unrestricted 
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="domain-조인-시-오류-발생">Domain 조인 시 오류 발생</h4>
+
+<p>“an active directory domain controller (ad dc) for the domain could not be contacted, 0x0000232B RCODE_NAME_ERROR”</p>
+
+<p>PC &gt; 설정 &gt; 네트워크 &gt; 어댑터 옵션 변경 &gt; IPv6 비활성화 (체크 해제) 를 진행합니다.</p>
+
+<h4 id="installconfigps1-failed">Installconfig.ps1 failed</h4>
+<p>Windows Defender를 비활성화 하거나, 삭제해줍니다.<br />
+아래 Powershell 명령어를 통해 Windows Defender 제거가 가능합니다(관리자 권한 필요).</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>Uninstall-WindowsFeature -Name Windows-Defender
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="installconfigps1-failed-fs-폴더-오류">Installconfig.ps1 failed (fs 폴더 오류)</h4>
+<p>HostController 내 모든 파일 삭제 후, 다시 Setup.exe를 실행합니다.</p>
+
+<h4 id="그-외">그 외</h4>
+
+<p>오류 발생 시, C:\ExchangeServerSetup 폴더 하위의 로그 텍스트 파일을 통해 오류에 대한 상세 내용 확인이 가능합니다.</p>
+
+<p>오류 원인 확인을 위해, MS에서 제공하는 파워쉘을 다운로드 받고 실행하여 조치하는 것도 도움이 됩니다.</p>
+
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2024-11-11">11 Nov 2024</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Administration">Administration</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Guide">Guide</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Project_M365Tenant">Project_M365Tenant</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="https://sixxon.github.io/administration/guide/project_m365tenant/2024/09/24/70_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(6)-AGDLP-%EA%B5%AC%EC%84%B1.html"> &laquo; [Admin] M365 테넌트 구축(6) - AGDLP 구성</a>
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="https://sixxon.github.io/operation/office/teams/outlook/onedrive/shrepoint/etc/newsletter/2025/01/11/72_M365-%EC%84%9C%EB%B9%84%EC%8A%A4-URL-%EB%B3%80%EA%B2%BD.html">[Outlook] M365 서비스 URL 변경 &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <!--
+    <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = '{"comments"=>true, "shortname"=>"sixxon-github-io"}'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+-->
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://sixxon-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Category</h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Administration">Administration (52)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Guide">Guide (12)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#etc">etc (6)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Operation">Operation (23)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Teams">Teams (8)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Office">Office (9)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Outlook">Outlook (27)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Windows">Windows (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#OneDrive">OneDrive (4)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Entra">Entra (10)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Project_M365Tenant">Project_M365Tenant (8)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Sharepoint">Sharepoint (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Policy">Policy (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Exchange">Exchange (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Newsletter">Newsletter (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#ShrePoint">ShrePoint (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Powershell">Powershell (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Server">Server (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2025 Allways365 
+            </div>
+
+            <!--
+            <div class="col-md-6 col-sm-6 text-center text-lg-right">    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+            -->
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//{"comments"=>true, "shortname"=>"sixxon-github-io"}.disqus.com/count.js"></script>
+
+
+</body>
+</html>

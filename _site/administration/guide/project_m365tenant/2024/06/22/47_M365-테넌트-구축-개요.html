@@ -263,7 +263,7 @@ Microsoft에서 제공하는 여러가지 SaaS 서비스들에 익숙해져야 �
 <h3 id="구축-환경">구축 환경</h3>
 
 <ol>
-  <li>로컬 환경
+  <li>PC 사양
     <ul>
       <li>Macbook Pro 14</li>
       <li>CPU: Apple M3 Pro</li>
@@ -271,15 +271,176 @@ Microsoft에서 제공하는 여러가지 SaaS 서비스들에 익숙해져야 �
       <li>SSD: 1TB</li>
     </ul>
   </li>
-  <li>VM 환경 (AD / AADC 서버)
+  <li>AD / AADC 서버 (WIN-ADAADC) (VM)
     <ul>
       <li>Windows Server 2019 Standard</li>
-      <li>CPU: QEMU Virtual CPU Version 2.5+ 1.00GHz (x64)</li>
+      <li>CPU: QEMU Virtual CPU Version 2.5+ 1.00GHz (x64), 4 Core</li>
       <li>Memory: 4GB</li>
-      <li>SSD: 30GB</li>
+      <li>SSD: 30GB(C:)</li>
+    </ul>
+  </li>
+  <li>Exchange Server 서버 (WIN-EX) (VM)
+    <ul>
+      <li>Windows Server 2019 Standard</li>
+      <li>CPU: QEMU Virtual CPU Version 2.5+ 1.00GHz (x64), 16 Core (멀티코어 강제 활성화)</li>
+      <li>Memory: 10GB</li>
+      <li>SSD: 100GB(C:), 30GB(E:), 30GB(F:)</li>
     </ul>
   </li>
 </ol>
+
+<h3 id="구성">구성</h3>
+
+<p><strong>AD 도메인</strong></p>
+
+<p>allways365.life</p>
+
+<p><strong>M365 테넌트 도메인</strong></p>
+
+<p>allways365.onmicrosoft.com<br />
+allways365.life</p>
+
+<p><strong>OU</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>OU</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>00000</td>
+      <td>retirement</td>
+    </tr>
+    <tr>
+      <td>11000</td>
+      <td>AllWaysTech</td>
+    </tr>
+    <tr>
+      <td>12000</td>
+      <td>AllWaysComm</td>
+    </tr>
+    <tr>
+      <td>20000</td>
+      <td>AllWaysFinance</td>
+    </tr>
+    <tr>
+      <td>30000</td>
+      <td>AllWaysHealth</td>
+    </tr>
+    <tr>
+      <td>41000</td>
+      <td>AllWaysMart</td>
+    </tr>
+    <tr>
+      <td>42000</td>
+      <td>AllWaysBrand</td>
+    </tr>
+    <tr>
+      <td>50000</td>
+      <td>AllWaysIndustry</td>
+    </tr>
+    <tr>
+      <td>60000</td>
+      <td>AllWaysEnergy</td>
+    </tr>
+    <tr>
+      <td>70000</td>
+      <td>AllWaysEstate</td>
+    </tr>
+    <tr>
+      <td>80000</td>
+      <td>AllWaysMaterial</td>
+    </tr>
+    <tr>
+      <td>90000</td>
+      <td>AllWaysUtility</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>사용자/그룹</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>OU</th>
+      <th>이름</th>
+      <th>메일주소</th>
+      <th>부서</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>11000</td>
+      <td>김 정보</td>
+      <td>tech.kim@allways365.life</td>
+      <td>대표이사</td>
+    </tr>
+    <tr>
+      <td>12000</td>
+      <td>한 통신</td>
+      <td>comm.han@allways365.life</td>
+      <td>대표이사</td>
+    </tr>
+    <tr>
+      <td>20000</td>
+      <td>박 자산</td>
+      <td>finan.park@allways365.life</td>
+      <td>대표이사</td>
+    </tr>
+    <tr>
+      <td>30000</td>
+      <td>최 튼튼</td>
+      <td>health.choi@allways365.life</td>
+      <td>대표이사</td>
+    </tr>
+    <tr>
+      <td>41000</td>
+      <td>이 마트</td>
+      <td>mart.lee@allways365.life</td>
+      <td>대표이사</td>
+    </tr>
+    <tr>
+      <td>42000</td>
+      <td>유 명품</td>
+      <td>brand.yoo@allways365.life</td>
+      <td>대표이사</td>
+    </tr>
+    <tr>
+      <td>50000</td>
+      <td>김 산업</td>
+      <td>indust.kim@allways365.life</td>
+      <td>대표이사</td>
+    </tr>
+    <tr>
+      <td>60000</td>
+      <td>남 에너지</td>
+      <td>energy.nam@allways365.life</td>
+      <td>대표이사</td>
+    </tr>
+    <tr>
+      <td>70000</td>
+      <td>당 부자</td>
+      <td>rich.dang@allways365.life</td>
+      <td>대표이사</td>
+    </tr>
+    <tr>
+      <td>80000</td>
+      <td>소 재섭</td>
+      <td>material.so@allways365.life</td>
+      <td>대표이사</td>
+    </tr>
+    <tr>
+      <td>90000</td>
+      <td>유 티리티</td>
+      <td>tility.u@allways365.life</td>
+      <td>대표이사</td>
+    </tr>
+  </tbody>
+</table>
 
 <h3 id="사전-준비">사전 준비</h3>
 
@@ -293,7 +454,7 @@ Microsoft에서 제공하는 여러가지 SaaS 서비스들에 익숙해져야 �
   </li>
   <li>가상머신 프로그램 설치
     <ul>
-      <li>저는 Mac(M3) 환경에서 Windows Server를 올려야했기 때문에, <a href="https://mac.getutm.app/">UTM</a> 가상머신을 설치했습니다.</li>
+      <li>저는 Mac(M3) 환경에서 Windows Server를 올려야했기 때문에, <a href="https://mac.getutm.app/">UTM</a> 을 설치했습니다.</li>
     </ul>
   </li>
 </ol>
@@ -306,9 +467,9 @@ Microsoft에서 제공하는 여러가지 SaaS 서비스들에 익숙해져야 �
 
 <h3 id="프로젝트-목표">프로젝트 목표</h3>
 <ul>
-  <li>M365 테넌트를 구축할 수 있다.</li>
   <li>Windows Server에 대한 이해도를 높인다.</li>
   <li>하이브리드 구조를 이해하고 구성할 수 있다.</li>
+  <li>M365 테넌트를 구축할 수 있다.</li>
 </ul>
 
 
@@ -447,27 +608,27 @@ https://search.google.com/structured-data/testing-tool/u/0/
             
             
                 
-                    <a class="mt-1 mb-1" href="/categories#Administration">Administration (51)</a>
+                    <a class="mt-1 mb-1" href="/categories#Administration">Administration (52)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Guide">Guide (11)</a>
+                    <a class="mt-1 mb-1" href="/categories#Guide">Guide (12)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#etc">etc (3)</a>
+                    <a class="mt-1 mb-1" href="/categories#etc">etc (6)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Operation">Operation (21)</a>
+                    <a class="mt-1 mb-1" href="/categories#Operation">Operation (23)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Teams">Teams (7)</a>
+                    <a class="mt-1 mb-1" href="/categories#Teams">Teams (8)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Office">Office (8)</a>
+                    <a class="mt-1 mb-1" href="/categories#Office">Office (9)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Outlook">Outlook (26)</a>
+                    <a class="mt-1 mb-1" href="/categories#Outlook">Outlook (27)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Windows">Windows (1)</a>
+                    <a class="mt-1 mb-1" href="/categories#Windows">Windows (2)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#OneDrive">OneDrive (3)</a>
+                    <a class="mt-1 mb-1" href="/categories#OneDrive">OneDrive (4)</a>
                 
                     <a class="mt-1 mb-1" href="/categories#Entra">Entra (10)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Project_M365Tenant">Project_M365Tenant (7)</a>
+                    <a class="mt-1 mb-1" href="/categories#Project_M365Tenant">Project_M365Tenant (8)</a>
                 
                     <a class="mt-1 mb-1" href="/categories#Sharepoint">Sharepoint (2)</a>
                 
@@ -475,7 +636,13 @@ https://search.google.com/structured-data/testing-tool/u/0/
                 
                     <a class="mt-1 mb-1" href="/categories#Exchange">Exchange (1)</a>
                 
-                    <a class="mt-1 mb-1" href="/categories#Newsletter">Newsletter (1)</a>
+                    <a class="mt-1 mb-1" href="/categories#Newsletter">Newsletter (3)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#ShrePoint">ShrePoint (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Powershell">Powershell (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Server">Server (1)</a>
                 
             
             
@@ -489,7 +656,7 @@ https://search.google.com/structured-data/testing-tool/u/0/
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-sm-6 text-center text-lg-left">
-                Copyright © 2024 Allways365 
+                Copyright © 2025 Allways365 
             </div>
 
             <!--
