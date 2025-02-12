@@ -5,9 +5,179 @@
     <description>모든 곳에서 365일 사용되는 Microsoft365 서비스의 기술 블로그📘</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 22 Jan 2025 21:47:15 +0900</pubDate>
-    <lastBuildDate>Wed, 22 Jan 2025 21:47:15 +0900</lastBuildDate>
+    <pubDate>Wed, 12 Feb 2025 22:17:36 +0900</pubDate>
+    <lastBuildDate>Wed, 12 Feb 2025 22:17:36 +0900</lastBuildDate>
     <generator>Jekyll v4.3.3</generator>
+    
+      <item>
+        <title>[Admin] M365 업데이트 사항 확인</title>
+        <description>&lt;p&gt;M365 테넌트를 운영하면서 골치아픈 일 중 하나는,&lt;br /&gt;
+바로 끊임없이 업데이트 되는 여러 Microsoft 서비스를 모니터링 하는 것입니다.&lt;/p&gt;
+
+&lt;p&gt;라이선스에는 수많은 앱이 포함되어 있습니다.&lt;br /&gt;
+이 모든 앱들에서 새로운 기능이 추가되고 UI가 변경되는 등, 끊임없는 업데이트가 쏟아집니다.&lt;/p&gt;
+
+&lt;p&gt;더욱 골치아픈 것은, 이 모든것이 Microsoft 커뮤니티, 블로그, 관리 센터, 또 다른 관리센터, 그리고 또 다른 사이트 … 에 혼재되어 관리되고 있다는 점입니다 🙂‍↔️&lt;/p&gt;
+
+&lt;p&gt;본 포스팅에서는, 이러한 업데이트 사항을 관리하는 보다 쉬운 방법에 대해 소개해보고자 합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;메세지-센터&quot;&gt;메세지 센터&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/75/1.png&quot; title=&quot;메세지 센터1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Microsoft 관리센터] &amp;gt; [상태] &amp;gt; [메세지 센터] 에서 앱의 업데이트 및 변경 사항에 대해 확인할 수 있습니다.&lt;br /&gt;
+필터를 통해 원하는 정보만 보는 것도 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;아래 방법을 통해, &lt;a href=&quot;https://learn.microsoft.com/en-us/microsoft-365/admin/manage/message-center?view=o365-worldwide&quot;&gt;메일 및 Planner와의 연동&lt;/a&gt;도 가능합니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;메일-수신&quot;&gt;메일 수신&lt;/h4&gt;
+
+&lt;p&gt;메세지 센터의 알림을 메일로 수신받을 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/75/2.png&quot; title=&quot;메세지 센터2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[기본 설정] &amp;gt; [전자 메일로 보내기] 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;메일 수신자를 지정합니다. 현재 로그인 한 관리자 계정 혹은, 원하는 메일주소로 알림 수신이 가능합니다.&lt;br /&gt;
+주요 업데이트 정보, 개인정보처리방침에 대한 메일, 각 서비스에 대한 주간 요약본을 받을 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;주요 업데이트는 필터에 포함된 조건 중 하나로, 테넌트에 영향도가 있는 업데이트 사항을 뜻합니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;planner&quot;&gt;Planner&lt;/h4&gt;
+
+&lt;p&gt;Teams 팀의 일정(Planner)와 동기화 하는 것도 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/75/3.png&quot; title=&quot;메세지 센터3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[Planner 동기화] &amp;gt; “동기화 설정” 을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/75/4.png&quot; title=&quot;메세지 센터4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;연동할 일정과 버킷을 선택합니다.&lt;br /&gt;
+관리센터에 접속한 계정으로 연동된 일정이 있어야 하므로, 없다면 생성 후 선택해줍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/75/5.png&quot; title=&quot;메세지 센터5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;동기화 할 메시지를 선택해줍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/75/6.png&quot; title=&quot;메세지 센터6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;가장 최근 메시지만 가져올지, 최근 7/14/21/28일 내 메시지만 가져올지 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/75/7.png&quot; title=&quot;메세지 센터7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;설정이 완료되었다면, [Planner 설정] 을 다시 클릭하여 동기화 주기를 설정할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/75/8.png&quot; title=&quot;메세지 센터8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Planner 를 확인해보면, 위 사진과 같이 메시지가 지정된 시간마다 동기화 되는것을 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;graph-api&quot;&gt;Graph API&lt;/h4&gt;
+
+&lt;p&gt;[Microsoft Entra 관리센터] &amp;gt; [애플리케이션] &amp;gt; [앱 등록] 에서 새로운 앱을 생성합니다.&lt;/p&gt;
+
+&lt;p&gt;[API 권한]에서, 아래와 같은 “Microsoft Graph” 권한을 추가합니다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;API/권한&lt;/th&gt;
+      &lt;th&gt;유형&lt;/th&gt;
+      &lt;th&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ServiceMessage.Read.All&lt;/td&gt;
+      &lt;td&gt;Application&lt;/td&gt;
+      &lt;td&gt;Read service messages&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;API 호출 관련 명세는 다음 &lt;a href=&quot;https://learn.microsoft.com/en-us/graph/api/serviceupdatemessage-get?view=graph-rest-1.0&amp;amp;tabs=http&quot;&gt;문서&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
+
+&lt;p&gt;개인적으로는 메일을 통해 메시지를 수신하고 있습니다.&lt;br /&gt;
+Planner 자체의 가독성이 좋지 않아 보기가 힘들고, 메시지 내용은 한글로 기계 번역이 제공되고 있지 않습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;보안-업데이트&quot;&gt;보안 업데이트&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://msrc.microsoft.com/update-guide&quot;&gt;MSRC(Microsoft Security Response Center)&lt;/a&gt;에서 보안 관련 사항을 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://msrc.microsoft.com/blog/2022/08/security-update-guide-notification-system-news-create-your-profile-now/&quot;&gt;다음 사이트&lt;/a&gt;를 참고하여 메일주소를 등록하면, 메일로도 수신이 가능합니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;메일-수신-1&quot;&gt;메일 수신&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/75/9.png&quot; title=&quot;보안 업데이트1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://msrc.microsoft.com/update-guide&quot;&gt;MSRC 사이트&lt;/a&gt;에 접속 후, 오른쪽 상단의 프로필을 눌러 개인/조직 계정으로 로그인합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/75/10.png&quot; title=&quot;보안 업데이트2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;왼쪽 상단의 사람 아이콘을 클릭하여 개인 설정에 들어간 후,&lt;br /&gt;
+이메일 알림 옆 “Edit” 을 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/75/11.png&quot; title=&quot;보안 업데이트3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;원하는 알림을 클릭 후 저장합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/75/12.png&quot; title=&quot;보안 업데이트4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;업데이트 사항이 생기면, 위 사진과 같이 알림 메일이 수신됩니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;서비스-상태&quot;&gt;서비스 상태&lt;/h3&gt;
+
+&lt;p&gt;[Microsoft 관리센터] &amp;gt; [상태] &amp;gt; [서비스 상태] 에서 M365 서비스의 상태를 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;매번 관리센터에서 모니터링을 하는 것은 번거로우므로, API를 통해 관련 정보를 호출할 수 있습니다.&lt;br /&gt;
+저는 해당 API를 활용해, 메신저 Webhook으로 알림을 보내주고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;*조직 테넌트가 아닌, 개인 Microsoft 계정이 이용하는 서비스의 상태는 아래 링크에서 확인할 수 있습니다.&lt;br /&gt;
+https://portal.office.com/servicestatus&lt;/p&gt;
+
+&lt;h4 id=&quot;graph-api-1&quot;&gt;Graph API&lt;/h4&gt;
+
+&lt;p&gt;[Microsoft Entra 관리센터] &amp;gt; [애플리케이션] &amp;gt; [앱 등록] 에서 새로운 앱을 생성합니다.&lt;/p&gt;
+
+&lt;p&gt;[API 권한]에서, 아래와 같은 “Microsoft Graph” 권한을 추가합니다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;API/권한&lt;/th&gt;
+      &lt;th&gt;유형&lt;/th&gt;
+      &lt;th&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ServiceHealth.Read.All&lt;/td&gt;
+      &lt;td&gt;Application&lt;/td&gt;
+      &lt;td&gt;Read service health&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;API 호출 관련 명세는 다음 &lt;a href=&quot;https://learn.microsoft.com/en-us/graph/api/servicehealthissue-get?view=graph-rest-1.0&amp;amp;tabs=http&quot;&gt;문서&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
+
+&lt;h3 id=&quot;그-외&quot;&gt;그 외&lt;/h3&gt;
+&lt;p&gt;큰 규모의 조직에서 테넌트를 운영하는 경우,&lt;br /&gt;
+라이선스 구매 및 기술 지원과 관련하여 MS 파트너와 계약을 체결하는 경우가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;MS 파트너는 MS로부터 이슈 및 업데이트 사항을 주기적으로 전달받고 있는데요,&lt;br /&gt;
+필요 시 관련 메일(EDM) 포워딩을 요청주시면 보다 쉽게 업데이트 사항을 모니터링 할 수 있을 것으로 보입니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 12 Feb 2025 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/guide/2025/02/12/75_M365-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8-%EC%95%8C%EB%A6%BC-%EC%88%98%EC%8B%A0.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/guide/2025/02/12/75_M365-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8-%EC%95%8C%EB%A6%BC-%EC%88%98%EC%8B%A0.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>Guide</category>
+        
+      </item>
     
       <item>
         <title>[etc] Windows Server 평가판 기간 연장</title>
@@ -1102,113 +1272,6 @@ open 하위에도 동일한 방법으로 command 를 생성합니다.&lt;/p&gt;
         <category>Operation</category>
         
         <category>Office</category>
-        
-      </item>
-    
-      <item>
-        <title>[Entra] 개체 - 디바이스</title>
-        <description>&lt;p&gt;본 포스팅에서는 Entra ID의 디바이스 개체에 대해 알아보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;id-프로비저닝-토폴로지&quot;&gt;ID 프로비저닝 토폴로지&lt;/h3&gt;
-
-&lt;p&gt;테넌트에는 여러 종류의 개체(사용자, 그룹, 디바이스, 애플리케이션 등)가 있으며, 각 개체를 구분하기 위한 ID가 할당됩니다.&lt;br /&gt;
-본 포스팅에서는 편의 상 개체와 ID 라는 용어를 같이 사용합니다.&lt;/p&gt;
-
-&lt;p&gt;우선, ID 프로비저닝에 대한 토폴로지를 알아봅시다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Microsoft 365 Cloud Only&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/62/1.PNG&quot; title=&quot;ID 프로비저닝 토폴로지1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;M365 테넌트에서 직접 개체를 생성하는 방식입니다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Hybrid&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/62/2.PNG&quot; title=&quot;ID 프로비저닝 토폴로지2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;On-premise 에 있는 개체 정보를 M365 테넌트로 동기화하는 방식입니다.&lt;br /&gt;
-Microsoft Entra Connect (구 AADC(Azure Active Directory Connector)) 를 통해, Active Directory 내 개체 정보를 M365 테넌트에 동기화합니다.&lt;/p&gt;
-
-&lt;p&gt;위와 같은 두 가지 방법을 통해, M365 테넌트에 개체를 생성할 수 있습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;디바이스&quot;&gt;디바이스&lt;/h3&gt;
-
-&lt;p&gt;Microsoft 365 테넌트에는 MDM, MAM과 같은 디바이스를 관리할 수 있는 기능이 제공되고 있습니다.&lt;/p&gt;
-
-&lt;p&gt;이를 위해서는 테넌트에 디바이스를 등록해야 하는데, 그 방법으로는 다음과 같은 세 가지가 있습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Microsoft Entra register&lt;/li&gt;
-  &lt;li&gt;Microsoft Entra joined&lt;/li&gt;
-  &lt;li&gt;Microsoft Entra hybrid joined&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;[Microsoft Entra 관리 센터] &amp;gt; [디바이스] &amp;gt; [모든 장치] &amp;gt; “조인 유형” 에서, 디바이스가 조인된 유형을 확인할 수 있습니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;microsoft-entra-register&quot;&gt;Microsoft Entra register&lt;/h4&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/entra/identity/devices/concept-device-registration&quot;&gt;Microsoft Entra register&lt;/a&gt;은 테넌트에 디바이스를 등록하는 방법입니다.&lt;/p&gt;
-
-&lt;p&gt;등록 방법은 다음과 같습니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Windows
-    &lt;ul&gt;
-      &lt;li&gt;[설정] &amp;gt; [계정] &amp;gt; [회사 또는 학교 액세스] 에 직접 계정 추가 (회사 또는 학교 계정)&lt;/li&gt;
-      &lt;li&gt;Office 서비스에 조직 계정으로 로그인&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;iOS/Android
-    &lt;ul&gt;
-      &lt;li&gt;“Microsoft 회사 포털” 혹은 “Microsoft Authenticator” 앱에 조직 계정으로 로그인&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;microsoft-entra-joined&quot;&gt;Microsoft Entra joined&lt;/h4&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/entra/identity/devices/concept-directory-join&quot;&gt;Microsoft Entra joined&lt;/a&gt;은 테넌트와 디바이스를 조인하는 방법입니다.&lt;/p&gt;
-
-&lt;p&gt;등록 방법은 다음과 같습니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/azure/active-directory/devices/azuread-joined-devices-frx&quot;&gt;Self-service experience&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Windows [설정] &amp;gt; [계정] &amp;gt; [회사 또는 학교 액세스] 에 직접 계정 추가 (조직의 Azure AD에 연결함)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/mem/intune/enrollment/windows-bulk-enroll&quot;&gt;Bulk Enrollment&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/autopilot/overview&quot;&gt;Windows Autopilot&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;microsoft-entra-hybrid-joined&quot;&gt;Microsoft Entra hybrid joined&lt;/h4&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/entra/identity/devices/concept-hybrid-join&quot;&gt;Microsoft Entra hybrid joined&lt;/a&gt;은 On-premise(Active Directory) 서버에 등록된 디바이스를 테넌트에 동기화하여 조인하는 방식입니다.&lt;/p&gt;
-
-&lt;p&gt;등록 방법은 다음과 같습니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;디바이스에 AD join 후, AADC나 ADFS로 동기화&lt;/li&gt;
-  &lt;li&gt;Windows Autopilot을 통해 join 후, AADC나 ADFS로 동기화&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;*Active Directory 및 Microsoft Entra Connect(구 AADC) 서버 필요&lt;br /&gt;
-*Microsoft Entra Connect에서 &lt;a href=&quot;https://leemcse.tistory.com/entry/Azure-AD-Joined-Registered-Hybrid&quot;&gt;디바이스 구성&lt;/a&gt; 필요 (하이브리드 Azure AD 조인 구성 &amp;gt; Windows 10 이상의 도메인 조인된 디바이스입니다)&lt;/p&gt;
-
-&lt;h4 id=&quot;비교&quot;&gt;비교&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/65/1.PNG&quot; title=&quot;디바이스 개체 비교&quot; /&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Fri, 02 Aug 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/entra/2024/08/02/65_%EA%B0%9C%EC%B2%B4-%EB%94%94%EB%B0%94%EC%9D%B4%EC%8A%A4.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/entra/2024/08/02/65_%EA%B0%9C%EC%B2%B4-%EB%94%94%EB%B0%94%EC%9D%B4%EC%8A%A4.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Entra</category>
         
       </item>
     
