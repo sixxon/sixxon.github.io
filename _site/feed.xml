@@ -5,9 +5,144 @@
     <description>모든 곳에서 365일 사용되는 Microsoft365 서비스의 기술 블로그📘</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 06 Apr 2025 18:41:48 +0900</pubDate>
-    <lastBuildDate>Sun, 06 Apr 2025 18:41:48 +0900</lastBuildDate>
+    <pubDate>Wed, 27 Aug 2025 20:16:48 +0900</pubDate>
+    <lastBuildDate>Wed, 27 Aug 2025 20:16:48 +0900</lastBuildDate>
     <generator>Jekyll v4.3.3</generator>
+    
+      <item>
+        <title>[Security] 메일 격리 해제</title>
+        <description>&lt;p&gt;본 포스팅에서는 격리된 메일을 릴리즈하는 방법에 대해 소개합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;메일-격리&quot;&gt;메일 격리&lt;/h3&gt;
+
+&lt;p&gt;테넌트를 운영하다보면, 메일이 사서함에 수신되지 않았다는 문의를 종종 받게 됩니다.&lt;/p&gt;
+
+&lt;p&gt;이는 “Microsoft Defender for Office 365”에서 제공하는 메일 보안을 위한 여러 기능들에 의한 것인데요,&lt;br /&gt;
+해당 기능들을 통틀어서 &lt;a href=&quot;https://learn.microsoft.com/en-us/defender-office-365/eop-about&quot;&gt;EOP(Exchange Online Protection)&lt;/a&gt; 라고 부릅니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/78/1.png&quot; title=&quot;EOP&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;EOP에는 다양한 기능들이 포함되어 있고, 위 사진과 같이 여러 정책을 거치며 비정상 메일은 “정크 메일(Junk Mail)” 폴더로 가거나 사용자에게 발송되지 않고 EOP 단에서 격리됩니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;격리된-메일-릴리즈&quot;&gt;격리된 메일 릴리즈&lt;/h3&gt;
+
+&lt;p&gt;EOP의 각 기능에 대해서는 추후 포스팅을 통해 다뤄보기로 하고,&lt;br /&gt;
+본 포스팅에서는 격리된 메일을 릴리즈 하는 방법에 소개하도록 합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/78/2.png&quot; title=&quot;격리된 메일 릴리즈1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[&lt;a href=&quot;https://security.microsoft.com&quot;&gt;Microsoft Defender 관리센터&lt;/a&gt;] &amp;gt; [전자 메일 및 공동 작업] &amp;gt; [검토] &amp;gt; [격리] 를 클릭합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/78/3.png&quot; title=&quot;격리된 메일 릴리즈2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;화면에서 격리된 메일들의 리스트를 볼 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/78/4.png&quot; title=&quot;격리된 메일 릴리즈3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;필터링을 통해 원하는 조건의 격리된 메일들만 추려서 조회하는 것도 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/78/5.png&quot; title=&quot;격리된 메일 릴리즈4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;메일을 선택하면 상세 내용을 확인할 수 있으며, [해제] 버튼을 클릭하면 릴리즈가 가능합니다.&lt;br /&gt;
+다만 관리센터 내에서는 한 번에 100개의 항목씩만 릴리즈가 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;다량의 메일을 손쉽게 릴리즈하기 위해서는, 아래 Powershell 명령어를 이용한 일괄 처리가 가능합니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-ExchangeOnline
+Get-QuarantineMessage -SenderAddress spam@domain.com -ReleaseStatus NotReleased -StartReceivedDate &apos;2025-08-27&apos; -PageSize 1000 | Release-QuarantineMessage -ReleasetoAll
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/get-quarantinemessage?view=exchange-ps&quot;&gt;Get-QuarantineMessage&lt;/a&gt; 는 옵션에 만족하는 격리된 메일들을 조회하는 명령어이고,&lt;br /&gt;
+&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/exchangepowershell/release-quarantinemessage?view=exchange-ps&quot;&gt;Release-QuarantineMessage&lt;/a&gt; 는 해당하는 메일들을 릴리즈하는 명령어입니다.&lt;/p&gt;
+
+&lt;p&gt;Get-QuarantineMessage에서 조회 가능한 데이터 사이즈는 Page, PageSize 옵션을 통해 지정이 가능하며&lt;br /&gt;
+해당 데이터보다 많은 격리 메일들을 일괄적으로 릴리즈가 필요한 경우 for 문을 통해 명령어를 여러번 실행해주는 방식으로도 수행이 가능하겠습니다 🙂&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 27 Aug 2025 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/exchangeonline/security/2025/08/27/78_%EA%B2%A9%EB%A6%AC%EB%90%9C-%EB%A9%94%EC%9D%BC-%EB%A6%B4%EB%A6%AC%EC%A6%88.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/exchangeonline/security/2025/08/27/78_%EA%B2%A9%EB%A6%AC%EB%90%9C-%EB%A9%94%EC%9D%BC-%EB%A6%B4%EB%A6%AC%EC%A6%88.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>ExchangeOnline</category>
+        
+        <category>Security</category>
+        
+      </item>
+    
+      <item>
+        <title>[EXO] 웹 Outlook 그룹 조회</title>
+        <description>&lt;p&gt;본 포스팅에서는 웹 Outlook 에서 보이지 않는 Microsoft365 그룹을 조회 되게끔 하는 방법에 대해 설명합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;outlook-그룹-조회&quot;&gt;Outlook 그룹 조회&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/77/1.png&quot; title=&quot;그룹 조회1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://outlook.office.com/&quot;&gt;웹 Outlook&lt;/a&gt; 에서 소속되어 있는 Microsoft 365 그룹 조회가 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;다만, 그룹 소유자/구성원으로 소속되어 있음에도 웹 Outlook 에서 보이지 않는 경우&lt;br /&gt;
+아래와 같은 Powershell 명령어를 이용해 보이게끔 설정이 가능합니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Connect-ExchangeOnline
+Set-UnifiedGroup -Identity test@allways365.com -HiddenFromExchangeClientsEnabled:$false
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Identity 옵션에 그룹 메일 주소를 넣어줍니다.&lt;/p&gt;
+
+&lt;p&gt;관련 문서는 &lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/exchange/set-unifiedgroup?view=exchange-ps#-hiddenfromaddresslistsenabled&quot;&gt;다음 링크&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 27 Jul 2025 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/exchangeonline/outlook/2025/07/27/77_%EC%9B%B9-Outlook-%EA%B7%B8%EB%A3%B9-%EC%A1%B0%ED%9A%8C.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/exchangeonline/outlook/2025/07/27/77_%EC%9B%B9-Outlook-%EA%B7%B8%EB%A3%B9-%EC%A1%B0%ED%9A%8C.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>ExchangeOnline</category>
+        
+        <category>Outlook</category>
+        
+      </item>
+    
+      <item>
+        <title>[EXO] 다른 사용자 사서함 접근</title>
+        <description>&lt;p&gt;본 포스팅에서는 사용자의 사서함에 직접 접근하는 방법에 대해 알아봅니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;위임-권한&quot;&gt;위임 권한&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/76/1.png&quot; title=&quot;위임 권한&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;[&lt;a href=&quot;https://admin.cloud.microsoft/exchange#/homepage&quot;&gt;Exchange 관리 센터&lt;/a&gt;] &amp;gt; [받는 사람] &amp;gt; [사서함] 에서 접근할 계정을 검색합니다.&lt;br /&gt;
+[위임] &amp;gt; “읽기 및 관리” 에 계정을 추가합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;사용자-사서함-접근&quot;&gt;사용자 사서함 접근&lt;/h3&gt;
+
+&lt;p&gt;OWA에 접속해서, 위임 권한에서 추가했던 계정으로 로그인합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/76/2.png&quot; title=&quot;사용자 사서함&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;오른쪽 상단의 프로필 &amp;gt; [다른 사서함 열기] 에서 사서함을 열람할 계정의 메일 주소를 입력합니다.&lt;br /&gt;
+이후 화면에서 다른 계정의 사서함에 접근할 수 있게 됩니다.&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 27 Jun 2025 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/administration/exchangeonline/outlook/2025/06/27/76_%EB%8B%A4%EB%A5%B8-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%82%AC%EC%84%9C%ED%95%A8-%EC%A0%91%EA%B7%BC.html</link>
+        <guid isPermaLink="true">http://localhost:4000/administration/exchangeonline/outlook/2025/06/27/76_%EB%8B%A4%EB%A5%B8-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%82%AC%EC%84%9C%ED%95%A8-%EC%A0%91%EA%B7%BC.html</guid>
+        
+        
+        <category>Administration</category>
+        
+        <category>ExchangeOnline</category>
+        
+        <category>Outlook</category>
+        
+      </item>
     
       <item>
         <title>[Admin] M365 업데이트 사항 확인</title>
@@ -974,304 +1109,6 @@ Unfortunately, we (M365 support) don&apos;t provide developer support.
         <category>Exchange</category>
         
         <category>Newsletter</category>
-        
-      </item>
-    
-      <item>
-        <title>[Admin] M365 테넌트 구축(5) - OU/사용자/그룹 구성방법</title>
-        <description>&lt;p&gt;해당 시리즈에서는 &lt;strong&gt;AD 서버를 이용한 하이브리드 구조의 M365 테넌트&lt;/strong&gt; 를 직접 구축해보도록 합니다.&lt;/p&gt;
-
-&lt;p&gt;본 포스팅에서는, allways365.com 도메인의 AD에 OU / 사용자 / 그룹을 구성해봅니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;개요&quot;&gt;개요&lt;/h3&gt;
-
-&lt;p&gt;Active Directory 는 네트워크 자원을 통합하여 중앙 관리자가 관리할 수 있는 시스템입니다.&lt;br /&gt;
-사용자 계정, 디바이스 등의 자원을 추가하고, 정책 등을 통해 자원을 제어 및 관리할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;OU, 사용자, 그룹 모두 다음 방법을 통해 생성 및 관리가 가능합니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Active Directory 사용자 및 컴퓨터 도구&lt;/li&gt;
-  &lt;li&gt;Powershell&lt;/li&gt;
-  &lt;li&gt;cmd&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;ou&quot;&gt;OU&lt;/h3&gt;
-
-&lt;p&gt;OU(Organizational Unit, 조직 구성 단위)란 Active Directory 도메인 내 최소 단위에 해당됩니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;active-directory-사용자-및-컴퓨터-도구&quot;&gt;Active Directory 사용자 및 컴퓨터 도구&lt;/h4&gt;
-
-&lt;p&gt;ADDS 설치 시, 함께 설치되는 “Active Directory 사용자 및 컴퓨터 도구” 툴을 통해 GUI 환경으로 OU 관리가 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/68/1.png&quot; title=&quot;OU 관리 - GUI1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/68/2.png&quot; title=&quot;OU 관리 - GUI2&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;powershell&quot;&gt;Powershell&lt;/h4&gt;
-
-&lt;p&gt;Powershell 명령어를 이용해, OU의 생성/삭제/수정 등의 작업을 일괄적으로 진행할 수 있습니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Get-ADOrganizationalUnit -Identity &quot;OU=00000,DC=ALLWAYS,DC=COM&quot; | fl
-Get-ADOrganizationalUnit -Filter &quot;name -notlike &apos;Domain Controllers&apos;&quot;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adorganizationalunit?view=windowsserver2022-ps&quot;&gt;Get-ADOrganizationalUnit&lt;/a&gt; 명령어를 통해, 도메인 내 OU 리스트를 가져올 수 있습니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;New-ADOrganizationalUnit -Name &quot;00000&quot; -Path &quot;DC=allways365,DC=com&quot;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/new-adorganizationalunit?view=windowsserver2022-ps&quot;&gt;New-ADOrganizationalUnit&lt;/a&gt; 명령어를 통해, 새로운 OU를 생성할 수 있습니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Set-ADOrganizationalUnit -Identity &quot;OU=00000,DC=allways365,DC=com&quot; -ProtectedFromAccidentalDeletion $false
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/set-adorganizationalunit?view=windowsserver2022-ps&quot;&gt;Set-ADOrganizationalUnit&lt;/a&gt; 명령어를 통해, 기존에 생성한 OU를 수정할 수 있습니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Remove-ADOrganizationalUnit -Identity &quot;OU=00000,DC=allways365,DC=com&quot;
-Get-ADOrganizationalUnit -Filter &quot;name -eq &apos;00000&apos;&quot; | Remove-ADOrganizationalUnit
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/remove-adorganizationalunit?view=windowsserver2022-ps&quot;&gt;Remove-ADOrganizationalUnit&lt;/a&gt; 명령어를 통해, 특정 OU를 삭제할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;간혹가다 OU가 삭제되지 않고 오류를 반환하는 경우가 있습니다.&lt;br /&gt;
-이는 해당 OU가 삭제되지 않게끔 설정되어 있기 때문으로, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Set-ADOrganizationalUnit -ProtectedFromAccidentalDeletion $false&lt;/code&gt; 를 통해 설정 변경 후 삭제가 가능합니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;cmd&quot;&gt;cmd&lt;/h4&gt;
-
-&lt;p&gt;Powershell과 유사하게, cmd 명령어를 통해서도 OU 관련 작업이 가능합니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;dsadd ou OU=00000,DC=ALLWAYS,DC=COM
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc770883(v=ws.11)&quot;&gt;dsadd ou&lt;/a&gt; 명령어를 통해, OU 생성이 가능합니다.&lt;br /&gt;
-그 외에도 &lt;a href=&quot;https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc754786(v=ws.11)&quot;&gt;dsmod ou&lt;/a&gt;, &lt;a href=&quot;https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc731865(v=ws.11)&quot;&gt;dsrm&lt;/a&gt; 와 같은 명령어를 통해 OU 관리가 가능합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;사용자&quot;&gt;사용자&lt;/h3&gt;
-
-&lt;p&gt;도메인의 특정 OU 안에 사용자 계정을 추가 및 관리할 수 있습니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;active-directory-사용자-및-컴퓨터-도구-1&quot;&gt;Active Directory 사용자 및 컴퓨터 도구&lt;/h4&gt;
-
-&lt;p&gt;“Active Directory 사용자 및 컴퓨터 도구” 툴을 통해 GUI 환경으로 사용자 관리가 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/68/3.png&quot; title=&quot;사용자 관리 - GUI2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/68/4.png&quot; title=&quot;사용자 관리 - GUI2&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;powershell-1&quot;&gt;Powershell&lt;/h4&gt;
-
-&lt;p&gt;Powershell 명령어를 이용해, 사용자의 생성/삭제/수정 등의 작업을 일괄적으로 진행할 수 있습니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Get-ADUser -Filter &quot;UserPrincipalName -like &apos;*@allways365.com&apos;&quot;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-aduser?view=windowsserver2022-ps&quot;&gt;Get-ADUser&lt;/a&gt; 명령어를 통해, 원하는 사용자 정보를 조회할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;조회 시, 기본적으로 계정의 모든 AD 속성이 나오지 않으므로&lt;br /&gt;
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Get-ADUser -Properties *&lt;/code&gt; 와 같이 옵션을 주어야 합니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;New-ADUser
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/new-aduser?view=windowsserver2022-ps&quot;&gt;New-ADUser&lt;/a&gt; 명령어를 통해 새로운 사용자 계정을 생성할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;별도 옵션을 주지 않는 경우, 계정이 비활성화 된 상태로 생성되므로&lt;br /&gt;
-활성화 된 계정 생성 필요 시 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;New-ADUser -Enabled $true&lt;/code&gt; 의 옵션을 지정해야 합니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Set-ADUser -Identity &quot;tech.kim&quot; -Replace @{mail=&quot;tech.kim@allways365.com&quot;}
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/set-aduser?view=windowsserver2022-ps&quot;&gt;Set-ADUser&lt;/a&gt; 명령어를 통해, 사용자 속성 정보를 변경할 수 있습니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Remove-ADUser -Identity &quot;tech.kim&quot;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/remove-aduser?view=windowsserver2022-ps&quot;&gt;Remove-ADUser&lt;/a&gt; 명령어를 통해, 사용자 계정을 삭제할 수 있습니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;cmd-1&quot;&gt;cmd&lt;/h4&gt;
-
-&lt;p&gt;cmd 명령어를 통해서도 사용자 관련 작업이 가능합니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;dsadd user CN=test,OU=Users,OU=00000,DC=allways365,DC=com -disabled no
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc731279(v=ws.11)&quot;&gt;dsadd user&lt;/a&gt; 명령어를 통해, OU 생성이 가능합니다.&lt;br /&gt;
-그 외에도 &lt;a href=&quot;https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc732954(v=ws.11)&quot;&gt;dsmod ou&lt;/a&gt;, &lt;a href=&quot;https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc731865(v=ws.11)&quot;&gt;dsrm&lt;/a&gt; 와 같은 명령어를 통해 OU 관리가 가능합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;그룹&quot;&gt;그룹&lt;/h3&gt;
-
-&lt;p&gt;도메인의 특정 OU 안에 그룹을 추가 및 관리할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;그룹은 크게 두 가지 카테고리로 나뉩니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;보안(Security)
-    &lt;ul&gt;
-      &lt;li&gt;AD 에서 그룹핑을 위해 일반적으로 사용되는 그룹&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;배포(Distribution)
-    &lt;ul&gt;
-      &lt;li&gt;Exchange 서비스를 위해 사용되는 그룹&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;각 카테고리 내에서, 그룹은 다음과 같은 범주로 구분됩니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;글로벌 그룹(Global)&lt;/li&gt;
-  &lt;li&gt;도메인 로컬 그룹(Domain Local Group)&lt;/li&gt;
-  &lt;li&gt;유니버셜 그룹(Universal Group)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;active-directory-사용자-및-컴퓨터-도구-2&quot;&gt;Active Directory 사용자 및 컴퓨터 도구&lt;/h4&gt;
-
-&lt;p&gt;“Active Directory 사용자 및 컴퓨터 도구” 툴을 통해 GUI 환경으로 그룹 관리가 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/68/5.png&quot; title=&quot;그룹 관리 - GUI1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/68/6.png&quot; title=&quot;그룹 관리 - GUI2&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;powershell-2&quot;&gt;Powershell&lt;/h4&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Get-ADGroup -Identity &quot;all&quot;
-Get-ADGroup -Filter &quot;GroupCategory -eq &apos;Security&apos; -and GroupScope -eq &apos;Global&apos;&quot;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adgroup?view=windowsserver2022-ps&quot;&gt;Get-ADGroup&lt;/a&gt; 명령어를 통해, 그룹을 검색 및 조회할 수 있습니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;New-ADGroup -Name &quot;all&quot; -Path &quot;OU=Groups,OU=00000,DC=allways365,DC=com&quot; -GroupCategory Security -GroupScope Global -DisplayName &quot;AllWays365-전체&quot; -Description &quot;AllWays365-전체&quot; -SamAccountName &quot;all&quot;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/new-adgroup?view=windowsserver2022-ps&quot;&gt;New-ADGroup&lt;/a&gt; 명령어를 통해, 새 그룹을 생성할 수 있습니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Get-ADGroup -Filter &quot;name -like &apos;all&apos; | Set-ADGroup -Description &quot;All Group&quot;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/set-adgroup?view=windowsserver2022-ps&quot;&gt;Set-ADGroup&lt;/a&gt; 명령어를 통해, 기존 그룹을 수정할 수 있습니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Remove-ADGroup -Identity &quot;all&quot;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/powershell/module/activedirectory/remove-adgroup?view=windowsserver2022-ps&quot;&gt;Remove-ADGroup&lt;/a&gt; 명령어를 통해, 원하는 그룹을 삭제할 수 있습니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;cmd-2&quot;&gt;cmd&lt;/h4&gt;
-
-&lt;p&gt;cmd 명령어를 통해서도 그룹 관련 작업이 가능합니다.&lt;br /&gt;
-&lt;a href=&quot;https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc754037(v=ws.11)&quot;&gt;dsadd group&lt;/a&gt;, &lt;a href=&quot;https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc732423(v=ws.11)&quot;&gt;dsmod group&lt;/a&gt;, &lt;a href=&quot;https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc731865(v=ws.11)&quot;&gt;dsrm&lt;/a&gt; 과 같은 명령어를 통해 그룹 관리가 가능합니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Sat, 24 Aug 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/administration/guide/project_m365tenant/2024/08/24/68_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(5)-OU,%EC%82%AC%EC%9A%A9%EC%9E%90,%EA%B7%B8%EB%A3%B9-%EA%B5%AC%EC%84%B1%EB%B0%A9%EB%B2%95.html</link>
-        <guid isPermaLink="true">http://localhost:4000/administration/guide/project_m365tenant/2024/08/24/68_M365-%ED%85%8C%EB%84%8C%ED%8A%B8-%EA%B5%AC%EC%B6%95(5)-OU,%EC%82%AC%EC%9A%A9%EC%9E%90,%EA%B7%B8%EB%A3%B9-%EA%B5%AC%EC%84%B1%EB%B0%A9%EB%B2%95.html</guid>
-        
-        
-        <category>Administration</category>
-        
-        <category>Guide</category>
-        
-        <category>Project_M365Tenant</category>
-        
-      </item>
-    
-      <item>
-        <title>[Teams] 앱 패키지를 열 수 없음 오류</title>
-        <description>&lt;p&gt;&lt;img src=&quot;/assets/images/67/1.PNG&quot; title=&quot;앱 패키지를 열 수 없음 오류&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Teams 설치파일(.msix 등)을 실행할 때, 상기 사진과 같이 “앱 패키지를 열 수 없음” 오류가 발생하는 경우가 있습니다.&lt;br /&gt;
-본 포스팅에서는 해당 오류에 대한 조치 방법을 설명하도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;앱설치-관리자&quot;&gt;앱설치 관리자&lt;/h3&gt;
-
-&lt;p&gt;다음 &lt;a href=&quot;https://learn.microsoft.com/en-us/windows/msix/app-installer/install-update-app-installer&quot;&gt;URL&lt;/a&gt; 을 통해, 앱설치 관리자를 재설치합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;오프라인-설치&quot;&gt;오프라인 설치&lt;/h3&gt;
-
-&lt;p&gt;Windows 검색 &amp;gt; “Windows Powershell ISE” 를 관리자 권한으로 실행합니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;\teamsbootstrapper.exe -p -o &quot;c:\path\to\teams.msix&quot;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;위 명령어를 실행합니다.&lt;br /&gt;
-단, Teams 설치파일을 다운로드 한 경로 및 파일명에 따라 C:~ 하위의 값을 변경해줍니다.&lt;/p&gt;
-
-&lt;p&gt;관련 상세 내용은 다음 &lt;a href=&quot;https://learn.microsoft.com/en-us/microsoftteams/new-teams-bulk-install-client#option-1b-download-and-install-new-teams-using-an-offline-installer&quot;&gt;문서&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
-
-&lt;h3 id=&quot;windows-업데이트&quot;&gt;Windows 업데이트&lt;/h3&gt;
-
-&lt;p&gt;이후에도 증상이 발생하는 경우, Windows 를 최신 버전으로 업데이트합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://learn.microsoft.com/en-us/microsoftteams/new-teams-bulk-install-client#prerequisites-for-target-computers&quot;&gt;문서&lt;/a&gt;에 명시된 내용과 같이, MSIX Installer 는 Windows 10 10.0.19041 이상 버전부터 지원되고 있습니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Wed, 14 Aug 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/operation/teams/2024/08/14/67_Teams-%EC%95%B1-%ED%8C%A8%ED%82%A4%EC%A7%80%EB%A5%BC-%EC%97%B4-%EC%88%98-%EC%97%86%EC%9D%8C-%EC%98%A4%EB%A5%98.html</link>
-        <guid isPermaLink="true">http://localhost:4000/operation/teams/2024/08/14/67_Teams-%EC%95%B1-%ED%8C%A8%ED%82%A4%EC%A7%80%EB%A5%BC-%EC%97%B4-%EC%88%98-%EC%97%86%EC%9D%8C-%EC%98%A4%EB%A5%98.html</guid>
-        
-        
-        <category>Operation</category>
-        
-        <category>Teams</category>
-        
-      </item>
-    
-      <item>
-        <title>[Office] 하이퍼링크 클릭 시 오류</title>
-        <description>&lt;p&gt;&lt;img src=&quot;/assets/images/66/1.PNG&quot; title=&quot;하이퍼링크 클릭 오류&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Outlook, Excel 등 Office 제품에서 하이퍼링크 클릭 시,&lt;br /&gt;
-“소속 조직의 정책으로 인해 이 동작을 완료할 수 없습니다. 자세한 내용은 지원 센터에 문의하세요.” 오류가 발생합니다.&lt;/p&gt;
-
-&lt;p&gt;이 경우 다음 방법을 통해 조치가 가능합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;레지스트리-변경&quot;&gt;레지스트리 변경&lt;/h3&gt;
-
-&lt;p&gt;Windows 검색 &amp;gt; “레지스트리 편집기 (regedit)” 을 실행합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/66/2.PNG&quot; title=&quot;레지스트리 변경1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;HKEY_CLASSES_ROOT.html 경로로 이동합니다.&lt;br /&gt;
-“(기본값)” 을 더블클릭 한 후, 값 데이터를 htmlfile 로 설정합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/66/3.PNG&quot; title=&quot;레지스트리 변경2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;PC 재부팅 후에도 동일한 경우, HKEY_LOCAL_MACHINE\SOFTWARE\Classes\htmlfile\shell 경로로 이동합니다.&lt;br /&gt;
-shell 하위에 open 키가 존재하는지 확인합니다.&lt;/p&gt;
-
-&lt;p&gt;open 키값이 없는 경우, shell 폴더 우클릭 &amp;gt; 새로 만들기 &amp;gt; 키 &amp;gt; open 을 생성하고&lt;br /&gt;
-open 하위에도 동일한 방법으로 command 를 생성합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/66/4.PNG&quot; title=&quot;레지스트리 변경3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Windows 검색 &amp;gt; Internet Explorer &amp;gt; 우클릭 후 파일 위치 열기 &amp;gt; Internet Explorer 우클릭 &amp;gt; 속성 &amp;gt; 바로가기 &amp;gt; 대상 내 경로를 복사합니다.&lt;br /&gt;
-(경로: “C:\Program Files\Internet Explorer\iexplore.exe”)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/66/5.PNG&quot; title=&quot;레지스트리 변경4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;command 키 내의 “(기본값)” 을 더블클릭 한 후, 앞서 복사한 경로 끝에 %1 을 붙여 입력해줍니다.&lt;br /&gt;
-(값: “C:\Program Files\Internet Explorer\iexplore.exe” %1)&lt;/p&gt;
-
-&lt;h3 id=&quot;internet-explorer-설치&quot;&gt;Internet Explorer 설치&lt;/h3&gt;
-
-&lt;p&gt;PC에서 Internet Explorer를 제거한 경우에도 해당 증상이 발생할 수 있습니다.&lt;br /&gt;
-다음 방법을 통해 재설치가 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;Windows 설정 &amp;gt; [앱] &amp;gt; [선택적 기능] &amp;gt; [기능 추가] &amp;gt; “Internet Explorer” 를 설치합니다.&lt;/p&gt;
-
-&lt;p&gt;[&lt;a href=&quot;https://learn.microsoft.com/ko-kr/windows/client-management/client-tools/add-remove-hide-features?pivots=windows-11&quot;&gt;선택적 기능&lt;/a&gt;] 이 보이지 않는 경우, Win 키 + R &amp;gt; ms-settings:optionalfeatures 을 입력합니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 06 Aug 2024 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/operation/office/2024/08/06/66_%ED%95%98%EC%9D%B4%ED%8D%BC%EB%A7%81%ED%81%AC-%ED%81%B4%EB%A6%AD-%EC%8B%9C-%EC%98%A4%EB%A5%98.html</link>
-        <guid isPermaLink="true">http://localhost:4000/operation/office/2024/08/06/66_%ED%95%98%EC%9D%B4%ED%8D%BC%EB%A7%81%ED%81%AC-%ED%81%B4%EB%A6%AD-%EC%8B%9C-%EC%98%A4%EB%A5%98.html</guid>
-        
-        
-        <category>Operation</category>
-        
-        <category>Office</category>
         
       </item>
     
